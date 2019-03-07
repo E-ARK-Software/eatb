@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:locn="http://www.w3.org/ns/locn#" xmlns:hydra="http://www.w3.org/ns/hydra/core#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:dmav="http://datamarket.at/2017/07/dmav/core#">
+    <dcat:Catalog rdf:about="http://127.0.0.1:8000/conduit">
+        <dct:identifier>info:dma/ait:repository1</dct:identifier>
+        <dct:title>DMA Repository at AIT</dct:title>
+        <dct:description>DMA Repository at AIT</dct:description>
+        <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-06-27T15:09:11Z</dct:issued>
+        <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-06-27T15:09:11Z</dct:modified>
+        <dct:language>en</dct:language>
+        <dct:publisher>
+            <foaf:Organization>
+                <dct:identifier>DMA-Client-Number</dct:identifier>
+            </foaf:Organization>
+        </dct:publisher>
+        <dct:accessRights>public</dct:accessRights>
+        <dcat:keyword>exploration</dcat:keyword>
+		<dcat:keyword>testing</dcat:keyword>
+		<dmav:Price_modell>cc-by-at-30</dmav:Price_modell>
+        <dcat:dataset>
+            <dcat:Dataset rdf:about="http://127.0.0.1:8000/conduit/rs/resources/">
+                <dct:identifier>dma:603e6fa4be6df907099abe5eca1b4567a3129154</dct:identifier>
+                <dct:title>asdf</dct:title>
+                <dct:description>asdf</dct:description>
+                <dcat:keyword>asdf</dcat:keyword>
+                <dcat:theme>Food security, sustainable agriculture and forestry, marine and maritime and inland water research and the bioeconomy</dcat:theme>
+                <dmav:User_Generated_Tags>
+					<dcat:keyword>asdf</dcat:keyword>
+				</dmav:User_Generated_Tags>
+                <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">June 27, 2018, 3:09 p.m.</dct:issued>
+                <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">June 27, 2018, 3:09 p.m.</dct:modified>
+                <dct:language>en</dct:language>
+                <dct:publisher>
+                    <foaf:Organization>
+                        <foaf:name>dsaf</foaf:name>
+                        <foaf:mbox>firstname.lastname@organization.at</foaf:mbox>
+                    </foaf:Organization>
+                </dct:publisher>
+                     <dcat:distribution>
+                        <dcat:Distribution>
+                            <dct:identifier>
+                                info:dma/42768514-fc04-436b-93be-4fb9f5aef592/csvdistr
+                            </dct:identifier>
+                            <dct:title>csvdistr</dct:title>
+                            <dct:description>xyz</dct:description>
+                            <dct:license rdf:resource="http://127.0.0.1:8001/agreed/contracts/view/26b8c3108c1bcaa8bb8204b98ad0e23219c9dfa0a2f08e04bbf0c2fe7453db3d/"/>
+                            <dct:accessRights/>
+                        </dcat:Distribution>
+                    </dcat:distribution>
+                     <dcat:distribution>
+                        <dcat:Distribution>
+                            <dct:identifier>
+                                info:dma/42768514-fc04-436b-93be-4fb9f5aef592/asdfasdf
+                            </dct:identifier>
+                            <dct:title>asdfasdf</dct:title>
+                            <dct:description>asdf</dct:description>
+                            <dct:license rdf:resource="http://127.0.0.1:8001/agreed/contracts/view/26b8c3108c1bcaa8bb8204b98ad0e23219c9dfa0a2f08e04bbf0c2fe7453db3d/"/>
+                            <dct:accessRights/>
+                        </dcat:Distribution>
+                    </dcat:distribution>
+				<dct:format/>
+				<dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://127.0.0.1:8000/conduit/access/dataset/dma:603e6fa4be6df907099abe5eca1b4567a3129154/</dcat:accessURL>
+				<dcat:contactPoint>
+                    <vcard:Organization>
+						<vcard:fn>asdf</vcard:fn>
+						<vcard:hasEmail rdf:resource="mailto:contact@some.org"/>
+					</vcard:Organization>
+				</dcat:contactPoint>
+				<dmav:Price_modell/>
+				<dmav:SLA/>
+            </dcat:Dataset>
+        </dcat:dataset>
+    </dcat:Catalog>
+</rdf:RDF>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rdf:RDF xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:locn="http://www.w3.org/ns/locn#" xmlns:hydra="http://www.w3.org/ns/hydra/core#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:dmav="http://datamarket.at/2017/07/dmav/core#">
+    <dcat:Catalog rdf:about="http://127.0.0.1:8000/conduit">
+        <dct:identifier>info:dma/ait:repository1</dct:identifier>
+        <dct:title>DMA Repository at AIT</dct:title>
+        <dct:description>DMA Repository at AIT</dct:description>
+        <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-11-08T16:30:43Z</dct:issued>
+        <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-11-08T16:30:43Z</dct:modified>
+        <dct:language>en</dct:language>
+        <dct:publisher>
+            <foaf:Organization>
+                <dct:identifier>DMA-Client-Number</dct:identifier>
+            </foaf:Organization>
+        </dct:publisher>
+        <dct:accessRights>public</dct:accessRights>
+        <dcat:keyword>exploration</dcat:keyword>
+		<dcat:keyword>testing</dcat:keyword>
+		<dmav:priceModel>https://dma.poolparty.biz/dmav/price-model/11</dmav:priceModel>
+        <dcat:dataset>
+            <dcat:Dataset rdf:about="http://127.0.0.1:80/conduit/rs/resources/Trythis/dma:1275ed16-afe6-4c01-80f6-d1c022e60d31">
+                <dct:identifier>dma:563c5a33bf41a13de09a1558de975b74a395751b</dct:identifier>
+                <dct:title>test234234234</dct:title>
+                <dct:description>[u'test']</dct:description>
+
+                    <dcat:keyword>'testing'</dcat:keyword>
+
+                <dcat:theme>test</dcat:theme>
+
+                <dmav:User_Generated_Tags/>
+
+                <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">Nov. 8, 2018, 4:30 p.m.</dct:issued>
+                <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">Nov. 8, 2018, 4:30 p.m.</dct:modified>
+                <dct:language>en</dct:language>
+                <dct:publisher>
+                    <foaf:Organization>
+                        <foaf:name>test</foaf:name>
+                        <foaf:mbox>firstname.lastname@organization.at</foaf:mbox>
+                    </foaf:Organization>
+                </dct:publisher>
+                <dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"></dcat:accessURL>
+
+
+                     <dcat:distribution>
+                        <dcat:Distribution rdf:about="http://127.0.0.1:80/conduit/rs/resources/Trythis/dma:1275ed16-afe6-4c01-80f6-d1c022e60d31/40bfffa85992be6a4098dcbd92468606da9a9059">
+                            <dct:identifier>
+                                info:dma/1275ed16-afe6-4c01-80f6-d1c022e60d31/40bfffa85992be6a4098dcbd92468606da9a9059
+                            </dct:identifier>
+                            <dct:title>40bfffa85992be6a4098dcbd92468606da9a9059</dct:title>
+                            <dct:description>test</dct:description>
+                            <dct:license rdf:resource="http://localhost:8001/agreed/contracts/view//"/>
+                            <dct:accessRights>undefined</dct:accessRights>
+                            <dct:format/>
+                            <dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                            <dmav:priceModel>https://dma.poolparty.biz/dmav/price-model/11</dmav:priceModel>
+                            <dmav:SLA/>
+                        </dcat:Distribution>
+                    </dcat:distribution>
+
+
+				<dcat:contactPoint>
+                    <vcard:Organization>
+						<vcard:fn>test</vcard:fn>
+						<vcard:hasEmail rdf:resource="mailto:contact@some.org"/>
+					</vcard:Organization>
+				</dcat:contactPoint>
+            </dcat:Dataset>
+        </dcat:dataset>
+    </dcat:Catalog>
+</rdf:RDF>

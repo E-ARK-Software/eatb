@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mets xmlns:ext="ExtensionMETS" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/METS/" OBJID="996ed635-3e13-4ee5-8e5b-e9661e1d9a93" LABEL="METS file describing the AIP matching the OBJID." PROFILE="http://www.ra.ee/METS/v01/IP.xml" TYPE="AIP" xsi:schemaLocation="http://www.loc.gov/METS/ empty http://www.w3.org/1999/xlink empty">
+  <metsHdr CREATEDATE="2019-02-25T21:57:43" RECORDSTATUS="NEW">
+    <agent ROLE="CREATOR" TYPE="OTHER" OTHERTYPE="SOFTWARE">
+      <name>E-ARK conduit</name>
+      <note>VERSION=0.0.1</note>
+    </agent>
+    <metsDocumentID>METS.xml</metsDocumentID>
+  </metsHdr>
+  <amdSec ID="ID90dceedf-30c6-4126-9e39-2fb410259fd3"/>
+  <fileSec>
+    <fileGrp ID="ID6b5a0e53-b3b6-4409-9034-41a3ec5cb619" USE="general filegroup">
+      <file MIMETYPE="application/xml" CHECKSUMTYPE="SHA-256" CREATED="2019-02-25T21:03:16" CHECKSUM="a7de4be13ff09c2b86f97e2db9e6363d400d683f462b5465896b053f9a52d339" USE="Datafile" ID="IDdb2298fd-492a-4a3c-b328-f0bd44ca5da9" SIZE="145482">
+        <FLocat xlink:href="file://./schemas/IP_CS_mets.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="application/xml" CHECKSUMTYPE="SHA-256" CREATED="2019-02-25T21:03:15" CHECKSUM="f1f5bb6003165cdd8f6c1fcc32f8fd1f965e1681010f3b9806d9460bcffa8a3c" USE="Datafile" ID="ID070a445e-04ca-4403-89b9-fe99e1a7f0dd" SIZE="3180">
+        <FLocat xlink:href="file://./schemas/xlink.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="text/plain" CHECKSUMTYPE="SHA-256" CREATED="2019-02-25T21:05:56" CHECKSUM="497b22d4e86a3caa9f5baa24435a99ac1154094a0b9302b9bcd9d6544d6efbe9" USE="Datafile" ID="IDd35bd843-68af-4910-abbc-d2b8635aea61" SIZE="14">
+        <FLocat xlink:href="file://./representations/repr1/data/testfile1.txt" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="text/csv" CHECKSUMTYPE="SHA-256" CREATED="2019-02-25T21:06:03" CHECKSUM="9a2b5ec7b9a8e713188b60597fdc68643495e340ce50ad39ad8748bf2b97aa1a" USE="Datafile" ID="IDecb06d38-6b5c-4705-888a-c9d8918cbb98" SIZE="16">
+        <FLocat xlink:href="file://./representations/repr2/data/testfile2.csv" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+    </fileGrp>
+  </fileSec>
+  <structMap LABEL="E-ARK structural map" TYPE="physical">
+    <div LABEL="996ed635-3e13-4ee5-8e5b-e9661e1d9a93">
+      <div LABEL="metadata"/>
+      <div LABEL="schemas">
+        <fptr FILEID="IDdb2298fd-492a-4a3c-b328-f0bd44ca5da9"/>
+        <fptr FILEID="ID070a445e-04ca-4403-89b9-fe99e1a7f0dd"/>
+      </div>
+      <div LABEL="representations"/>
+      <div LABEL="representations/repr1"/>
+      <div LABEL="representations/repr1/data">
+        <fptr FILEID="IDd35bd843-68af-4910-abbc-d2b8635aea61"/>
+      </div>
+      <div LABEL="representations/repr2"/>
+      <div LABEL="representations/repr2/data">
+        <fptr FILEID="IDecb06d38-6b5c-4705-888a-c9d8918cbb98"/>
+      </div>
+    </div>
+  </structMap>
+  <structMap LABEL="Simple AIP structuring" TYPE="logical">
+    <div LABEL="Package structure">
+      <div LABEL="metadata files"/>
+      <div LABEL="schema files">
+        <fptr FILEID="IDdb2298fd-492a-4a3c-b328-f0bd44ca5da9"/>
+        <fptr FILEID="ID070a445e-04ca-4403-89b9-fe99e1a7f0dd"/>
+      </div>
+      <div LABEL="content files">
+        <fptr FILEID="IDd35bd843-68af-4910-abbc-d2b8635aea61"/>
+        <fptr FILEID="IDecb06d38-6b5c-4705-888a-c9d8918cbb98"/>
+      </div>
+    </div>
+  </structMap>
+  <structMap TYPE="logical" LABEL="parent">
+    <div LABEL="AIP parent identifier">
+      <mptr LOCTYPE="OTHER" OTHERLOCTYPE="UUID" xlink:title="Referencing the parent AIP of this (996ed635-3e13-4ee5-8e5b-e9661e1d9a93) AIP." xlink:href="None" ID="ID87703254-731b-4a36-87da-cdb783ac128c"/>
+    </div>
+  </structMap>
+</mets>
