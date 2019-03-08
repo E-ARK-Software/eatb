@@ -206,9 +206,11 @@ def read_file_content(file_path):
     :param file_path: file path
     :return: file content
     """
-    with open(file_path, 'r') as content_file:
-        content = content_file.read()
-        return content
+    mime = get_mime_type(file_path)
+    mode = "r" if (mime.startswith("text") or mime.endswith("json") or mime.endswith("xml")) else "rb"
+    fh = open(file_path, mode)
+    file_content = fh.read()
+    return file_content
 
 
 def locate(pattern, root_path):
