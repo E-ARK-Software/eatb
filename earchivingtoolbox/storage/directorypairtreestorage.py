@@ -556,7 +556,7 @@ class DirectoryPairtreeStorage(object):
         logger.debug("New version not triggered.")
         return False
 
-    def store_working_directory(self, uuid, identifier, working_directory='/tmp/data/work'):
+    def store_working_directory(self, uuid, identifier, working_directory):
         """
         Store working directory
         :param working_directory: working directory
