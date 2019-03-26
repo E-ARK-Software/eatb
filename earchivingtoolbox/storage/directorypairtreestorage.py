@@ -56,7 +56,7 @@ def get_hashed_filelist(strip_path_part, directory, commands=CliCommands()):
 
 
 def get_package_from_directory_storage(task_context_path, package_uuid, package_extension,
-                                       tl, config_path_storage='/tmp/data'):
+                                       tl, config_path_storage):
     pts = DirectoryPairtreeStorage(config_path_storage)
     parent_object_path = pts.get_object_path(package_uuid)
 
@@ -73,13 +73,13 @@ def get_package_from_directory_storage(task_context_path, package_uuid, package_
         check_transfer(parent_object_path, package_in_dip_work_dir)
 
 
-def make_storage_directory_path(identifier, version, config_path_storage='/tmp/data'):
+def make_storage_directory_path(identifier, version, config_path_storage):
     """Used for remote (no access to storage backend)"""
     pts = DirectoryPairtreeStorage(config_path_storage)
     return os.path.join(pts.get_dir_path_from_id(identifier), "data", version, uri_to_safe_filename(identifier))
 
 
-def make_storage_data_directory_path(identifier, config_path_storage='/tmp/data'):
+def make_storage_data_directory_path(identifier, config_path_storage):
     """Used for remote (no access to storage backend)"""
     pts = DirectoryPairtreeStorage(config_path_storage)
     return os.path.join(pts.get_dir_path_from_id(identifier), "data")
@@ -527,9 +527,10 @@ class DirectoryPairtreeStorage(object):
                     lastversionfiles.append({"id": obj_id, "version": version_items['version'], "path": item})
         return lastversionfiles
 
-    def trigger_new_version(self, uuid, identifier, config_path_work='/tmp/data/work'):
+    def trigger_new_version(self, uuid, identifier, config_path_work, storage_directory):
         """
         Trigger new version depending on changed files in working directory compared to the data set in storage.
+        :param storage_directory:
         :param config_path_work:
         :param uuid: UUID of working directory
         :param identifier: Data asset identifier
@@ -538,8 +539,9 @@ class DirectoryPairtreeStorage(object):
         working_dir = os.path.join(config_path_work, uuid)
         if self.identifier_object_exists(identifier):
             version = self.curr_version(identifier)
-            data_asset_last_version_path = os.path.join(make_storage_data_directory_path(identifier), version,
-                                                        uri_to_safe_filename(identifier))
+            data_asset_last_version_path = os.path.join(
+                make_storage_data_directory_path(identifier, storage_directory),
+                version, uri_to_safe_filename(identifier))
             working_distributions_dir = os.path.join(working_dir, self.representations_directory)
             if not os.path.exists(working_distributions_dir):
                 logger.debug("New version is not triggered because working catalogue directory does not exist.")
@@ -556,9 +558,10 @@ class DirectoryPairtreeStorage(object):
         logger.debug("New version not triggered.")
         return False
 
-    def store_working_directory(self, uuid, identifier, working_directory):
+    def store_working_directory(self, uuid, identifier, working_directory, storage_directory):
         """
         Store working directory
+        :param storage_directory:
         :param working_directory: working directory
         :param uuid: UUID of working directory
         :param identifier: Data asset identifier
@@ -566,9 +569,10 @@ class DirectoryPairtreeStorage(object):
         """
         working_dir = os.path.join(working_directory, uuid)
         # dpts = DirectoryPairtreeStorage(config_path_storage)
-        version = self._next_version(identifier) if self.trigger_new_version(uuid, identifier) \
+        version = self._next_version(identifier) \
+            if self.trigger_new_version(uuid, identifier, working_directory, storage_directory) \
             else self.curr_version(identifier)
-        target_dir = os.path.join(make_storage_data_directory_path(identifier), version,
+        target_dir = os.path.join(make_storage_data_directory_path(identifier, storage_directory), version,
                                   uri_to_safe_filename(identifier))
         changed = False
         for path, dirs, files in os.walk(os.path.abspath(working_dir)):
