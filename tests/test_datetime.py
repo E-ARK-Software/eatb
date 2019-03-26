@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
+import unittest
 
 from earchivingtoolbox import root_dir
 from earchivingtoolbox.utils.datetime import get_file_ctime_iso_date_str, current_timestamp, LengthBasedDateFormat, \
     DT_ISO_FORMAT, ts_date, date_format, current_date
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
-import unittest
 
 
 class TestDateTime(unittest.TestCase):

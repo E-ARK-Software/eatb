@@ -2,14 +2,12 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-
-from earchivingtoolbox.utils.reporters import default_reporter
-
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 
 import logging
 
 from pairtree import PairtreeStorageFactory, ObjectNotFoundException
+from earchivingtoolbox.utils.reporters import default_reporter
 
 from earchivingtoolbox.storage.checksum import ChecksumFile, ChecksumAlgorithm, check_transfer
 from earchivingtoolbox.utils.fileutils import fsize, uri_to_safe_filename, rec_find_files, FileBinaryDataChunks
