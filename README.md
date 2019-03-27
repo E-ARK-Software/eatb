@@ -1,4 +1,4 @@
-# Archiving Tool Box
+# eatb - eArchiving Tool Box
 
 ## About
 
