@@ -3,12 +3,12 @@
 import os
 import sys
 
-from earchivingtoolbox import root_dir
+from eatb import root_dir
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from earchivingtoolbox.utils.fileutils import remove_protocol, strip_prefixes, get_sub_path_from_relative_path
+from eatb.utils.fileutils import remove_protocol, strip_prefixes, get_sub_path_from_relative_path
 
 
 class TestPathFunctions(unittest.TestCase):

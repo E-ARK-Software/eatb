@@ -4,15 +4,15 @@ import os
 import shutil
 import sys
 
-from earchivingtoolbox.utils.fileutils import read_file_content
+from eatb.utils.fileutils import read_file_content
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
-from earchivingtoolbox.utils import randomutils
+from eatb.utils import randomutils
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.storage.encryption import gpg_encrypt_file_passphrase
-from earchivingtoolbox.cli.cli import CliCommand, CliCommands
+from eatb import root_dir
+from eatb.storage.encryption import gpg_encrypt_file_passphrase
+from eatb.cli.cli import CliCommand, CliCommands
 import subprocess
 
 class EncryptionTest(unittest.TestCase):

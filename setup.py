@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="earchivingtoolbox",
+    name="eatb",
     version="0.1",
     author="Sven Schlarb",
     author_email="shsdev@posteo.net",
@@ -12,7 +12,7 @@ setuptools.setup(
     description="A suite of tools for the creation of information packages for archival purposes.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="github.com/eark-project/earchivingtoolbox",
+    url="github.com/eark-project/eatb",
     packages=setuptools.find_packages(),
     zip_safe=False,
     classifiers=[

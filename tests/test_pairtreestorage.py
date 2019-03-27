@@ -9,9 +9,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import shutil
 import unittest
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.utils import randomutils
-from earchivingtoolbox.storage.pairtreestorage import PairtreeStorage
+from eatb import root_dir
+from eatb.utils import randomutils
+from eatb.storage.pairtreestorage import PairtreeStorage
 
 
 class TestPairtreeStorage(unittest.TestCase):

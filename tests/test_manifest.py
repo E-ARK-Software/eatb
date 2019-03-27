@@ -6,12 +6,12 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import json
 import shutil
 
-from earchivingtoolbox.packaging.manifest import ManifestCreation
-from earchivingtoolbox.utils import randomutils
+from eatb.packaging.manifest import ManifestCreation
+from eatb.utils import randomutils
 
 import unittest
 
-from earchivingtoolbox import root_dir
+from eatb import root_dir
 
 
 class TestManifestCreation(unittest.TestCase):

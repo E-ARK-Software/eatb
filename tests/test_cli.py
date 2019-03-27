@@ -6,8 +6,8 @@ import sys
 import unittest
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
-from earchivingtoolbox.cli.cli import CliCommand, CliCommands
-from earchivingtoolbox.cli.cli import CliExecution
+from eatb.cli.cli import CliCommand, CliCommands
+from eatb.cli.cli import CliExecution
 
 
 class CliCommandTest(unittest.TestCase):

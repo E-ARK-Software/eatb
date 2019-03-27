@@ -7,10 +7,10 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import shutil
 import unittest
-from earchivingtoolbox import root_dir
+from eatb import root_dir
 
-from earchivingtoolbox.utils.fileutils import rec_find_files
-from earchivingtoolbox.utils.randomutils import randomword
+from eatb.utils.fileutils import rec_find_files
+from eatb.utils.randomutils import randomword
 
 
 class TestUtils(unittest.TestCase):

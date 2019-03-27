@@ -4,9 +4,9 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.utils.fileutils import read_file_content
-from earchivingtoolbox.metadata.parseddcat import ParsedDcat
+from eatb import root_dir
+from eatb.utils.fileutils import read_file_content
+from eatb.metadata.parseddcat import ParsedDcat
 
 
 class TestParsedDcat(unittest.TestCase):

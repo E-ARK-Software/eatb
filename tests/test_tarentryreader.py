@@ -6,8 +6,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import tarfile
 import unittest
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.packaging.tar_entry_reader import ChunkedTarEntryReader
+from eatb import root_dir
+from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
 
 
 class ChunkedTarEntryReaderTest(unittest.TestCase):

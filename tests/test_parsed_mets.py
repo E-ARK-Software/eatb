@@ -5,8 +5,8 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.metadata.mets.ParsedMets import ParsedMets
+from eatb import root_dir
+from eatb.metadata.mets.ParsedMets import ParsedMets
 
 
 class TestParsedMets(unittest.TestCase):

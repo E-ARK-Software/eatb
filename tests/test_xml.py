@@ -6,10 +6,10 @@ import unittest
 
 import lxml.etree as ET
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.utils.fileutils import read_file_content
-from earchivingtoolbox.xml.deliveryvalidation import DeliveryValidation
-from earchivingtoolbox.xml.xmlutils import get_dcat_element_values
+from eatb import root_dir
+from eatb.utils.fileutils import read_file_content
+from eatb.xml.deliveryvalidation import DeliveryValidation
+from eatb.xml.xmlutils import get_dcat_element_values
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 

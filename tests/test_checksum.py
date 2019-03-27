@@ -4,8 +4,8 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
-from earchivingtoolbox.storage.checksum import ChecksumFile, ChecksumValidation, ChecksumAlgorithm
-from earchivingtoolbox import root_dir
+from eatb.storage.checksum import ChecksumFile, ChecksumValidation, ChecksumAlgorithm
+from eatb import root_dir
 
 
 class TestChecksum(unittest.TestCase):

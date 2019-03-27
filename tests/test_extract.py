@@ -7,9 +7,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import shutil
 import unittest
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.utils import randomutils
-from earchivingtoolbox.packaging.packaged_container import PackagedContainer
+from eatb import root_dir
+from eatb.utils import randomutils
+from eatb.packaging.packaged_container import PackagedContainer
 
 
 class TestExtract(unittest.TestCase):

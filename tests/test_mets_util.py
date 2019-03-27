@@ -5,8 +5,8 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.metadata.mets.metsutil import get_package_mets_files_from_basedir, get_mets_obj_id, \
+from eatb import root_dir
+from eatb.metadata.mets.metsutil import get_package_mets_files_from_basedir, get_mets_obj_id, \
     get_mets_objids_from_basedir
 
 

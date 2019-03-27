@@ -4,13 +4,13 @@ import os
 import shutil
 import sys
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.metadata.mets.ParsedMets import ParsedMets
-from earchivingtoolbox.utils import randomutils
+from eatb import root_dir
+from eatb.metadata.mets.ParsedMets import ParsedMets
+from eatb.utils import randomutils
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
-from earchivingtoolbox.metadata.mets.metsgenerator import MetsGenerator
+from eatb.metadata.mets.metsgenerator import MetsGenerator
 
 
 class TestMetsCreation(unittest.TestCase):

@@ -4,8 +4,8 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.metadata.parsedead import ParsedEad
+from eatb import root_dir
+from eatb.metadata.parsedead import ParsedEad
 
 
 class TestParsedEad(unittest.TestCase):

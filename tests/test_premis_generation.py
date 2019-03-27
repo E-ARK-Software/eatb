@@ -7,9 +7,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 
 from lxml import etree
 
-from earchivingtoolbox.metadata.premis.premisgenerator import PremisGenerator
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.utils import randomutils
+from eatb.metadata.premis.premisgenerator import PremisGenerator
+from eatb import root_dir
+from eatb.utils import randomutils
 
 import unittest
 

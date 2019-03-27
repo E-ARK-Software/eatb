@@ -5,7 +5,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from earchivingtoolbox.utils.stringutils import whitespace_separated_text_to_dict
+from eatb.utils.stringutils import whitespace_separated_text_to_dict
 
 
 class TestStringUtils(unittest.TestCase):

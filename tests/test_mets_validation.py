@@ -4,8 +4,8 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
-from earchivingtoolbox.metadata.mets.MetsValidation import MetsValidation
-from earchivingtoolbox import root_dir
+from eatb.metadata.mets.MetsValidation import MetsValidation
+from eatb import root_dir
 
 
 class TestMetsValidation(unittest.TestCase):

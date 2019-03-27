@@ -48,7 +48,7 @@ Install python packages (in virtual environment):
 
 Create information packages:
 
-    python3 earchivingtoolbox/package_creator.py -h -n <packagename> -d <package_directory> -t SIP
+    python3 eatb/package_creator.py -h -n <packagename> -d <package_directory> -t SIP
     
 ## Unit tests
 

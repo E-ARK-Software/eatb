@@ -9,8 +9,8 @@ try:
     fido_disabled = False
 except ImportError:
     fido_disabled = True
-from earchivingtoolbox.format.formatidentification import FormatIdentification
-from earchivingtoolbox import root_dir
+from eatb.format.formatidentification import FormatIdentification
+from eatb import root_dir
 
 
 class TestFormatIdentification(unittest.TestCase):

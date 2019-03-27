@@ -3,16 +3,16 @@
 import os
 import sys
 
-from earchivingtoolbox import root_dir
+from eatb import root_dir
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 
 import unittest
 from lxml import etree
 
-from earchivingtoolbox.metadata.premis.PremisManipulate import Premis
-from earchivingtoolbox.xml.xmlutils import pretty_xml_string
-from earchivingtoolbox.xml.xmlvalidation import XmlValidation
+from eatb.metadata.premis.PremisManipulate import Premis
+from eatb.xml.xmlutils import pretty_xml_string
+from eatb.xml.xmlvalidation import XmlValidation
 
 
 

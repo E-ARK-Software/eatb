@@ -3,9 +3,9 @@ import shutil
 import os
 import unittest
 
-from earchivingtoolbox import root_dir
-from earchivingtoolbox.storage.directorypairtreestorage import DirectoryPairtreeStorage
-from earchivingtoolbox.utils import randomutils
+from eatb import root_dir
+from eatb.storage.directorypairtreestorage import DirectoryPairtreeStorage
+from eatb.utils import randomutils
 
 
 class TestDirectoryPairtreeStorage(unittest.TestCase):
