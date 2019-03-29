@@ -55,14 +55,14 @@ class TestPairtreeStorage(unittest.TestCase):
 
     def test_store(self):
         pts = PairtreeStorage(TestPairtreeStorage.repository_storage_dir)
-        pts.store("bar", os.path.join(self.source_dir, self.package_file))
-        self.assertEqual(1, pts.curr_version_num("bar"))
-        pts.store("bar", os.path.join(self.source_dir, self.package_file))
-        self.assertEqual(2, pts.curr_version_num("bar"))
+        pts.store("xyz", os.path.join(self.source_dir))
+        self.assertEqual(1, pts.curr_version_num("xyz"))
+        pts.store("xyz", os.path.join(self.source_dir))
+        self.assertEqual(2, pts.curr_version_num("xyz"))
 
     def test_get_object_path(self):
         pts = PairtreeStorage(TestPairtreeStorage.test_repo)
-        expected = os.path.join(TestPairtreeStorage.test_repo, "pairtree_root/ba/r/data/00002/bar.tar")
+        expected = os.path.join(TestPairtreeStorage.test_repo, "pairtree_root/ba/r/data/00002/bar")
         actual = pts.get_object_path("bar")
         self.assertEqual(expected, actual)
 

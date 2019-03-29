@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mets xmlns:ext="ExtensionMETS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.loc.gov/METS/" PROFILE="http://www.ra.ee/METS/v01/IP.xml" TYPE="AIP" OBJID="urn:uuid:docs_mig-1" LABEL="METS file describing the AIP matching the OBJID." xsi:schemaLocation="http://www.loc.gov/METS/ ../../schemas/mets_1_11.xsd http://www.w3.org/1999/xlink ../../schemas/xlink.xsd">
+  <metsHdr RECORDSTATUS="NEW" CREATEDATE="2016-04-29T21:18:15">
+    <agent TYPE="OTHER" ROLE="CREATOR" OTHERTYPE="SOFTWARE">
+      <name>E-ARK earkweb</name>
+      <note>VERSION=0.0.1</note>
+    </agent>
+    <metsDocumentID>METS.xml</metsDocumentID>
+  </metsHdr>
+  <amdSec ID="ID9b3776b4-44a3-47b3-a3cc-486198841b4b">
+    <digiprovMD ID="ID9687a6b4-24e9-41bf-aaa5-95c46a065a27">
+      <mdRef MIMETYPE="application/xml" xlink:href="file://./metadata/preservation/premis.xml" LOCTYPE="URL" CREATED="2016-04-29T21:18:15" CHECKSUM="815f90959eea3eb95b6359863f7253b50cb910590d13b05c905db662be85003f" xlink:type="simple" ID="ID131cd421-6e2a-405e-adae-ae181f13d2be" MDTYPE="PREMIS" CHECKSUMTYPE="SHA-256"/>
+    </digiprovMD>
+  </amdSec>
+  <fileSec>
+    <fileGrp USE="general filegroup" ID="ID3cba39a8-2808-4abe-ad6d-3e2060381ef9">
+      <file MIMETYPE="application/pdf" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-04-29T21:17:45" CHECKSUM="95c61392473b4b1a7bf494f182f4d2d53ab24fb4ba44fd5aebc235614972be5a" ID="ID3377e2cb-ad17-4c0b-90df-b474807db98c" SIZE="4278498">
+        <FLocat xlink:href="file://./data/Special relativity.pdf" xlink:type="simple" LOCTYPE="URL"/>
+      </file>
+      <file MIMETYPE="application/pdf" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-04-29T21:18:04" CHECKSUM="5ca2106ce89f104c8f4120bfd94f46e77ee53a91e0563cdf1a50b88fb2047a32" ID="ID5eaa7e83-8626-4aa9-a9a2-4b51bb629195" SIZE="4851128">
+        <FLocat xlink:href="file://./data/General relativity.pdf" xlink:type="simple" LOCTYPE="URL"/>
+      </file>
+    </fileGrp>
+  </fileSec>
+  <structMap TYPE="physical" LABEL="E-ARK structural map">
+    <div LABEL="docs_mig-1">
+      <div LABEL="data">
+        <fptr FILEID="ID3377e2cb-ad17-4c0b-90df-b474807db98c"/>
+        <fptr FILEID="ID5eaa7e83-8626-4aa9-a9a2-4b51bb629195"/>
+      </div>
+      <div LABEL="metadata">
+        <fptr FILEID="ID131cd421-6e2a-405e-adae-ae181f13d2be"/>
+      </div>
+    </div>
+  </structMap>
+  <structMap TYPE="logical" LABEL="Simple AIP structuring">
+    <div LABEL="Package structure">
+      <div LABEL="metadata files">
+        <fptr FILEID="ID131cd421-6e2a-405e-adae-ae181f13d2be"/>
+      </div>
+      <div LABEL="schema files"/>
+      <div LABEL="content files">
+        <fptr FILEID="ID3377e2cb-ad17-4c0b-90df-b474807db98c"/>
+        <fptr FILEID="ID5eaa7e83-8626-4aa9-a9a2-4b51bb629195"/>
+      </div>
+    </div>
+  </structMap>
+</mets>

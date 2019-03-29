@@ -18,13 +18,13 @@ class ChunkedTarEntryReaderTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        ChunkedTarEntryReaderTest.tar_test_file = os.path.join(root_dir, "tests/test_resources/storage-test/bar.tar")
-        ChunkedTarEntryReaderTest.entry = "739f9c5f-c402-42af-a18b-3d0bdc4e8751/METS.xml"
+        ChunkedTarEntryReaderTest.tar_test_file = os.path.join(root_dir, "tests/test_resources/storage-test/xyz.tar")
+        ChunkedTarEntryReaderTest.entry = "xyz/representations/default/data/example.txt"
         ChunkedTarEntryReaderTest.tfile = tarfile.open(ChunkedTarEntryReaderTest.tar_test_file, 'r')
 
     def test_default_chunk_size(self):
         cter1 = ChunkedTarEntryReader(ChunkedTarEntryReaderTest.tfile)
-        self.assertEqual(12, sum([1 for _ in cter1.chunks(ChunkedTarEntryReaderTest.entry)]))
+        self.assertEqual(1, sum([1 for _ in cter1.chunks(ChunkedTarEntryReaderTest.entry)]))
         ChunkedTarEntryReader(ChunkedTarEntryReaderTest.tfile)
 
     def test_custom_chunk_size(self):

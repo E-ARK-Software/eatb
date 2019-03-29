@@ -29,7 +29,7 @@ class TestManifestCreation(unittest.TestCase):
         self.assertTrue(os.path.isfile(self.manifest_file), "File not found in working directory")
         with open(TestManifestCreation.manifest_file, 'r') as json_file:
             json_manifest = json.load(json_file)
-        self.assertEqual(10, len(json_manifest))
+        self.assertEqual(67, len(json_manifest))
 
 
 if __name__ == '__main__':

@@ -5,22 +5,22 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 import fnmatch
 import logging
-import pathlib
 import shutil
 import os.path
 import tarfile
-from itertools import groupby
 from pairtree import PairtreeStorageFactory, ObjectNotFoundException
 
 from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
 from eatb.storage.checksum import check_transfer, ChecksumFile
-from eatb.utils.fileutils import fsize, FileBinaryDataChunks, uri_to_safe_filename, rec_find_files, \
-    get_immediate_subdirectories, copy_file_with_base_directory
+from eatb.utils.fileutils import fsize, FileBinaryDataChunks, uri_to_safe_filename, \
+    get_immediate_subdirectories, copy_file_with_base_directory, list_files_in_dir
 import json
 from subprocess import check_output
 
 from eatb.cli.cli import CliCommands
 from eatb.cli.cli import CliCommand
+from eatb.storage.ipstate import IpState
+from eatb.storage.pairtreestorage import PairtreeStorage
 
 logger = logging.getLogger(__name__)
 
@@ -99,49 +99,26 @@ def update_state(state_xml_file, identifier, version):
     ip_state.write_doc(state_xml_file)
 
 
-
-
-class DirectoryPairtreeStorage(object):
+class DirectoryPairtreeStorage(PairtreeStorage):
     """
     Pairtree storage class allowing to build a filesystem hierarchy to store objects that are located by mapping
     identifier strings to object directory (or folder) paths.
     """
-
     storage_factory = None
     repository_storage_dir = None
 
-    def __init__(self, repository_storage_dir, representations_directory='representations'):
+    def __init__(self, repository_storage_dir, representations_directory="representations"):
         """
         Constructor initialises pairtree repository
         :param repository_storage_dir: repository storage directory
         :param representations_directory: representations directory
         """
+        super().__init__(repository_storage_dir)
         self.storage_factory = PairtreeStorageFactory()
         self.repository_storage_dir = repository_storage_dir
-        self.repo_storage_client = self.storage_factory.get_store(store_dir=self.repository_storage_dir,
-                                                                  uri_base="http://")
         self.representations_directory = representations_directory
-
-    # noinspection PyProtectedMember
-    def store(self, identifier, source_directory, progress_reporter=default_reporter):
-        """
-        Storing a directory in the pairtree path according to the given identifier. If a version of the object exists,
-        a new version is created.
-        :param identifier: identifier
-        :param source_directory: source directory
-        :param progress_reporter: progress reporter
-        :return:
-        """
-        dirpath = self.repo_storage_client._id_to_dirpath(identifier)
-        next_version = self._next_version(identifier)
-        target_data_directory = os.path.join(dirpath, "data")
-        pathlib.Path(target_data_directory).mkdir(parents=True, exist_ok=True)
-        target_data_version_directory = os.path.join(target_data_directory, next_version)
-        target_data_version_asset_directory = os.path.join(target_data_version_directory,
-                                                           uri_to_safe_filename(identifier))
-        shutil.copytree(source_directory, target_data_version_asset_directory)
-        progress_reporter(100)
-        return next_version
+        self.repo_storage_client = self.storage_factory.get_store(store_dir=repository_storage_dir, uri_base="http://")
+        self.representations_directory = representations_directory
 
     # noinspection PyProtectedMember
     def get_dir_path_from_id(self, identifier):
@@ -152,142 +129,40 @@ class DirectoryPairtreeStorage(object):
         """
         return self.repo_storage_client._id_to_dirpath(identifier)
 
-    # noinspection PyProtectedMember
-    def identifier_object_exists(self, identifier):
-        """
-        Verify if an object of the given identifier exists in the repository
-        :param identifier: identifier
-        :return: true if directory exists
-        """
-        logger.debug("Looking for object at path: %s/data" % self.repo_storage_client._id_to_dirpath(identifier))
-        return self.repo_storage_client.exists(identifier, "data")
+    def get_tar_file_path(self, identifier, representation_label=None):
+        object_path = self.get_object_path(identifier)
+        if representation_label:
+            tar_file_path = os.path.join(object_path, self.representations_directory, "%s.tar" % representation_label)
+        else:
+            tar_file_path = os.path.join(object_path, "%s.tar" % uri_to_safe_filename(identifier))
+        if os.path.exists(tar_file_path):
+            logger.debug("Package file found at: %s" % tar_file_path)
+            return tar_file_path
+        else:
+            raise ObjectNotFoundException("Package file not found")
 
-    def identifier_version_object_exists(self, identifier, version_num):
+    def get_object_item_stream(self, identifier, representation_label, entry, tar_file=None):
         """
-        Verify if the given version of the object exists in the repository
-        :param identifier: identifier
-        :param version_num: version number
-        :return:
-        """
-        version = '%05d' % version_num
-        return self.repo_storage_client.exists(identifier, "data/%s" % version)
-
-    def _get_version_parts(self, identifier):
-        """
-        Get version directories
-        :param identifier: identifier
-        :return: version parts
-        """
-        return self.repo_storage_client.list_parts(identifier, "data")
-
-    def _next_version(self, identifier):
-        """
-        Get next formatted version directory name
-        :param identifier: identifier
-        :return: next formatted version directory name
-        """
-        if not self.identifier_object_exists(identifier):
-            return VersionDirFormat % 1
-        version_num = 1
-        while self.identifier_version_object_exists(identifier, version_num):
-            version_num += 1
-        return VersionDirFormat % version_num
-
-    def curr_version(self, identifier):
-        """
-        Get current formatted version directory name
-        :param identifier: identifier
-        :return: current formatted version directory name
-        """
-        return VersionDirFormat % self.curr_version_num(identifier)
-
-    def curr_version_num(self, identifier):
-        """
-        Get current version number
-        :param identifier: identifier
-        :return: current version number
-        """
-        if not self.identifier_object_exists(identifier):
-            return 1
-        version_num = 1
-        while self.identifier_version_object_exists(identifier, version_num):
-            version_num += 1
-        version_num -= 1
-        return version_num
-
-    def get_object_path(self, identifier, version_num=0):
-        """
-        Get absolute file path of the stored object. If the version number is omitted, the path of the highest version
-        number is returned.
-        :param identifier: identifier
-        :param version_num: version number
-        :return: absolute file path of the stored object
-        """
-        if not self.identifier_object_exists(identifier):
-            raise ValueError("No repository object for id '%s'. "
-                             "Unable to get requested version object path." % identifier)
-        if version_num == 0:
-            version_num = self.curr_version_num(identifier)
-        if not self.identifier_version_object_exists(identifier, version_num):
-            raise ValueError("Repository object '%s' has no version %d." % (identifier, version_num))
-        version = '%05d' % version_num
-        repo_obj = self.repo_storage_client.get_object(identifier, False)
-        repo_obj_path = uri_to_safe_filename(os.path.join(repo_obj.id_to_dirpath(), "data/%s" % version))
-        try:
-            return next(os.path.join(repo_obj_path, f) for f in os.listdir(repo_obj_path)
-                        if os.path.isdir(os.path.join(repo_obj_path, f)))
-        except StopIteration:
-            raise ObjectNotFoundException("The file object does not exist in the repository")
-
-    def get_object_item_stream(self, identifier, dataset_code, entry):
-        """
-        Get stream of tar file entry.
-        :param identifier: identifier
-        :param dataset_code: package code
-        :param entry: entry
-        :return:
+        Get stream of a representation tar file entry
+        :param identifier: package identifier
+        :param representation_label: label of the representation (used in directory and file names), can be empty,
+        tar assumed to be single package in that case
+        :param entry: entry of the tar file
+        :return: chunks iterator of the tar file
         """
         object_path = self.get_object_path(identifier)
-        dataset_path = os.path.join(object_path, self.representations_directory, "%s.tar" % dataset_code)
-
-        t = tarfile.open(dataset_path, 'r')
-        logger.debug("Trying to access entry %s" % entry)
+        tar_file_name = "%s.tar" % representation_label if representation_label else uri_to_safe_filename(identifier)
+        tar_file_path = os.path.join(object_path, self.representations_directory, tar_file_name)
+        if os.path.exists(tar_file_path):
+            logger.debug("Packaged representation file found at: %s" % entry)
+        t = tar_file if tar_file else tarfile.open(tar_file_path, 'r')
+        logger.debug("Accessing access entry %s" % entry)
         try:
             inst = ChunkedTarEntryReader(t)
             return inst.chunks(entry)
         except KeyError:
             logger.error('ERROR: Did not find %s in tar archive' % entry)
             raise ObjectNotFoundException("Entry not found in repository object")
-
-    # noinspection PyProtectedMember
-    def latest_version_ip_list(self) -> list:
-        """
-        Get a list of latest version packages from repository storage.
-        :return: list of latest version packages
-        """
-        files = rec_find_files(self.repository_storage_dir)
-        sortkeyfn = lambda s: s[1]
-        tuples = []
-        for repofile in files:
-            if repofile.endswith(".tar"):
-                f, fname = os.path.split(repofile)
-                if f.startswith("pairtree_root"):
-                    version = f[-5:] if f[-5:] != '' else '00001'
-                    repoitem = (repofile, version)
-                    tuples.append(repoitem)
-        tuples.sort(key=sortkeyfn, reverse=True)
-        items_grouped_by_version = []
-        for key, valuesiter in groupby(tuples, key=sortkeyfn):
-            items_grouped_by_version.append(dict(version=key, items=list(v[0] for v in valuesiter)))
-        lastversionfiles = []
-        for version_items in items_grouped_by_version:
-            for item in version_items['items']:
-                p, f = os.path.split(item)
-                p2 = os.path.join(self.repository_storage_dir, p[:p.find("/data/")])
-                obj_id = self.repo_storage_client._get_id_from_dirpath(p2)
-                if obj_id not in [x['id'] for x in lastversionfiles]:
-                    lastversionfiles.append({"id": obj_id, "version": version_items['version'], "path": item})
-        return lastversionfiles
 
     def trigger_new_version(self, uuid, identifier, config_path_work, storage_directory):
         """
@@ -309,8 +184,8 @@ class DirectoryPairtreeStorage(object):
                 logger.debug("New version is not triggered because working catalogue directory does not exist.")
                 return False
             stored_distributions_dir = os.path.join(data_asset_last_version_path, self.representations_directory)
-            dataset_dirs = get_immediate_subdirectories(working_distributions_dir)
-            for dataset_dir in dataset_dirs:
+            distribution_files = list_files_in_dir(working_distributions_dir)
+            for dataset_dir in distribution_files:
                 dataset_package_file = os.path.join(working_distributions_dir, "%s.tar" % dataset_dir)
                 dataset_package_stored_file = os.path.join(stored_distributions_dir, "%s.tar" % dataset_dir)
                 files_ident = files_identical(dataset_package_file, dataset_package_stored_file)
@@ -320,21 +195,42 @@ class DirectoryPairtreeStorage(object):
         logger.debug("New version not triggered.")
         return False
 
-    def store_working_directory(self, uuid, identifier, working_directory, storage_directory):
+    def store(self, identifier, source_directory, progress_reporter=default_reporter, single_package=True):
+        sdir = source_directory[:-1] if source_directory.endswith('/') else source_directory
+        uuid = sdir[sdir.rfind('/')+1:]
+        working_dir = sdir[:sdir.rfind('/')]
+        return self.store_working_directory(uuid, identifier, working_dir, single_package=single_package)
+
+
+    def store_working_directory(self, uuid, identifier, working_directory, single_package=True):
+        """
+        Store working directory either as single package or as representation packages
+        :param uuid: UUID of working directory
+        :param identifier: Object identifier
+        :param working_directory: working directory
+        :param single_package: store as single package or as representation packages
+        :return: version of the stored object
+        """
+        if single_package:
+            version = super().store(identifier, os.path.join(working_directory, uuid))
+        else:
+            version = self.store_working_directory_as_representation_packages(uuid, identifier, working_directory)
+        return version
+
+    def store_working_directory_as_representation_packages(self, uuid, identifier, working_directory):
         """
         Store working directory
         :param storage_directory:
         :param working_directory: working directory
         :param uuid: UUID of working directory
-        :param identifier: Data asset identifier
+        :param identifier: Object identifier
         :return: version
         """
         working_dir = os.path.join(working_directory, uuid)
-        # dpts = DirectoryPairtreeStorage(config_path_storage)
         version = self._next_version(identifier) \
-            if self.trigger_new_version(uuid, identifier, working_directory, storage_directory) \
+            if self.trigger_new_version(uuid, identifier, working_directory, self.repository_storage_dir) \
             else self.curr_version(identifier)
-        target_dir = os.path.join(make_storage_data_directory_path(identifier, storage_directory), version,
+        target_dir = os.path.join(make_storage_data_directory_path(identifier, self.repository_storage_dir), version,
                                   uri_to_safe_filename(identifier))
         changed = False
         for path, dirs, files in os.walk(os.path.abspath(working_dir)):

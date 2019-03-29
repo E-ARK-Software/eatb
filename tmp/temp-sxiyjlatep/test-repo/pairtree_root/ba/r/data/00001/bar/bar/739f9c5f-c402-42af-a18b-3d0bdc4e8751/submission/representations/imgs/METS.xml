@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mets xmlns:ext="ExtensionMETS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.loc.gov/METS/" PROFILE="http://www.ra.ee/METS/v01/IP.xml" TYPE="SIP" OBJID="urn:uuid:5c23ac70-787f-4f58-9a08-b2cd29a35936" LABEL="METS file describing the AIP matching the OBJID." xsi:schemaLocation="http://www.loc.gov/METS/ ../../schemas/mets_1_11.xsd http://www.w3.org/1999/xlink ../../schemas/xlink.xsd">
+  <metsHdr RECORDSTATUS="NEW" CREATEDATE="2016-04-11T14:45:50">
+    <agent TYPE="OTHER" ROLE="CREATOR" OTHERTYPE="SOFTWARE">
+      <name>E-ARK earkweb</name>
+      <note>VERSION=0.0.1</note>
+    </agent>
+    <metsDocumentID>METS.xml</metsDocumentID>
+  </metsHdr>
+  <amdSec ID="IDdae9c2de-3762-44bf-8dc9-4de27086da07">
+    <digiprovMD ID="ID294def7e-73b0-4de5-a990-e1af1718200c">
+      <mdRef MIMETYPE="application/xml" xlink:href="file://./metadata/preservation/premis.xml" LOCTYPE="URL" CREATED="2016-04-11T14:45:50" CHECKSUM="f2158ffcfdd49df06680374ccf790e41478fb35d8cd9dedf66a552fa27b82a30" xlink:type="simple" ID="IDb63051b5-8e3d-41bd-9752-6aff4b3466fd" MDTYPE="PREMIS" CHECKSUMTYPE="SHA-256"/>
+    </digiprovMD>
+  </amdSec>
+  <fileSec>
+    <fileGrp USE="general filegroup" ID="ID658372c9-6165-472a-9ae4-1b9d90c7ba93">
+      <file MIMETYPE="image/jpeg" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-03-10T11:24:54" CHECKSUM="ae0e4474b5d8331f82df3c892e32aa2f4f7692b943606845ccfa567ec807070d" ID="ID200d5263-2b31-484d-a7f6-172957845448" SIZE="2337325">
+        <FLocat xlink:href="file://./data/Albert_Einstein_and_his_wife_Mileva_Maric.jpg" xlink:type="simple" LOCTYPE="URL"/>
+      </file>
+      <file MIMETYPE="image/png" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-03-10T11:25:35" CHECKSUM="8d559c9f179c473889ed0a22075e8317edefac00639183deacf316a970dc00c3" ID="IDa4296c55-6dd0-4ab5-bebb-e432083f3a9f" SIZE="139976">
+        <FLocat xlink:href="file://./data/Letter-Einstein-Maric.png" xlink:type="simple" LOCTYPE="URL"/>
+      </file>
+      <file MIMETYPE="image/png" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-03-10T11:25:27" CHECKSUM="9958a33916fa3ea43d2cb646c1e40d1c1cdf96b411d0e8d90efc3da32db8619f" ID="ID4f48ba89-597f-4202-91bd-6d266c4e2d85" SIZE="292641">
+        <FLocat xlink:href="file://./data/Einstein-Roosevelt-letter.png" xlink:type="simple" LOCTYPE="URL"/>
+      </file>
+    </fileGrp>
+  </fileSec>
+  <structMap TYPE="physical" LABEL="E-ARK structural map">
+    <div LABEL="5c23ac70-787f-4f58-9a08-b2cd29a35936">
+      <div LABEL="schemas"/>
+      <div LABEL="data">
+        <fptr FILEID="ID200d5263-2b31-484d-a7f6-172957845448"/>
+        <fptr FILEID="IDa4296c55-6dd0-4ab5-bebb-e432083f3a9f"/>
+        <fptr FILEID="ID4f48ba89-597f-4202-91bd-6d266c4e2d85"/>
+      </div>
+      <div LABEL="metadata">
+        <fptr FILEID="IDb63051b5-8e3d-41bd-9752-6aff4b3466fd"/>
+      </div>
+      <div LABEL="documentation"/>
+    </div>
+  </structMap>
+  <structMap TYPE="logical" LABEL="Simple AIP structuring">
+    <div LABEL="Package structure">
+      <div LABEL="metadata files">
+        <fptr FILEID="IDb63051b5-8e3d-41bd-9752-6aff4b3466fd"/>
+      </div>
+      <div LABEL="schema files"/>
+      <div LABEL="content files">
+        <fptr FILEID="ID200d5263-2b31-484d-a7f6-172957845448"/>
+        <fptr FILEID="IDa4296c55-6dd0-4ab5-bebb-e432083f3a9f"/>
+        <fptr FILEID="ID4f48ba89-597f-4202-91bd-6d266c4e2d85"/>
+      </div>
+    </div>
+  </structMap>
+</mets>
