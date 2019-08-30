@@ -46,63 +46,60 @@ class MetsValidation(object):
             self.rootpath = mets.rsplit('/', 1)[0]
 
         try:
-            with open(mets) as mets_file:
-                parsed_mets = etree.iterparse(mets_file, events=('start', 'end'), schema=self.schema_mets)
-                for event, element in parsed_mets:
-                    # Define what to do with specific tags.
-                    if event == 'end' and element.tag == q(METS_NS, 'file'):
-                        # files
-                        self.total_files += 1
-                        self.validate_file(element)
+            parsed_mets = etree.iterparse(mets, events=('start', 'end'), schema=self.schema_mets)
+            for event, element in parsed_mets:
+                # Define what to do with specific tags.
+                if event == 'end' and element.tag == q(METS_NS, 'file'):
+                    # files
+                    self.total_files += 1
+                    self.validate_file(element)
+                    element.clear()
+                    while element.getprevious() is not None:
+                        del element.getparent()[0]
+                elif event == 'end' and element.tag == q(METS_NS, 'div') and element.attrib['LABEL'].startswith('representations/'):
+                    if fnmatch.fnmatch(element.attrib['LABEL'].rsplit('/', 1)[1], '*_mig-*'):
+                        # representation mets files
+                        rep = element.attrib['LABEL'].rsplit('/', 1)[1]
+                        for child in element.getchildren():
+                            if child.tag == q(METS_NS, 'mptr'):
+                                metspath = child.attrib[q(XLINK_NS, 'href')]
+                                sub_mets = rep, metspath
+                                self.subsequent_mets.append(sub_mets)
                         element.clear()
                         while element.getprevious() is not None:
                             del element.getparent()[0]
-                    elif event == 'end' and element.tag == q(METS_NS, 'div') and element.attrib['LABEL'].startswith('representations/'):
-                        if fnmatch.fnmatch(element.attrib['LABEL'].rsplit('/', 1)[1], '*_mig-*'):
-                            # representation mets files
-                            rep = element.attrib['LABEL'].rsplit('/', 1)[1]
-                            for child in element.getchildren():
-                                if child.tag == q(METS_NS, 'mptr'):
-                                    metspath = child.attrib[q(XLINK_NS, 'href')]
-                                    sub_mets = rep, metspath
-                                    self.subsequent_mets.append(sub_mets)
-                            element.clear()
-                            while element.getprevious() is not None:
-                                del element.getparent()[0]
-                    elif event == 'end' and element.tag == q(METS_NS, 'dmdSec'):
-                        # dmdSec
-                        pass
-                    elif event == 'end' and element.tag == q(METS_NS, 'amdSec'):
-                        # pass
-                        if len(element.getchildren()) > 0:
-                            for element in element.getchildren():
-                                # elements are: didiprovMD
-                                if len(element.getchildren()) > 0:
-                                    for element in element.getchildren():
-                                        # elements are: mdRef
-                                        if element.tag == etree.Comment or element.tag == etree.PI:  # filter out comments (they also count as children)
-                                            pass
-                                        elif element.attrib['MDTYPE'] == 'PREMIS':
-                                            if element.attrib[q(XLINK_NS, 'href')].startswith('file://./'):
-                                                rel_path = element.attrib[q(XLINK_NS, 'href')]
-                                                premis = os.path.join(self.rootpath, rel_path[9:])
-                                                try:
-                                                    with open(premis) as premis_file:
-                                                        parsed_premis = etree.iterparse(premis_file, events=('start',), schema=self.schema_premis)
-                                                        for event, element in parsed_premis:
-                                                            pass
-                                                        print('Successfully validated Premis file: %s' % premis)
+                elif event == 'end' and element.tag == q(METS_NS, 'dmdSec'):
+                    # dmdSec
+                    pass
+                elif event == 'end' and element.tag == q(METS_NS, 'amdSec'):
+                    # pass
+                    if len(element.getchildren()) > 0:
+                        for child in element.getchildren():
+                            # child are: digiprovMD
+                            if len(child.getchildren()) > 0:
+                                for sub_child in child.getchildren():
+                                    # sub_child are: mdRef
+                                    if sub_child.tag == etree.Comment or sub_child.tag == etree.PI:  # filter out comments (they also count as children)
+                                        pass
+                                    elif sub_child.attrib['MDTYPE'] == 'PREMIS':
+                                        if sub_child.attrib[q(XLINK_NS, 'href')].startswith('file://./'):
+                                            rel_path = sub_child.attrib[q(XLINK_NS, 'href')]
+                                            premis = os.path.join(self.rootpath, rel_path[9:])
+                                            try:
+                                                parsed_premis = etree.iterparse(premis, events=('start',), schema=self.schema_premis)
+                                                for event, el in parsed_premis:
+                                                    # What to do here?
+                                                    pass
+                                                print('Successfully validated Premis file: %s' % premis)
 
-                                                except etree.XMLSyntaxError as e:
-                                                    print('VALIDATION ERROR: The Premis file %s yielded errors:' % premis)
-                                                    print(e)
-                                                    self.validation_errors.append(e)
-
-
-                                            else:
-                                                pass
+                                            except etree.XMLSyntaxError as e:
+                                                print('VALIDATION ERROR: The Premis file %s yielded errors:' % premis)
+                                                print(e)
+                                                self.validation_errors.append(e)
                                         else:
                                             pass
+                                    else:
+                                        pass
         except etree.XMLSyntaxError as e:
             self.validation_errors.append(e)
         except BaseException as e:

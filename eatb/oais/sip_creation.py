@@ -67,10 +67,10 @@ def create_sip(package_dir: str, package_name: str, identifier: str, generate_pr
 
     # packaging
     input_path = Path(package_dir)
-    storage_tar_file = os.path.join(input_path.parent, identifier + '.tar')
+    storage_tar_file = os.path.join(input_path.parent, package_name + '.tar')
     if generate_package:
         logger.info("Creating package: %s" % storage_tar_file)
-        create_package(package_dir, identifier)
+        create_package(package_dir, package_name)
 
     if not os.path.exists(mets_path):
         logger.error("Error creating METS file %s" % mets_path)

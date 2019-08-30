@@ -34,9 +34,9 @@ def main():
         logger.error(msg)
         raise FileNotFoundError(msg)
 
-    if OAISPackageType[args.type] == OAISPackageType.SIP and create_sip(args.directory, args.identifier, args.name):
+    if OAISPackageType[args.type] == OAISPackageType.SIP and create_sip(args.directory, args.name, args.identifier):
         logger.info("SIP created successfully")
-    elif OAISPackageType[args.type] == OAISPackageType.AIP and create_aip(args.directory, args.identifier, args.name):
+    elif OAISPackageType[args.type] == OAISPackageType.AIP and create_aip(args.directory, args.name, args.identifier):
         logger.info("AIP created successfully")
     else:
         logger.error("Package type not supported")

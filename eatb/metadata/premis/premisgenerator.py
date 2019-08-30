@@ -33,9 +33,9 @@ class PremisGenerator(object):
 
     def sha256(self, fname):
         hash = hashlib.sha256()
-        with open(fname) as f:
-            for chunk in iter(lambda: f.read(4096), ""):
-                hash.update(chunk.encode('utf-8'))
+        with open(fname, 'rb') as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                hash.update(chunk)
         return hash.hexdigest()
 
     def runCommand(self, program, stdin = PIPE, stdout = PIPE, stderr = PIPE):

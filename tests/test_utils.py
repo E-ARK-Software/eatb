@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-
-
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import shutil
 import unittest
@@ -11,6 +9,53 @@ from eatb import root_dir
 
 from eatb.utils.fileutils import rec_find_files
 from eatb.utils.randomutils import randomword
+
+import io
+from lxml import isoschematron
+from lxml import etree
+import re
+
+
+def get_rule(lines, rule_id):
+    rules_ids = [rule_id]
+    n_header_lines = 5
+    rule = lines[:n_header_lines] # add schema and namespaces
+    rule_found = False
+    # select all patterns with matching id
+    for line in lines[n_header_lines:]:
+        if not rule_found:
+            # look for beginning of pattern/rule
+            match = re.search('pattern id="CSIP(.+?)"', line)
+            if match:
+                current_id = int(match.group(1))
+                if current_id in rules_ids:
+                    # select pattern
+                    rule.append(line)
+                    rule_found = True
+                # else ignore pattern
+            # else is not the beginning of a pattern
+        elif '</pattern>' in line:
+            # pattern/rule is over
+            rule.append(line)
+            rule_found = False
+        else:
+            rule.append(line)
+    rule.append('</schema>\n')
+    res = '\n'.join(rule)
+    return res
+
+
+def validate(rules_lines, xml_file, rule_id):
+    # Parse rules
+    single_rule = io.StringIO(get_rule(rules_lines, rule_id))
+    parsed_single_rule = etree.parse(single_rule)
+    schematron = isoschematron.Schematron(parsed_single_rule, store_report=True)
+
+    # Parse XML to validate
+    parsed_xml_file = etree.parse(xml_file)
+    validation_response = schematron.validate(parsed_xml_file)
+    report = schematron.validation_report
+    return validation_response, report
 
 
 class TestUtils(unittest.TestCase):
