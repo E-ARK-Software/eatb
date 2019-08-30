@@ -90,7 +90,8 @@ class MetsGenerator(object):
 
     def createAgent(self,role, type, other_type, name, note, notetype=None):
         if other_type:
-            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note({"NOTETYPE": notetype}, note))
+#            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note({q(CSIP_NS, "NOTETYPE"): notetype}, note))
+            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note(note))
         else:
             agent = M.agent({"ROLE": role, "TYPE": type}, M.name(name), M.note(note))
         return agent

@@ -78,7 +78,7 @@
 
     <pattern id="CSIP16">
         <rule context="mets:mets/mets:metsHdr/mets:agent/mets:note">
-            <assert test="@NOTETYPE = 'SOFTWARE VERSION'"></assert>
+            <assert test="@csip:NOTETYPE = 'SOFTWARE VERSION'"></assert>
         </rule>
     </pattern>
 
