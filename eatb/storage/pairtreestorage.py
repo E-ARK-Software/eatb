@@ -11,7 +11,7 @@ from pairtree import PairtreeStorageFactory, ObjectNotFoundException, shutil
 from eatb.utils.reporters import default_reporter
 
 from eatb.storage.checksum import ChecksumFile, ChecksumAlgorithm, check_transfer
-from eatb.utils.fileutils import fsize, uri_to_safe_filename, rec_find_files, FileBinaryDataChunks
+from eatb.utils.fileutils import fsize, to_safe_filename, rec_find_files, FileBinaryDataChunks
 from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
 
 logger = logging.getLogger(__name__)
@@ -64,7 +64,7 @@ class PairtreeStorage(object):
         self.repo_storage_client = self.storage_factory.get_store(store_dir=self.repository_storage_dir, uri_base="http://")
 
     # noinspection PyProtectedMember
-    def store(self, identifier, source_directory, progress_reporter=default_reporter):
+    def store(self, identifier, source_directory, copy_dir=False, progress_reporter=default_reporter):
         """
         Storing a directory in the pairtree path according to the given identifier. If a version of the object exists,
         a new version is created.
@@ -79,8 +79,18 @@ class PairtreeStorage(object):
         pathlib.Path(target_data_directory).mkdir(parents=True, exist_ok=True)
         target_data_version_directory = os.path.join(target_data_directory, next_version)
         target_data_version_asset_directory = os.path.join(target_data_version_directory,
-                                                           uri_to_safe_filename(identifier))
-        shutil.copytree(source_directory, target_data_version_asset_directory)
+                                                           to_safe_filename(identifier))
+        os.makedirs(target_data_version_asset_directory, exist_ok=True)
+        if copy_dir:
+            shutil.copytree(source_directory, target_data_version_asset_directory)
+        else:
+            archive_file = "%s.tar" % to_safe_filename(identifier)
+            src_file_path = os.path.join(source_directory, archive_file)
+            target_file_path = os.path.join(target_data_version_asset_directory, archive_file)
+            if not os.path.exists(src_file_path):
+                raise ValueError("Archive file does not exist: %s" % src_file_path)
+            else:
+                shutil.copy2(src_file_path, target_file_path)
         progress_reporter(100)
         return next_version
 
@@ -158,7 +168,7 @@ class PairtreeStorage(object):
         :return: absolute file path of the stored object
         """
         if not self.identifier_object_exists(identifier):
-            raise ValueError("No repository object for id '%s'. "
+            raise ObjectNotFoundException("No repository object for id '%s'. "
                              "Unable to get requested version object path." % identifier)
         if version_num == 0:
             version_num = self.curr_version_num(identifier)
@@ -166,7 +176,7 @@ class PairtreeStorage(object):
             raise ValueError("Repository object '%s' has no version %d." % (identifier, version_num))
         version = '%05d' % version_num
         repo_obj = self.repo_storage_client.get_object(identifier, False)
-        repo_obj_path = uri_to_safe_filename(os.path.join(repo_obj.id_to_dirpath(), "data/%s" % version))
+        repo_obj_path = to_safe_filename(os.path.join(repo_obj.id_to_dirpath(), "data/%s" % version))
         try:
             return next(os.path.join(repo_obj_path, f) for f in os.listdir(repo_obj_path)
                         if os.path.isdir(os.path.join(repo_obj_path, f)))
@@ -174,7 +184,7 @@ class PairtreeStorage(object):
             raise ObjectNotFoundException("The file object does not exist in the repository")
 
     def get_chunked_tar_entry_reader(self, identifier: str) -> ChunkedTarEntryReader:
-        tar_file_path = os.path.join(self.get_object_path(identifier), "%s.tar" % uri_to_safe_filename(identifier))
+        tar_file_path = os.path.join(self.get_object_path(identifier), "%s.tar" % to_safe_filename(identifier))
         tar_file = tarfile.open(tar_file_path, 'r')
         return ChunkedTarEntryReader(tar_file)
 

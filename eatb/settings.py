@@ -19,3 +19,5 @@ application_name = config.get('global', 'application_name')
 application_version = config.get('global', 'application_version')
 
 fido_enabled = bool(eval(config.get('format', 'fido_enabled')))
+
+validation_profile = config.get('validation', 'validation_profile')

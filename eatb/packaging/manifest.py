@@ -22,6 +22,5 @@ class ManifestCreation(object):
     def create_manifest(self, package_dir, manifest_file):
         cli_command = CliCommand("summain", self.commands.get_command_template("summain"))
         command = cli_command.get_command(dict(manifest_file=manifest_file, package_dir=package_dir))
-        print(command)
         out = check_output(command)
         return out

@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
+from tests.base import Base
+from tests.test_utils import validate
 import unittest
 from eatb.metadata.mets.MetsValidation import MetsValidation
 from eatb import root_dir
-from base import Base
-from test_utils import validate
+#from base import Base
+#from test_utils import validate
 
 
 class TestMetsRootElement(Base):

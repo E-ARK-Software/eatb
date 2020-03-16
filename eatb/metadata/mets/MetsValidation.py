@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+
+from eatb import root_dir
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
 import fnmatch
 
@@ -21,7 +24,8 @@ class MetsValidation(object):
     Validation of the Mets file. This includes also the validation of Premis files that are linked in the amdSec!
     '''
 
-    def __init__(self, root, mets_schema_file, premis_schema_file):
+    def __init__(self, root, mets_schema_file=os.path.join(root_dir, "eatb/resources/schemas/IP.xsd"),
+                 premis_schema_file=os.path.join(root_dir, "eatb/resources/schemas/premis-v2-2.xsd")):
         self.validation_errors = []
         self.total_files = 0
         self.schema_mets = etree.XMLSchema(file=mets_schema_file)
@@ -108,10 +112,10 @@ class MetsValidation(object):
         if self.total_files != 0:
             self.validation_errors.append('File count yielded %d instead of 0.' % self.total_files)
 
-        # enable/disable error logging to console
-        print('Error log for METS file: ', mets)
-        for error in self.validation_errors:
-            print(error)
+        if self.validation_errors and len(self.validation_errors) > 0:
+            print('Error log for METS file: ', mets)
+            for error in self.validation_errors:
+                print(error)
 
         return True if len(self.validation_errors) == 0 else False
 

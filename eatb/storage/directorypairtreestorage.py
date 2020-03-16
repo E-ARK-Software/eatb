@@ -12,7 +12,7 @@ from pairtree import PairtreeStorageFactory, ObjectNotFoundException
 
 from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
 from eatb.storage.checksum import check_transfer, ChecksumFile
-from eatb.utils.fileutils import fsize, FileBinaryDataChunks, uri_to_safe_filename, \
+from eatb.utils.fileutils import fsize, FileBinaryDataChunks, to_safe_filename, \
     get_immediate_subdirectories, copy_file_with_base_directory, list_files_in_dir
 import json
 from subprocess import check_output
@@ -72,7 +72,7 @@ def get_package_from_directory_storage(task_context_path, package_uuid, package_
 def make_storage_directory_path(identifier, version, config_path_storage):
     """Used for remote (no access to storage backend)"""
     pts = DirectoryPairtreeStorage(config_path_storage)
-    return os.path.join(pts.get_dir_path_from_id(identifier), "data", version, uri_to_safe_filename(identifier))
+    return os.path.join(pts.get_dir_path_from_id(identifier), "data", version, to_safe_filename(identifier))
 
 
 def make_storage_data_directory_path(identifier, config_path_storage):
@@ -134,7 +134,7 @@ class DirectoryPairtreeStorage(PairtreeStorage):
         if representation_label:
             tar_file_path = os.path.join(object_path, self.representations_directory, "%s.tar" % representation_label)
         else:
-            tar_file_path = os.path.join(object_path, "%s.tar" % uri_to_safe_filename(identifier))
+            tar_file_path = os.path.join(object_path, "%s.tar" % to_safe_filename(identifier))
         if os.path.exists(tar_file_path):
             logger.debug("Package file found at: %s" % tar_file_path)
             return tar_file_path
@@ -151,7 +151,7 @@ class DirectoryPairtreeStorage(PairtreeStorage):
         :return: chunks iterator of the tar file
         """
         object_path = self.get_object_path(identifier)
-        tar_file_name = "%s.tar" % representation_label if representation_label else uri_to_safe_filename(identifier)
+        tar_file_name = "%s.tar" % representation_label if representation_label else to_safe_filename(identifier)
         tar_file_path = os.path.join(object_path, self.representations_directory, tar_file_name)
         if os.path.exists(tar_file_path):
             logger.debug("Packaged representation file found at: %s" % entry)
@@ -178,7 +178,7 @@ class DirectoryPairtreeStorage(PairtreeStorage):
             version = self.curr_version(identifier)
             data_asset_last_version_path = os.path.join(
                 make_storage_data_directory_path(identifier, storage_directory),
-                version, uri_to_safe_filename(identifier))
+                version, to_safe_filename(identifier))
             working_distributions_dir = os.path.join(working_dir, self.representations_directory)
             if not os.path.exists(working_distributions_dir):
                 logger.debug("New version is not triggered because working catalogue directory does not exist.")
@@ -212,7 +212,7 @@ class DirectoryPairtreeStorage(PairtreeStorage):
         :return: version of the stored object
         """
         if single_package:
-            version = super().store(identifier, os.path.join(working_directory, uuid))
+            version = super().store(identifier, working_directory)
         else:
             version = self.store_working_directory_as_representation_packages(uuid, identifier, working_directory)
         return version
@@ -231,7 +231,7 @@ class DirectoryPairtreeStorage(PairtreeStorage):
             if self.trigger_new_version(uuid, identifier, working_directory, self.repository_storage_dir) \
             else self.curr_version(identifier)
         target_dir = os.path.join(make_storage_data_directory_path(identifier, self.repository_storage_dir), version,
-                                  uri_to_safe_filename(identifier))
+                                  to_safe_filename(identifier))
         changed = False
         for path, dirs, files in os.walk(os.path.abspath(working_dir)):
             sub_path = path.replace(working_dir, "").lstrip("/")

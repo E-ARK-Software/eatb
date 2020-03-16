@@ -17,6 +17,8 @@ TS_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 EU_UI_FORMAT = '%d.%m.%Y %H:%M:%S'
 
+DATE_DMY = '%d.%m.%Y'
+
 TASK_EXEC_TIMES = {}
 
 

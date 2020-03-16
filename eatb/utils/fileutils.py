@@ -178,7 +178,7 @@ def increment_file_name_suffix(abspath_basename, extension):
         suffix = '%05d' % i
         inc_file_name = "%s_%s.%s" % (abspath_basename, suffix, extension)
         if not os.path.exists(inc_file_name):
-                return inc_file_name
+            return inc_file_name
         i += 1
 
 
@@ -195,7 +195,7 @@ def latest_file_by_suffix(abspath_basename, extension):
         suffix = '%05d' % i
         inc_file_name = "%s_%s.%s" % (abspath_basename, suffix, extension)
         if not os.path.exists(inc_file_name):
-                return file_candidate
+            return file_candidate
         file_candidate = inc_file_name
         i += 1
 
@@ -337,15 +337,7 @@ def rec_find_files(directory, include_files_rgxs=None, exclude_dirsfiles_rgxs=No
                             yield filename
 
 
-def path_to_dict(data_repository_path, path, strip_path_part=None, use_icons=False):
-    """
-    Get dictionary representation fo path
-    :param data_repository_path: data repository path
-    :param path: path
-    :param strip_path_part: part of the path which is removed
-    :param use_icons: use icons
-    :return: dictionary representation fo path
-    """
+def path_to_dict(path, strip_path_part=None, use_icons=False):
     d = {'text': os.path.basename(path)}
     if os.path.isdir(path.encode('utf-8')):
         if use_icons:
@@ -359,7 +351,7 @@ def path_to_dict(data_repository_path, path, strip_path_part=None, use_icons=Fal
         path_metadata = path if strip_path_part is None else path.replace(strip_path_part, "")
         wd_path, _ = os.path.split(path)
         d['data'] = {"path": path_metadata, "mimetype": get_mime_type(path),
-                     "datetime": get_file_ctime_iso_date_str(path, EU_UI_FORMAT, data_repository_path)}
+                     "datetime": get_file_ctime_iso_date_str(path, EU_UI_FORMAT, '/var/data/earkweb')}
     return d
 
 
@@ -393,7 +385,7 @@ def get_directory_json(path, subpath):
     :return: JSON representation of directory
     """
     joined_path = os.path.join(path, subpath)
-    return {"data": path_to_dict(joined_path, strip_path_part=(path + '/')), "check_callback": "true"}
+    return {"data": path_to_dict(joined_path, strip_path_part=path + '/'), "check_callback": "true"}
 
 
 def strip_prefixes(path, *prefixes):
@@ -421,6 +413,18 @@ def backup_file_path(abs_path):
     return os.path.join(path, backup_file_name)
 
 
+def package_sub_path_from_relative_path(root, containing_file_path, relative_path):
+    """
+    Get package sub-path from relative path
+    param root: root path
+    param containing_file_path: containing file path
+    param relative_path: relative path
+    :return: rpackage sub-path
+    """
+    containing_path, _ = os.path.split(containing_file_path)
+    return strip_prefixes(os.path.abspath(os.path.join(containing_path, remove_protocol(relative_path))), root)
+
+
 def get_sub_path_from_relative_path(root, containing_file_path, relative_path):
     """
     Get sub-path from relative path
@@ -433,7 +437,16 @@ def get_sub_path_from_relative_path(root, containing_file_path, relative_path):
     return strip_prefixes(os.path.abspath(os.path.join(containing_path, relative_path)), root)
 
 
-def uri_to_safe_filename(uri):
+def from_safe_filename(uri):
+    """
+    Convert URI to safe filename
+    :param uri: URI
+    :return: safe file name
+    """
+    return uri.replace("+", ":")
+
+
+def to_safe_filename(uri):
     """
     Convert URI to safe filename
     :param uri: URI
@@ -478,7 +491,7 @@ class FileBinaryDataChunks(object):
             yield chunk
 
 
-def copy_file(source, target, progress_reporter=default_reporter, total_bytes_read=0, bytes_total=-1):
+def copy_file(source, target, progress_reporter=default_reporter, total_bytes_read=0):
     with open(target, 'wb') as target_file:
         for chunk in FileBinaryDataChunks(source, 65536, progress_reporter).chunks(total_bytes_read, total_bytes_read):
             target_file.write(chunk)

@@ -30,7 +30,7 @@ M = objectify.ElementMaker(
     namespace=METS_NS,
     nsmap=METS_NSMAP)
 
-folders_with_USE = ['documentation', 'schemas', 'representations']
+folders_with_USE = ['documentation', 'schemas', 'representations', "data"]
 
 
 def get_folder_with_USE(path):

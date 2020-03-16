@@ -14,7 +14,9 @@ logger = logging.getLogger(__name__)
 
 
 def create_sip(package_dir: str, package_name: str, identifier: str, generate_premis: bool=True,
-               generate_package: bool=True) -> bool:
+               generate_package: bool=True, custom_logger=None) -> bool:
+
+    logger = custom_logger if custom_logger else logger
 
     # PREMIS
     premis_path = os.path.join(package_dir, 'metadata/preservation/premis.xml')

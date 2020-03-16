@@ -28,8 +28,8 @@ class XmlValidation(object):
         xml_dir, tail = os.path.split(xml)
 
         xml_content = read_file_content(xml)
-        tree = ET.XML(xml_content)
-        schema_tree = ET.XML(self.SCHEMA_TEMPLATE)
+        tree = ET.XML(xml_content.encode('utf-8'))
+        schema_tree = ET.XML(self.SCHEMA_TEMPLATE.encode('utf-8'))
 
         #Find instances of xsi:schemaLocation
         schema_locations = set(tree.xpath("//*/@xsi:schemaLocation", namespaces={'xsi': self.XSI}))
@@ -79,6 +79,9 @@ class XmlValidation(object):
             # XML not well formed
             validationResult.err.append("XMLSyntaxError occurred!")
             validationResult.err.append(xse)
+        except Exception as err:
+            validationResult.err.append("XML error occurred!")
+            validationResult.err.append(err)
         finally:
             return validationResult
 
