@@ -355,6 +355,23 @@ def path_to_dict(path, strip_path_part=None, use_icons=False):
     return d
 
 
+def total_directory_size(start_path='.'):
+    """
+    Get the total file size of directory and subdirectories
+    :param start_path: file path
+    :return: total file size of directory and subdirectories in bytes (integer value)
+    """
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            # skip if it is symbolic link
+            if not os.path.islink(fp):
+                total_size += os.path.getsize(fp)
+
+    return total_size
+
+
 def fsize(file_path, wd=None):
     """
     Get the file size of a file in the file system
@@ -365,6 +382,20 @@ def fsize(file_path, wd=None):
     fp = file_path
     path = fp if wd is None else os.path.join(wd, fp)
     return int(os.path.getsize(path))
+
+
+def human_readable_size(size, decimal_places=1):
+    """
+    Get a fhuman readable string representation for a given file size in bytes (integer)
+    :param size: size (integer)
+    :param decimal_places: number of decimal places in the result string
+    :return: human readable string representation of the file size
+    """
+    for unit in ['B','KiB','MiB','GiB','TiB']:
+        if size < 1024.0:
+            break
+        size /= 1024.0
+    return f"{size:.{decimal_places}f} {unit}"
 
 
 def get_mime_type(path):
