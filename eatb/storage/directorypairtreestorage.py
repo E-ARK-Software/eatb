@@ -13,7 +13,7 @@ from pairtree import PairtreeStorageFactory, ObjectNotFoundException
 from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
 from eatb.storage.checksum import check_transfer, ChecksumFile
 from eatb.utils.fileutils import fsize, FileBinaryDataChunks, to_safe_filename, \
-    get_immediate_subdirectories, copy_file_with_base_directory, list_files_in_dir
+    copy_file_with_base_directory, list_files_in_dir
 import json
 from subprocess import check_output
 
@@ -83,7 +83,7 @@ def make_storage_data_directory_path(identifier, config_path_storage):
 
 def files_identical(file1, file2):
     if not (os.path.exists(file1) and os.path.exists(file2)):
-                return False
+        return False
     checksum_source_file = ChecksumFile(file1).get('SHA-256')
     checksum_target_file = ChecksumFile(file2).get('SHA-256')
     logger.debug("f1: %s, f2: %s" % (file1, file2))
@@ -138,8 +138,7 @@ class DirectoryPairtreeStorage(PairtreeStorage):
         if os.path.exists(tar_file_path):
             logger.debug("Package file found at: %s" % tar_file_path)
             return tar_file_path
-        else:
-            raise ObjectNotFoundException("Package file not found")
+        raise ObjectNotFoundException("Package file not found")
 
     def get_object_item_stream(self, identifier, representation_label, entry, tar_file=None):
         """
@@ -233,7 +232,7 @@ class DirectoryPairtreeStorage(PairtreeStorage):
         target_dir = os.path.join(make_storage_data_directory_path(identifier, self.repository_storage_dir), version,
                                   to_safe_filename(identifier))
         changed = False
-        for path, dirs, files in os.walk(os.path.abspath(working_dir)):
+        for path, _, files in os.walk(os.path.abspath(working_dir)):
             sub_path = path.replace(working_dir, "").lstrip("/")
             for file in files:
                 # copy only packaged datasets, not the directories

@@ -33,7 +33,7 @@ M = objectify.ElementMaker(
     namespace=METS_NS,
     nsmap=METS_NSMAP)
 
-class SIPGenerator(object):
+class SIPGenerator():
     fid = FormatIdentification()
     mime = MimeTypes()
     root_path = ""
@@ -682,12 +682,6 @@ class SIPGenerator(object):
 
 
 class testFormatIdentification(unittest.TestCase):
-    def testCreateMetsAndPremis(self):
-        sipgen = SIPGenerator(os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127"))
-        #input_folder = os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127")
-        #output_mets = os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127/metadata/METS.xml")
-        sipgen.createSIPMets()
-
     def atestCreateDeliveryMets(self):
         sipgen = SIPGenerator(os.path.join(root_dir, "sandbox/sipgenerator/resources/"))
         input_archive = os.path.join(root_dir, "sandbox/sipgenerator/resources/test.tar")

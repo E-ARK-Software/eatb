@@ -19,8 +19,7 @@ class ChunkedTarEntryReader(object):
     def close(self):
         if self.tfile:
             return self.tfile.close()
-        else:
-            return True
+        return True
 
     def chunks(self, entry, total_bytes_read=0, bytes_total=-1):
         """

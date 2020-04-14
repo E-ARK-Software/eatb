@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import shutil
 import sys
 from lxml import etree
+
 from pathlib import Path
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 from eatb import root_dir
@@ -16,8 +16,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def create_aip(package_dir: str, identifier: str, package_name: str, identifier_map=None, generate_premis: bool=True,
-               generate_package: bool=True) -> bool:
+def create_aip(package_dir, identifier, package_name, identifier_map=None, generate_premis=True,
+               generate_package=True) -> bool:
 
     # schema file location for Mets generation
     schemas = os.path.join(root_dir, 'resources/schemas')
@@ -35,7 +35,7 @@ def create_aip(package_dir: str, identifier: str, package_name: str, identifier_
         metsgen.createMets(mets_data)
 
         logger.info('Generated a Mets file for representation %s.' % repdir)
-        
+
     #########
 
     # schema file location for Mets generation

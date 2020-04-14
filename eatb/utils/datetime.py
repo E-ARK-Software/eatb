@@ -31,23 +31,11 @@ class LengthBasedDateFormat(object):
     def reformat(self, target_fmt='%Y-%m-%dT%H:%M:%SZ'):
         if not self.date_str:
             return "1970-01-01T00:00:00Z"
-        method_name = 'format_' + str(len(self.date_str))
-        method = getattr(self, method_name, lambda: "1970-01-01T00:00:00Z")
-        return method(target_fmt)
+        return self.format(target_fmt, len(self.date_str))
 
     def format(self, target_fmt, length=10):
         fmt = "%d.%m.%Y" if length == 10 else "%d%m%Y" if length == 6 else "%Y"
         return reformat_date_string(fmt, self.date_str, target_fmt)
-
-    def format_4(self, target_fmt):
-        return self.format(target_fmt, length=4)
-
-    def format_6(self, target_fmt):
-        return self.format(target_fmt, length=6)
-
-    def format_10(self, target_fmt):
-        return self.format(target_fmt, length=10)
-
 
 def reformat_date_string(origin_fmt, origin_dts, target_fmt):
     return datetime.strptime(origin_dts, origin_fmt).strftime(target_fmt)

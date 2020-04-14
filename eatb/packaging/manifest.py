@@ -9,7 +9,7 @@ from eatb.cli.cli import CliCommand
 
 
 
-class ManifestCreation(object):
+class ManifestCreation():
     """
     Create package file manifest using 'summain'
     """

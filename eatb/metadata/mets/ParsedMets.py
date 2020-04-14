@@ -4,10 +4,9 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
 import lxml
-from lxml.etree import XMLSyntaxError
 
 
-class ParsedMets(object):
+class ParsedMets():
     """
     Parsed METS object
     """
@@ -56,8 +55,7 @@ class ParsedMets(object):
         file_elements = self.get_file_elements()
         if len(file_elements) > 0:
             return file_elements[0]
-        else:
-            return None
+        return None
 
     @staticmethod
     def get_file_element_checksum(file_element):
@@ -91,10 +89,6 @@ class ParsedMets(object):
             if token == ('http://www.loc.gov/METS/'):
                 position = locations.index(token)
                 schema_location = locations[position + 1]
-                if schema_location.startswith('http://'):
-                    schema_file = schema_file
-                elif schema_location.startswith(''):
+                if schema_location.startswith(''):
                     schema_file = self.root_dir + schema_location
         return schema_file
-
-

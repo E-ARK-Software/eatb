@@ -13,5 +13,5 @@ def MetaIdentification(unknown_xml):
     tag = unknown_tag.split('}')
     if len(tag) == 2:
         return tag[1]
-    elif len(tag) == 1:
+    if len(tag) == 1:
         return tag[0]

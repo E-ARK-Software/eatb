@@ -1,7 +1,6 @@
 import unittest
 import tarfile
 import sys
-from os import listdir
 
 IP_compressed_path = '/home/matteo/eARK/earkweb/earkresources/AIP-test/siardpackage/SIA_test_animals_2.tar'
 rules_path = './rules.xml'

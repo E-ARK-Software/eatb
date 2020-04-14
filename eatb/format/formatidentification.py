@@ -41,13 +41,9 @@ class FormatIdentification():
         childs = [child for child in fmtres if child.tag.endswith(mime_tag)]
         if len(childs) == 1:
             return (childs[0]).text.strip()
-        else:
-            return "application/octet-stream"
+        return "application/octet-stream"
 
     def print_matches(self, fullname, matches, delta_t, matchtype=''):
         assert not fido_disabled, "Fido module is not available!"
         for (f, s) in matches:
             self.lastFmt = self.fid.get_puid(f)
-
-
-

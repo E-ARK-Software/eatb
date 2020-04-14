@@ -10,16 +10,14 @@ import logging
 from pairtree import PairtreeStorageFactory, ObjectNotFoundException, shutil
 from eatb.utils.reporters import default_reporter
 
-from eatb.storage.checksum import ChecksumFile, ChecksumAlgorithm, check_transfer
+from eatb.storage.checksum import check_transfer
 from eatb.utils.fileutils import fsize, to_safe_filename, rec_find_files, FileBinaryDataChunks
 from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
 
 logger = logging.getLogger(__name__)
 
 
-import os
 import os.path
-import ntpath
 import tarfile
 from itertools import groupby
 
@@ -44,7 +42,7 @@ def get_package_from_storage(storage, task_context_path, package_uuid, package_e
         check_transfer(parent_object_path, package_in_dip_work_dir)
 
 
-class PairtreeStorage(object):
+class PairtreeStorage():
     """
     Pairtree storage class allowing to build a filesystem hierarchy for holding objects that are located by mapping
     identifier strings to object directory (or folder) paths with two characters at a time.
@@ -89,8 +87,7 @@ class PairtreeStorage(object):
             target_file_path = os.path.join(target_data_version_asset_directory, archive_file)
             if not os.path.exists(src_file_path):
                 raise ValueError("Archive file does not exist: %s" % src_file_path)
-            else:
-                shutil.copy2(src_file_path, target_file_path)
+            shutil.copy2(src_file_path, target_file_path)
         progress_reporter(100)
         return next_version
 
@@ -199,7 +196,7 @@ class PairtreeStorage(object):
         tuples = []
         for repofile in files:
             if repofile.endswith(".tar"):
-                f, fname = os.path.split(repofile)
+                f, _ = os.path.split(repofile)
                 if f.startswith("pairtree_root"):
                     version = f[-5:] if f[-5:] != '' else '00001'
                     repoitem = (repofile, version)

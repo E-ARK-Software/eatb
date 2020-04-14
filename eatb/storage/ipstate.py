@@ -10,7 +10,7 @@ from eatb.xml.xmlutils import prettify
 from eatb.utils.datetime import current_timestamp
 
 
-class IpState(object):
+class IpState():
     """
     TaskExecutionXml class which represents an XML document to persist task execution parameters and results.
     The class can be initiated by parameters (static method from_parameters), by XML content string (static
@@ -38,7 +38,6 @@ class IpState(object):
         @rtype: TaskExecutionXml
         @return: TaskExecutionXml object
         """
-        doc_content = doc_content
         ted = Etree.fromstring(doc_content)
         return cls(doc_content, ted)
 
@@ -211,8 +210,7 @@ class IpState(object):
         lastchange_elm = self.ted.find('.//lastchange')
         if lastchange_elm is None:
             return ""
-        else:
-            return self.ted.find('.//lastchange').text
+        return self.ted.find('.//lastchange').text
 
     def set_lastchange(self, lastchange_value):
         """
