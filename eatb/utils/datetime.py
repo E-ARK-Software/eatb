@@ -19,6 +19,8 @@ EU_UI_FORMAT = '%d.%m.%Y %H:%M:%S'
 
 DATE_DMY = '%d.%m.%Y'
 
+DT_ISO_FORMAT_FILENAME = "%Y%m%d-%H%M%SZ"
+
 TASK_EXEC_TIMES = {}
 
 
