@@ -1,24 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
+
 try:
     from fido.fido import Fido
     fido_disabled = False
 except ImportError:
     fido_disabled = True
-from eatb.format.formatidentification import FormatIdentification
-from eatb import root_dir
 
+from eatb import ROOT
+from eatb.format.formatidentification import FormatIdentification
 
 class TestFormatIdentification(unittest.TestCase):
 
     def testFido(self):
         if not fido_disabled:
             ffid = FormatIdentification()
-            puid = ffid.identify_file(os.path.join(root_dir, "tests/test_resources/schemas/xlink.xsd"))
+            puid = ffid.identify_file(os.path.join(ROOT, "tests/test_resources/schemas/xlink.xsd"))
             self.assertTrue("x-fmt/280", puid)
             self.assertEqual("application/xml", ffid.get_mime_for_puid(puid))
         else:

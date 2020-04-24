@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import logging
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 from pathlib import Path
 
 from eatb.metadata.mets.metsgenerator import MetsGenerator
 from eatb.metadata.premis.premisgenerator import PremisGenerator
 from eatb.packaging.package_creator import create_package
 
-import logging
 LOGGER = logging.getLogger(__name__)
-
 
 def create_sip(package_dir: str, package_name: str, identifier: str, generate_premis: bool=True,
                generate_package: bool=True, custom_logger=None) -> bool:

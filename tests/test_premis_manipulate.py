@@ -1,28 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-
-from eatb import root_dir
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
-
 import unittest
+
 from lxml import etree
 
+from eatb import ROOT
 from eatb.metadata.premis.PremisManipulate import Premis
 from eatb.xml.xmlutils import pretty_xml_string
 from eatb.xml.xmlvalidation import XmlValidation
 
-
-
 class TestPremisManipulate(unittest.TestCase):
 
     premis_skeleton = 'tests/test_resources/metadata/premis/PREMIS_skeleton.xml'
-    premis_schema_file = os.path.join(root_dir, 'tests/test_resources/schemas/premis-v2-2.xsd')
+    premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v2-2.xsd')
 
     def test_premis_manipulate(self):
-        with open(os.path.join(root_dir, TestPremisManipulate.premis_skeleton), 'r') as premis_file:
+        with open(os.path.join(ROOT, TestPremisManipulate.premis_skeleton), 'r') as premis_file:
             self.my_premis = Premis(premis_file)
             self.my_premis.add_agent('Aip2Dip')
             self.my_premis.add_event('Migration01', 'success', 'Aip2Dip')

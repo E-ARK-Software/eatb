@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import tarfile
 import unittest
 
-from eatb import root_dir
+from eatb import ROOT
 from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
 
 
@@ -18,7 +16,7 @@ class ChunkedTarEntryReaderTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        ChunkedTarEntryReaderTest.tar_test_file = os.path.join(root_dir, "tests/test_resources/storage-test/xyz.tar")
+        ChunkedTarEntryReaderTest.tar_test_file = os.path.join(ROOT, "tests/test_resources/storage-test/xyz.tar")
         ChunkedTarEntryReaderTest.entry = "xyz/representations/default/data/example.txt"
         ChunkedTarEntryReaderTest.tfile = tarfile.open(ChunkedTarEntryReaderTest.tar_test_file, 'r')
 

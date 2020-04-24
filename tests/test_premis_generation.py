@@ -2,25 +2,19 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
+import unittest
 
 from lxml import etree
 
+from eatb import ROOT
 from eatb.metadata.premis.premisgenerator import PremisGenerator
-from eatb import root_dir
 from eatb.utils import randomutils
 
-import unittest
-
-
 class TestPremisCreation(unittest.TestCase):
-
-
     test_ip = "eark-ip"
     test_ip_mig = "eark-ip-mig"
-    test_source_directory = os.path.join(root_dir + '/tests/test_resources/')
-    temp_working_dir = os.path.join(root_dir, "tmp/tmp-%s" % randomutils.randomword(10))
+    test_source_directory = os.path.join(ROOT + '/tests/test_resources/')
+    temp_working_dir = os.path.join(ROOT, "tmp/tmp-%s" % randomutils.randomword(10))
     tmp_ip_dir = os.path.join(temp_working_dir, test_ip)
     tmp_ip_dir_mig = os.path.join(temp_working_dir, test_ip_mig)
 
@@ -29,7 +23,7 @@ class TestPremisCreation(unittest.TestCase):
 
     premis_file_path = os.path.join(temp_working_dir, test_ip, './metadata/preservation/premis.xml')
 
-    premis_schema_file = os.path.join(root_dir, 'tests/test_resources/schemas/premis-v2-2.xsd')
+    premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v2-2.xsd')
 
     @classmethod
     def setUpClass(cls):

@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
-from lxml import etree, objectify
 import hashlib
-import uuid
 from mimetypes import MimeTypes
-
+import os
 from subprocess import Popen, PIPE
+import uuid
+
+from lxml import etree, objectify
 
 from eatb.utils.datetime import current_timestamp
 from eatb.format.formatidentification import FormatIdentification

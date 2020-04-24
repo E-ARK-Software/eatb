@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import hashlib
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 
 from eatb.utils.fileutils import fsize
 
-import hashlib
 
 
 class ChecksumAlgorithm:

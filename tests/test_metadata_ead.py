@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
-from eatb import root_dir
+
+from eatb import ROOT
 from eatb.metadata.parsedead import ParsedEad
 
-
 class TestParsedEad(unittest.TestCase):
-    test_dir = os.path.join(root_dir, 'tests/test_resources/EAD-test/')
+    test_dir = os.path.join(ROOT, 'tests/test_resources/EAD-test/')
 
     def test_get_root_element(self):
         """
@@ -105,9 +103,9 @@ class TestParsedEad(unittest.TestCase):
         """
         Test dao tuples
         """
-        root_dir = TestParsedEad.test_dir
+        parsed_ead = TestParsedEad.test_dir
         ead_file_path = TestParsedEad.test_dir + 'metadata/descriptive/EAD-example1.xml'
-        pead = ParsedEad(root_dir, ead_file_path)
+        pead = ParsedEad(parsed_ead, ead_file_path)
         md_tag = "unittitle"
         res = pead.dao_path_mdval_tuples(md_tag)
         self.assertEqual("metadata/descriptive/representations/rep1/data/Example1.docx", res[0]['path'])
@@ -119,9 +117,9 @@ class TestParsedEad(unittest.TestCase):
         """
         Test dao tuples
         """
-        root_dir = TestParsedEad.test_dir
+        parsed_ead = TestParsedEad.test_dir
         ead_file_path = TestParsedEad.test_dir + 'metadata/descriptive/EAD-example1.xml'
-        pead = ParsedEad(root_dir, ead_file_path)
+        pead = ParsedEad(parsed_ead, ead_file_path)
         md_tag = "unitdatestructured"
         res = pead.dao_path_mdval_tuples(md_tag, "ead:datesingle")
         self.assertEqual("22.04.2016", res[0]['mdvalue'])
@@ -139,9 +137,9 @@ class TestParsedEad(unittest.TestCase):
         """
         Test dao tuples
         """
-        root_dir = TestParsedEad.test_dir
+        parsed_ead = TestParsedEad.test_dir
         ead_file_path = TestParsedEad.test_dir + 'metadata/descriptive/EAD-example1.xml'
-        pead = ParsedEad(root_dir, ead_file_path)
+        pead = ParsedEad(parsed_ead, ead_file_path)
         md_tag = "[Cc][0,1][0-9]"
         res = pead.dao_path_mdval_tuples(md_tag, "level", True)
         self.assertEqual("item", res[0]['mdvalue'])

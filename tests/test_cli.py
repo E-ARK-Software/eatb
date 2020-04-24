@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
 import string
-import sys
 import unittest
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 from eatb.cli.cli import CliCommand, CliCommands
 from eatb.cli.cli import CliExecution
 

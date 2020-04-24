@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 from subprocess import check_output
+
 from eatb.cli.cli import CliCommands
 from eatb.cli.cli import CliCommand
 

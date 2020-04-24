@@ -10,7 +10,6 @@ from mimetypes import MimeTypes
 
 from subprocess import Popen, PIPE
 
-from eatb import root_dir
 from eatb.format.formatidentification import FormatIdentification
 from eatb.metadata.XmlHelper import XSI_NS, q
 from eatb.utils.datetime import get_file_ctime_iso_date_str, DT_ISO_FMT_SEC_PREC, current_timestamp

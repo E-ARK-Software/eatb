@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
-import os
-
 
 def add_event(task, outcome, identifier_value,  linking_agent, package_premis_file, ip_work_dir):
     """

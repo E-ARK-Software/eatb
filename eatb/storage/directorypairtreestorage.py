@@ -1,21 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 import fnmatch
+import json
 import logging
-import shutil
+import os
 import os.path
+import shutil
+from subprocess import check_output
 import tarfile
+
 from pairtree import PairtreeStorageFactory, ObjectNotFoundException
 
 from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
 from eatb.storage.checksum import check_transfer, ChecksumFile
 from eatb.utils.fileutils import fsize, FileBinaryDataChunks, to_safe_filename, \
     copy_file_with_base_directory, list_files_in_dir
-import json
-from subprocess import check_output
 
 from eatb.cli.cli import CliCommands
 from eatb.cli.cli import CliCommand
@@ -199,7 +198,6 @@ class DirectoryPairtreeStorage(PairtreeStorage):
         uuid = sdir[sdir.rfind('/')+1:]
         working_dir = sdir[:sdir.rfind('/')]
         return self.store_working_directory(uuid, identifier, working_dir, single_package=single_package)
-
 
     def store_working_directory(self, uuid, identifier, working_directory, single_package=True):
         """

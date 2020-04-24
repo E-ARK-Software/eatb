@@ -2,23 +2,22 @@ import shutil
 
 import os
 import tarfile
+import tempfile
 import unittest
 
-from eatb import root_dir
+from eatb import ROOT
 from eatb.storage.directorypairtreestorage import DirectoryPairtreeStorage
-from eatb.utils import randomutils
-
 
 class TestDirectoryPairtreeStorage(unittest.TestCase):
 
-    source_dir = os.path.join(root_dir, 'tests/test_resources/storage-test')
-    test_repo_resources = os.path.join(root_dir, 'tests/test_resources/test-repo/')
-    tmp_test_directory = os.path.join(root_dir, 'tmp/temp-' + randomutils.randomword(10))
+    source_dir = os.path.join(ROOT, 'tests/test_resources/storage-test')
+    test_repo_resources = os.path.join(ROOT, 'tests/test_resources/test-repo/')
+    tmp_test_directory = tempfile.mkdtemp()
     tmp_test_repo = os.path.join(tmp_test_directory, "test-repo")
 
     @classmethod
     def setUpClass(cls):
-        os.makedirs(TestDirectoryPairtreeStorage.tmp_test_directory)
+        # os.makedirs(TestDirectoryPairtreeStorage.tmp_test_directory)
         shutil.copytree(TestDirectoryPairtreeStorage.test_repo_resources,
                         os.path.join(TestDirectoryPairtreeStorage.tmp_test_repo))
 
@@ -57,10 +56,10 @@ class TestDirectoryPairtreeStorage(unittest.TestCase):
 
     def test_store(self):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
-        pts.store("foo", TestDirectoryPairtreeStorage.source_dir)
-        self.assertEqual(1, pts.curr_version_num("foo"))
-        pts.store("foo", TestDirectoryPairtreeStorage.source_dir)
-        self.assertEqual(2, pts.curr_version_num("foo"))
+        pts.store("minimal_IP_with_schemas", TestDirectoryPairtreeStorage.source_dir)
+        self.assertEqual(1, pts.curr_version_num("minimal_IP_with_schemas"))
+        pts.store("minimal_IP_with_schemas", TestDirectoryPairtreeStorage.source_dir)
+        self.assertEqual(2, pts.curr_version_num("minimal_IP_with_schemas"))
 
     def test_get_object_path(self):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
@@ -81,7 +80,7 @@ class TestDirectoryPairtreeStorage(unittest.TestCase):
 
     def test_store_versions_single_package(self):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
-        source_dir_opq = os.path.join(root_dir, 'tests/test_resources/storage-test-opq')
+        source_dir_opq = os.path.join(ROOT, 'tests/test_resources/storage-test-opq/./')
         version = pts.store("opq", source_dir_opq)
         self.assertEqual("00001", version)
         tar_file_path = pts.get_tar_file_path("opq")
@@ -102,7 +101,7 @@ class TestDirectoryPairtreeStorage(unittest.TestCase):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo,
                                        representations_directory="distributions")
         # store first version
-        abc1_src_dir = os.path.join(root_dir, 'tests/test_resources/distributionpackages/abc1')
+        abc1_src_dir = os.path.join(ROOT, 'tests/test_resources/distributionpackages/abc1')
         version = pts.store("abc", abc1_src_dir, single_package=False)
         self.assertEqual("00001", version)
         distr_tar_file_path = pts.get_tar_file_path("abc", "default")
@@ -119,7 +118,7 @@ class TestDirectoryPairtreeStorage(unittest.TestCase):
         tar_file.close()
 
         # store second version (packaged distribution differs from first one)
-        abc2_src_dir = os.path.join(root_dir, 'tests/test_resources/distributionpackages/abc2')
+        abc2_src_dir = os.path.join(ROOT, 'tests/test_resources/distributionpackages/abc2')
         version = pts.store("abc", abc2_src_dir, single_package=False)
         self.assertEqual("00002", version)
 

@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 from datetime import datetime
-import time
+import os
 import pytz
 from pytz import timezone
+import time
 
 
 DT_ISO_FORMAT = '%Y-%m-%dT%H:%M:%SZ'

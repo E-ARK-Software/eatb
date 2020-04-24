@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
-from eatb.utils.reporters import default_reporter
 import tarfile
+
+from eatb.utils.reporters import default_reporter
 
 class ChunkedTarEntryReader(object):
     """

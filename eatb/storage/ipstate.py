@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 from xml.dom import minidom
 from xml.etree.ElementTree import Element, SubElement
 from xml.etree import ElementTree as Etree
+
 from eatb.xml.xmlutils import prettify
 from eatb.utils.datetime import current_timestamp
 

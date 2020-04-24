@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import logging
 import os
 import pathlib
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
-
-import logging
 
 from pairtree import PairtreeStorageFactory, ObjectNotFoundException, shutil
 from eatb.utils.reporters import default_reporter

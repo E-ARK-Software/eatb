@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 from eatb.storage.checksum import ChecksumFile, ChecksumValidation, ChecksumAlgorithm
-from eatb import root_dir
 
 
 class TestChecksum(unittest.TestCase):
 
-    test_dir = root_dir + '/tests/test_resources/'
+    test_dir = 'tests/test_resources/'
     test_file = test_dir + 'test.txt'
     csobj = ChecksumFile(test_file)
     csval = ChecksumValidation()

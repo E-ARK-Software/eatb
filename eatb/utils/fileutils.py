@@ -1,6 +1,4 @@
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 import re
 from shutil import copytree
 from shutil import rmtree

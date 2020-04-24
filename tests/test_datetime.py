@@ -5,14 +5,13 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from eatb import root_dir
 from eatb.utils.datetime import get_file_ctime_iso_date_str, current_timestamp, LengthBasedDateFormat, \
     DT_ISO_FORMAT, ts_date, date_format, current_date
 
 
 class TestDateTime(unittest.TestCase):
 
-    test_file = root_dir + '/tests/test_resources/test.txt'
+    test_file = 'tests/test_resources/test.txt'
 
     def test_file_ctime_iso_date_str(self):
         """
@@ -27,7 +26,7 @@ class TestDateTime(unittest.TestCase):
 
     def test_length_based_format(self):
         lbf = LengthBasedDateFormat("2019")
-        self.assertEqual("2019-01-01T00:00:00Z", lbf.format_4(DT_ISO_FORMAT))
+        self.assertEqual("2019-01-01T00:00:00Z", lbf.format(DT_ISO_FORMAT, 4))
 
     def test_ts_date(self):
         self.assertEqual(19, len(ts_date()))

@@ -1,19 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 
 import shutil
 import unittest
 
-from eatb import root_dir
+from eatb import ROOT
 from eatb.utils import randomutils
 from eatb.packaging.packaged_container import PackagedContainer
 
 
 class TestExtract(unittest.TestCase):
-    test_dir = os.path.join(root_dir, 'tests/test_resources/')
+    test_dir = os.path.join(ROOT, 'tests/test_resources/')
     temp_extract_dir = '/tmp/temp-' + randomutils.randomword(10)
 
     @classmethod

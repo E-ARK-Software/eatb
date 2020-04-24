@@ -2,8 +2,8 @@ import unittest
 import tarfile
 import sys
 
-IP_compressed_path = '/home/matteo/eARK/earkweb/earkresources/AIP-test/siardpackage/SIA_test_animals_2.tar'
-rules_path = './rules.xml'
+IP_compressed_path = './tests/test_resources/minimal_IP_with_schemas.tar'
+rules_path = './tests/rules.xml'
 
 class Base(unittest.TestCase):
 
@@ -17,7 +17,7 @@ class Base(unittest.TestCase):
         self.IP_path = IP_compressed_path.split('/')[-1].split('.')[0]
         print('Extracting')
         with tarfile.open(IP_compressed_path) as tf:
-            tf.extractall(self.IP_path)
+            tf.extractall("./")
         with open(rules_path) as fp:
             xml_rules = fp.read()
         self.rules_lines = xml_rules.split('\n')

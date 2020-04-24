@@ -1,21 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from abc import ABC, abstractmethod
+import logging
 import os
 import sys
-
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
-import zipfile
-
 import tarfile
-import logging
-from abc import ABC, abstractmethod
+import zipfile
 
 from eatb.packaging.package_format import PackageFormat
 from eatb.utils.reporters import default_reporter
 
 logger = logging.getLogger(__name__)
-
 
 class PackagedContainer(ABC):
 

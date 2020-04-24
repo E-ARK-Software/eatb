@@ -1,8 +1,4 @@
-import shutil
 import unittest
-
-import os
-import time
 
 from eatb.cli.cli import CliCommand
 

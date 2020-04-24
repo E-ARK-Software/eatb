@@ -1,19 +1,16 @@
+""" Command line utility for creating E-ARK Submission and Archival IPs. """
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import argparse
 import os
-import sys
+import uuid
+import logging
 
 from eatb.oais.aip_creation import create_aip
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
-import argparse
-import uuid
-
 from eatb.oais.sip_creation import create_sip
 from eatb.oais.oais_package_type import OAISPackageType
 
-import logging
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def main():
@@ -31,15 +28,15 @@ def main():
 
     if not os.path.exists(args.directory):
         msg = "The directory does not exist: %s" % args.directory
-        logger.error(msg)
+        LOGGER.error(msg)
         raise FileNotFoundError(msg)
 
     if OAISPackageType[args.type] == OAISPackageType.SIP and create_sip(args.directory, args.name, args.identifier):
-        logger.info("SIP created successfully")
+        LOGGER.info("SIP created successfully")
     elif OAISPackageType[args.type] == OAISPackageType.AIP and create_aip(args.directory, args.name, args.identifier):
-        logger.info("AIP created successfully")
+        LOGGER.info("AIP created successfully")
     else:
-        logger.error("Package type not supported")
+        LOGGER.error("Package type not supported")
 
 
 if __name__ == '__main__':

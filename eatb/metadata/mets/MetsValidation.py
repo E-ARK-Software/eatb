@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-
-from eatb import root_dir
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
 import fnmatch
-
+import os
 
 from lxml import etree
 
+from importlib_resources import files
+
+from eatb import ROOT
 from eatb.storage.checksum import ChecksumValidation
 from eatb.utils.fileutils import remove_protocol
 from eatb.metadata.XmlHelper import q
@@ -24,8 +21,8 @@ class MetsValidation(object):
     Validation of the Mets file. This includes also the validation of Premis files that are linked in the amdSec!
     '''
 
-    def __init__(self, root, mets_schema_file=os.path.join(root_dir, "eatb/resources/schemas/IP.xsd"),
-                 premis_schema_file=os.path.join(root_dir, "eatb/resources/schemas/premis-v2-2.xsd")):
+    def __init__(self, root, mets_schema_file=os.path.join(ROOT, "eatb/resources/schemas/IP.xsd"),
+                 premis_schema_file=os.path.join(ROOT, "eatb/resources/schemas/premis-v2-2.xsd")):
         self.validation_errors = []
         self.total_files = 0
         self.schema_mets = etree.XMLSchema(file=mets_schema_file)
