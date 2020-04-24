@@ -1,1 +1,3 @@
 include logging_config.ini
+include eatb/resources/*.xml
+include eatb/resources/schemas/*.xsd
