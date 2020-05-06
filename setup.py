@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="eatb",
-    version="0.1",
+    version="0.1.2",
     author="Sven Schlarb",
     author_email="shsdev@posteo.net",
     license='MIT',
@@ -16,8 +16,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     package_data={'': []},
     data_files=[
-        ("settings",  ["settings/settings.cfg"]),
-        ("",  ["logging_config.ini"])
+        ("eatb/settings",  ["settings/settings.cfg"]),
+        ("eatb",  ["logging_config.ini"])
     ],
     zip_safe=False,
     classifiers=[
