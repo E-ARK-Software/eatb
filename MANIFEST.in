@@ -1,1 +1,5 @@
 include logging_config.ini
+settings/settings.cfg
+
+include src/static/*
+include src/Potato/*.txt
