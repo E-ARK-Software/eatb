@@ -70,7 +70,7 @@ class CliCommands(object):
         self.config['DEFAULT'] = {}
         self.config.sections()
         if not commands_config_file:
-            commands_config_file = os.path.join(root_dir, 'eatb/cli/resources/default_commands.cfg')
+            commands_config_file = os.path.join(root_dir, 'settings/default_commands.cfg')
         if not os.path.exists(commands_config_file):
             raise FileNotFoundError("Configuration not found: %s ")
         self.config.read(commands_config_file)

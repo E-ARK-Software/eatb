@@ -16,7 +16,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     package_data={'': []},
     data_files=[
-        ("eatb/settings",  ["settings/settings.cfg"]),
+        ("eatb/settings",  ["settings/settings.cfg", "settings/default_commands.cfg"]),
         ("eatb",  ["logging_config.ini"])
     ],
     zip_safe=False,
