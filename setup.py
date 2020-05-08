@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="eatb",
-    version="0.1",
+    version="0.1.2",
     author="Sven Schlarb",
     author_email="shsdev@posteo.net",
     license='MIT',
@@ -14,8 +14,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="github.com/eark-project/eatb",
     packages=setuptools.find_packages(),
-    include_package_data=True,
-    package_data={'': ['logging_config.ini']},
+    package_data={'': []},
+    data_files=[
+        ("settings",  ["settings/settings.cfg", "settings/default_commands.cfg"]),
+        ("",  ["logging_config.ini"])
+    ],
     zip_safe=False,
     classifiers=[
         "Programming Language :: Python :: 3",
