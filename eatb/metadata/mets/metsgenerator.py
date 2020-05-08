@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
-from lxml import etree, objectify
-import uuid
-from mimetypes import MimeTypes
-from subprocess import Popen, PIPE
 import fnmatch
+from mimetypes import MimeTypes
+import os
+from subprocess import Popen, PIPE
+import uuid
+
+from lxml import etree, objectify
+
 from eatb.storage.checksum import get_sha256_hash
 from eatb.utils.datetime import get_file_ctime_iso_date_str, DT_ISO_FMT_SEC_PREC, current_timestamp
 from eatb.format.formatidentification import FormatIdentification
@@ -455,4 +453,3 @@ class MetsGenerator(object):
             mets_file_path = os.path.join(self.root_path, 'METS.xml')
         with open(mets_file_path, 'w') as output_file:
             output_file.write(str.decode('utf-8'))
-

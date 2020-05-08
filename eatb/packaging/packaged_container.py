@@ -1,23 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
-import zipfile
-import os
-import sys
-
-import tarfile
-import logging
 from abc import ABC, abstractmethod
+import logging
+import os
+import sys
+import tarfile
+import zipfile
 
 from eatb.packaging.package_format import PackageFormat
 from eatb.utils.reporters import default_reporter
 
 logger = logging.getLogger(__name__)
-
 
 class PackagedContainer(ABC):
 
@@ -33,14 +26,13 @@ class PackagedContainer(ABC):
     def extract(self, extract_to):
         pass
 
+    @staticmethod
     def factory(filename):
         if PackageFormat.get(filename) == PackageFormat.TAR or PackageFormat.get(filename) == PackageFormat.TARGZ:
             return TarContainer(filename)
         if PackageFormat.get(filename) == PackageFormat.ZIP:
             return ZipContainer(filename)
         assert 0, "Package format not supported"
-    factory = staticmethod(factory)
-
 
 class TarContainer(PackagedContainer):
     """
@@ -150,7 +142,7 @@ class ZipContainer(PackagedContainer):
             self.stream.write('Problem to extract %s: %s\n' % (self.container_file, str(e)))
             self.success = False
         except IOError as e:
-            self.stream('Problem to extract %s: %s\n' % (self.container_file, str(e)))
+            self.stream.write('Problem to extract %s: %s\n' % (self.container_file, str(e)))
             self.success = False
         return self.success
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding=UTF-8
-
+import sys
 
 class CC:
     def __init__(self):
@@ -26,7 +26,7 @@ def success(msg):
 
 def failure(msg):
     print("%s%s%s" % (CC.FAIL, msg, CC.ENDC))
-    exit(1)
+    sys.exit(1)
 
 
 def warning(msg):

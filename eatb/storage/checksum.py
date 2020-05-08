@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import hashlib
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 
 from eatb.utils.fileutils import fsize
 
-import hashlib
 
 
 class ChecksumAlgorithm:
@@ -24,22 +22,20 @@ class ChecksumAlgorithm:
         """
         if alg.lower() == "md5":
             return ChecksumAlgorithm.MD5
-        elif alg.lower() == "sha256" or alg.lower() == "sha-256":
+        if alg.lower() == "sha256" or alg.lower() == "sha-256":
             return ChecksumAlgorithm.SHA256
-        else:
-            return ChecksumAlgorithm.NONE
+        return ChecksumAlgorithm.NONE
 
     @staticmethod
     def str(alg):
         if alg is ChecksumAlgorithm.MD5:
             return "MD5"
-        elif alg is ChecksumAlgorithm.SHA256:
+        if alg is ChecksumAlgorithm.SHA256:
             return "SHA256"
-        else:
-            return "NONE"
+        return "NONE"
 
 
-class ChecksumFile(object):
+class ChecksumFile():
     """
     Checksum validation
     """
@@ -60,9 +56,9 @@ class ChecksumFile(object):
         :return: Checksum string
         """
         hashval = None
-        if checksum_algorithm == ChecksumAlgorithm.SHA256 or checksum_algorithm == 'SHA-256':
+        if checksum_algorithm in [ChecksumAlgorithm.SHA256, 'SHA-256']:
             hashval = hashlib.sha256()
-        elif checksum_algorithm == ChecksumAlgorithm.MD5 or checksum_algorithm == 'MD5':
+        elif checksum_algorithm in [ChecksumAlgorithm.MD5, 'MD5']:
             hashval = hashlib.md5()
 
         with open(self.file_path, 'rb') as f:
@@ -74,7 +70,7 @@ class ChecksumFile(object):
         return hashval.hexdigest()
 
 
-class ChecksumValidation(object):
+class ChecksumValidation():
     """
     Checksum validation
     """

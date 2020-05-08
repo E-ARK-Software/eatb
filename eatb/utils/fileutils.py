@@ -1,6 +1,4 @@
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 import re
 from shutil import copytree
 from shutil import rmtree
@@ -382,21 +380,6 @@ def fsize(file_path, wd=None):
     fp = file_path
     path = fp if wd is None else os.path.join(wd, fp)
     return int(os.path.getsize(path))
-
-
-def human_readable_size(size, decimal_places=1):
-    """
-    Get a fhuman readable string representation for a given file size in bytes (integer)
-    :param size: size (integer)
-    :param decimal_places: number of decimal places in the result string
-    :return: human readable string representation of the file size
-    """
-    for unit in ['B','KiB','MiB','GiB','TiB']:
-        if size < 1024.0:
-            break
-        size /= 1024.0
-    return f"{size:.{decimal_places}f} {unit}"
-
 
 def get_mime_type(path):
     """

@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
+from lxml import objectify
 
 from eatb.metadata.XmlHelper import sequence_insert
 from eatb.metadata.premis.PremisManipulate import Premis
-
-from lxml import etree, objectify
-
 
 PREMIS_NS = 'info:lc/xmlns/premis-v2'
 PREMIS_NSMAP = {None: PREMIS_NS}
@@ -16,7 +11,6 @@ P = objectify.ElementMaker(
     annotate=False,
     namespace=PREMIS_NS,
     nsmap=PREMIS_NSMAP)
-
 
 class DIPPremis(Premis):
     """

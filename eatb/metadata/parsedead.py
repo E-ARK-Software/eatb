@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 import re
+
 import lxml
-from lxml.etree import XMLSyntaxError
 
 from eatb.utils.datetime import LengthBasedDateFormat
 from eatb.utils.fileutils import get_sub_path_from_relative_path
@@ -33,7 +31,7 @@ def field_namevalue_pairs_per_file(extract_defs, ead_root_path, ead_file_path):
     return result
 
 
-class ParsedEad(object):
+class ParsedEad():
     """
     Parsed EAD object
     """
@@ -78,9 +76,8 @@ class ParsedEad(object):
         def get_text_val(node):
             if not text_accessor:
                 return node.text
-            else:
-                tc_elms = node.findall(text_accessor, namespaces=self.ns)
-                return None if len(tc_elms) != 1 else tc_elms[0].text
+            tc_elms = node.findall(text_accessor, namespaces=self.ns)
+            return None if len(tc_elms) != 1 else tc_elms[0].text
         parent_elms = current_elm.findall("..")
         if parent_elms is not None and len(parent_elms) == 1:
             parent = parent_elms[0]
@@ -88,18 +85,15 @@ class ParsedEad(object):
                 if re.match(md_tag, child.xpath('local-name()'), re.IGNORECASE):
                     if is_attr_text_accessor:
                         return child.get(text_accessor)
-                    else:
-                        return get_text_val(child)
-                else:
-                    for c in child:
-                        if re.match(md_tag, c.xpath('local-name()'), re.IGNORECASE):
-                            return get_text_val(c)
+                    return get_text_val(child)
+                for c in child:
+                    if re.match(md_tag, c.xpath('local-name()'), re.IGNORECASE):
+                        return get_text_val(c)
             if re.match(md_tag, parent.tag, re.IGNORECASE):
                 return parent.get(text_accessor)
-            else:
-                return self._first_md_val_ancpath(parent, md_tag, text_accessor, is_attr_text_accessor)
-        else:
-            return None
+            return self._first_md_val_ancpath(parent, md_tag, text_accessor,
+                                              is_attr_text_accessor)
+        return None
 
     def dao_path_mdval_tuples(self, md_tag, text_val_sub_path=None, is_attr_text_accessor=False):
         dao_elements = self.get_dao_elements()

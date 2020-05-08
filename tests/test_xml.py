@@ -1,23 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
 import unittest
 
 import lxml.etree as ET
 
-from eatb import root_dir
+from eatb import ROOT
 from eatb.utils.fileutils import read_file_content
 from eatb.xml.deliveryvalidation import DeliveryValidation
 from eatb.xml.xmlutils import get_dcat_element_values
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
-
-
 class TestXml(unittest.TestCase):
 
-    test_dir = root_dir + '/testresources/'
-    delivery_dir = os.path.join(root_dir, 'tests/test_resources/Delivery-test/')
+    test_dir = "." + '/testresources/'
+    delivery_dir = os.path.join(ROOT, 'tests/test_resources/Delivery-test/')
 
     schema_file = delivery_dir + 'schemas/IP.xsd'
     package_file = delivery_dir + 'pkg.tar.gz'
@@ -27,7 +23,7 @@ class TestXml(unittest.TestCase):
         """
         Test get dataset property value
         """
-        md_file = os.path.join(root_dir + '/tests/test_resources/metadata/dcat/dcat2.xml')
+        md_file = os.path.join(ROOT + '/tests/test_resources/metadata/dcat/dcat2.xml')
         substitutions = {
             "//*/dcat:dataset/dcat:Dataset/dct:identifier": "xxx",
             "//*/dcat:dataset/dcat:Dataset/dcat:accessURL": "yyy",

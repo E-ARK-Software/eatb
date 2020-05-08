@@ -1,14 +1,10 @@
-import shutil
 import unittest
-
-import os
-import time
 
 from eatb.cli.cli import CliCommand
 
 
 def gpg_encrypt_file_passphrase(file, passphrase):
-    return CliCommand.get("gpg_passphrase_encrypt_file", {'file': file, 'passphrase': passphrase})
+    return CliCommand.get_command("gpg_passphrase_encrypt_file", {'file': file, 'passphrase': passphrase})
 
 
 

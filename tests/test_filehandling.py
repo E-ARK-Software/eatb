@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
 
-from eatb import root_dir
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
+from eatb import ROOT
 from eatb.utils.fileutils import remove_protocol, strip_prefixes, get_sub_path_from_relative_path
-
 
 class TestPathFunctions(unittest.TestCase):
 
@@ -35,7 +31,7 @@ class TestPathFunctions(unittest.TestCase):
 
     def test_package_path_from_relative_path(self):
         test_ip = "eark-ip"
-        test_source_directory = os.path.join(root_dir + '/tests/test_resources/')
+        test_source_directory = os.path.join(ROOT + '/tests/test_resources/')
 
         test_ip_root = os.path.join(test_source_directory, test_ip)
 

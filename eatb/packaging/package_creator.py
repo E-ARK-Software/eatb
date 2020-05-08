@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
 import tarfile
 from pathlib import Path
 
 from eatb.storage.checksum import ChecksumFile, ChecksumAlgorithm
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
-
-
-def create_package(input_directory, packagename, output_directory=None, gunzip=False) -> str:
+def create_package(input_directory, packagename) -> str:
     """
     Create package
     :param input_directory: Input directory

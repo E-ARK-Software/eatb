@@ -1,24 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-
-from pairtree import ObjectNotFoundException
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import shutil
 import unittest
 
-from eatb import root_dir
+from pairtree import ObjectNotFoundException
+
 from eatb.utils import randomutils
 from eatb.storage.pairtreestorage import PairtreeStorage
 
 
 class TestPairtreeStorage(unittest.TestCase):
-    source_dir = root_dir + '/tests/test_resources/storage-test/'
+    source_dir = 'tests/test_resources/storage-test/'
     package_file = "bar.tar"
     repository_storage_dir = '/tmp/temp-' + randomutils.randomword(10)
-    test_repo = root_dir + '/tests/test_resources/test-repo/'
+    test_repo = 'tests/test_resources/test-repo/'
 
     @classmethod
     def setUpClass(cls):

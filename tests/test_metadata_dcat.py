@@ -1,22 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
-from eatb import root_dir
+
+from eatb import ROOT
 from eatb.utils.fileutils import read_file_content
 from eatb.metadata.parseddcat import ParsedDcat
 
 
 class TestParsedDcat(unittest.TestCase):
-    test_dir = os.path.join(root_dir, 'tests/test_resources/')
+    test_dir = os.path.join(ROOT, 'tests/test_resources/')
 
     def test_get_dataset_property_value(self):
         """
         Test get dataset property value
         """
-        xml_content = read_file_content(os.path.join(TestParsedDcat.test_dir, TestParsedDcat.test_dir + 'metadata/dcat/dcat.xml'))
+        xml_content = read_file_content(os.path.join(TestParsedDcat.test_dir, 'metadata/dcat/dcat.xml'))
         pead = ParsedDcat(xml_content.encode('utf-8'))
         title = pead.get_dataset_property_value("dct:title")
         print(title)
@@ -39,7 +38,7 @@ class TestParsedDcat(unittest.TestCase):
         Test get dataset property values
         """
         xml_content = read_file_content(
-            os.path.join(TestParsedDcat.test_dir, TestParsedDcat.test_dir + 'metadata/dcat/dcat.xml'))
+            os.path.join(TestParsedDcat.test_dir + 'metadata/dcat/dcat.xml'))
         pead = ParsedDcat(xml_content.encode('utf-8'))
         titles = pead.get_distribution_property_values()
         print(titles)

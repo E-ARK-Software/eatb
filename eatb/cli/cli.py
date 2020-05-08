@@ -6,8 +6,7 @@ import subprocess
 
 import os
 
-from eatb import root_dir
-
+from eatb import ROOT
 
 class CliCommand(object):
     """

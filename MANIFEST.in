@@ -1,5 +1,6 @@
 include logging_config.ini
+include eatb/resources/*.xml
+include eatb/resources/schemas/*.xsd
 settings/settings.cfg
-
 include src/static/*
 include src/Potato/*.txt

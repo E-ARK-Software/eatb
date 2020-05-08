@@ -2,23 +2,19 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
-import sys
-
-from eatb.utils.fileutils import read_file_content
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
-import unittest
-from eatb.utils import randomutils
-
-from eatb import root_dir
-from eatb.storage.encryption import gpg_encrypt_file_passphrase
-from eatb.cli.cli import CliCommand, CliCommands
 import subprocess
+import unittest
+
+from eatb import ROOT
+from eatb.cli.cli import CliCommand, CliCommands
+from eatb.storage.encryption import gpg_encrypt_file_passphrase
+from eatb.utils import randomutils
+from eatb.utils.fileutils import read_file_content
 
 class EncryptionTest(unittest.TestCase):
 
     test_file = 'test.txt'
-    test_dir = os.path.join(root_dir, 'tests/test_resources')
+    test_dir = os.path.join(ROOT, 'tests/test_resources')
     test_file_path = os.path.join(test_dir, test_file)
     tmp_dir = '/tmp/temp-' + randomutils.randomword(10)
     tmp_file_path = os.path.join(tmp_dir, test_file)

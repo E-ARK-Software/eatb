@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
 
 from eatb.metadata.mets.ParsedMets import ParsedMets
 from eatb.utils.fileutils import rec_find_files
-
 
 def get_package_mets_files_from_basedir(base_directory):
         """

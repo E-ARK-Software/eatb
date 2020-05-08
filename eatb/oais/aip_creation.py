@@ -1,26 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import logging
 import os
-import shutil
-import sys
-from lxml import etree
 from pathlib import Path
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
-from eatb import root_dir
+
+from lxml import etree
 
 from eatb.metadata.mets.metsgenerator import MetsGenerator
 from eatb.metadata.XmlHelper import q
 from eatb.packaging.package_creator import create_package
 
-import logging
 logger = logging.getLogger(__name__)
 
 
-def create_aip(package_dir: str, identifier: str, package_name: str, identifier_map=None, generate_premis: bool=True,
-               generate_package: bool=True) -> bool:
+def create_aip(package_dir, identifier, package_name, identifier_map=None, generate_premis=True,
+               generate_package=True) -> bool:
 
     # schema file location for Mets generation
-    schemas = os.path.join(root_dir, 'resources/schemas')
+    schemas = os.path.join(ROOT, 'resources/schemas')
 
     # for every REPRESENTATION without METS file:
     for repdir in os.listdir(os.path.join(package_dir, 'representations')):
@@ -35,7 +32,7 @@ def create_aip(package_dir: str, identifier: str, package_name: str, identifier_
         metsgen.createMets(mets_data)
 
         logger.info('Generated a Mets file for representation %s.' % repdir)
-        
+
     #########
 
     # schema file location for Mets generation

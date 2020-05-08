@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from eatb import root_dir
 from eatb.metadata.mets.ParsedMets import ParsedMets
 
 
 class TestParsedMets(unittest.TestCase):
 
-    test_dir = root_dir + '/tests/test_resources/metadata/mets/'
+    test_dir = 'tests/test_resources/metadata/mets/'
     test_file = test_dir + 'METS_filesec.xml'
     pmets = ParsedMets(test_dir)
     pmets.load_mets(test_file)

@@ -3,21 +3,22 @@ import json
 import os
 import re
 
+from importlib_resources import files
+
 from lxml import isoschematron
 from lxml import etree
 
-from eatb import root_dir
 from eatb.settings import validation_profile
-
+import eatb.resources
 
 class CSIPValidation(object):
 
     def __init__(self, rules_path=None):
         if not rules_path:
-            rules_path = os.path.join(root_dir, "eatb/resources/validation_rules.xml")
-        self.rules_path = rules_path
-        with open(rules_path) as fp:
-            xml_rules = fp.read()
+            self.rules_path = files(eatb.resources).joinpath('validation_rules.xml')
+        else:
+            self.rules_path = rules_path
+        xml_rules = self._read_rules_from_location(rules_path)
         self.rules_lines = xml_rules.split('\n')
         self.validation_report = []
         self.validation_profile = json.loads(validation_profile)
@@ -102,3 +103,10 @@ class CSIPValidation(object):
                         validation_block_name, validation_result['rule'], res.attrib['location'])})
 
         return log_lines
+
+    @staticmethod
+    def _read_rules_from_location(location):
+        if not location:
+            return files(eatb.resources).joinpath('validation_rules.xml').read_text()
+        with open(location) as fp:
+            return fp.read()

@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from eatb import root_dir
+from eatb import ROOT
 from eatb.metadata.premis.dippremis import DIPPremis
 
 
 class DIPPremisTest(unittest.TestCase):
 
-    test_premis = os.path.join(root_dir, 'tests/test_resources/metadata/premis/premis.xml')
+    test_premis = os.path.join(ROOT, 'tests/test_resources/metadata/premis/premis.xml')
 
     def test_add_related_aips(self):
         """

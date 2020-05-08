@@ -1,20 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import shutil
 import unittest
-from eatb import root_dir
-
-from eatb.utils.fileutils import rec_find_files
-from eatb.utils.randomutils import randomword
-
+import re
 import io
+
 from lxml import isoschematron
 from lxml import etree
-import re
 
+from eatb import ROOT
+from eatb.utils.fileutils import rec_find_files
+from eatb.utils.randomutils import randomword
 
 def get_rule(lines, rule_id):
     rules_ids = [rule_id]
@@ -63,7 +60,7 @@ class TestUtils(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        tests_dir = os.path.join(root_dir, 'tests/test_resources/package')
+        tests_dir = os.path.join(ROOT, 'tests/test_resources/package')
         shutil.copytree(tests_dir, TestUtils.temp_extract_dir)
 
     @classmethod

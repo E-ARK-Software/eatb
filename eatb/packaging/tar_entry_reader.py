@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
-from eatb.utils.reporters import default_reporter
 import tarfile
+
+from eatb.utils.reporters import default_reporter
 
 class ChunkedTarEntryReader(object):
     """
@@ -19,8 +17,7 @@ class ChunkedTarEntryReader(object):
     def close(self):
         if self.tfile:
             return self.tfile.close()
-        else:
-            return True
+        return True
 
     def chunks(self, entry, total_bytes_read=0, bytes_total=-1):
         """

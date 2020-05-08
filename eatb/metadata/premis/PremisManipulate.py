@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../'))  # noqa: E402
-
-from eatb.metadata.XmlHelper import q, XSI_NS, sequence_insert
-from lxml import etree, objectify
 from datetime import datetime
 
+from lxml import etree, objectify
+
+from eatb.metadata.XmlHelper import q, XSI_NS, sequence_insert
 
 PREMIS_NS = 'info:lc/xmlns/premis-v2'
 PREMIS_NSMAP = {None: PREMIS_NS}

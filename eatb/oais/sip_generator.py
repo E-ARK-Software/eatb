@@ -10,7 +10,6 @@ from mimetypes import MimeTypes
 
 from subprocess import Popen, PIPE
 
-from eatb import root_dir
 from eatb.format.formatidentification import FormatIdentification
 from eatb.metadata.XmlHelper import XSI_NS, q
 from eatb.utils.datetime import get_file_ctime_iso_date_str, DT_ISO_FMT_SEC_PREC, current_timestamp
@@ -33,7 +32,7 @@ M = objectify.ElementMaker(
     namespace=METS_NS,
     nsmap=METS_NSMAP)
 
-class SIPGenerator(object):
+class SIPGenerator():
     fid = FormatIdentification()
     mime = MimeTypes()
     root_path = ""
@@ -682,12 +681,6 @@ class SIPGenerator(object):
 
 
 class testFormatIdentification(unittest.TestCase):
-    def testCreateMetsAndPremis(self):
-        sipgen = SIPGenerator(os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127"))
-        #input_folder = os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127")
-        #output_mets = os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127/metadata/METS.xml")
-        sipgen.createSIPMets()
-
     def atestCreateDeliveryMets(self):
         sipgen = SIPGenerator(os.path.join(root_dir, "sandbox/sipgenerator/resources/"))
         input_archive = os.path.join(root_dir, "sandbox/sipgenerator/resources/test.tar")

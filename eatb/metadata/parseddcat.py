@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))  # noqa: E402
 import re
+
 import lxml.etree as ET
 
 
-class ParsedDcat(object):
+class ParsedDcat():
     """
     Parsed DCAT
     """
@@ -33,8 +31,7 @@ class ParsedDcat(object):
         elms = self.dcat_tree.xpath("%s%s" % (self.dataset_xpath, property), namespaces=self.ns)
         if len(elms) == 1:
             return elms[0].text
-        else:
-            raise ValueError("Invalid metadata, data set property '%s' is required." % property)
+        raise ValueError("Invalid metadata, data set property '%s' is required." % property)
 
     def get_dataset_property_values(self, properties):
         return {re.sub(r'[a-z]{1,10}:', '', prop).replace("/", "_"): self.get_dataset_property_value(prop) for prop in properties}
