@@ -381,6 +381,19 @@ def fsize(file_path, wd=None):
     path = fp if wd is None else os.path.join(wd, fp)
     return int(os.path.getsize(path))
 
+
+def human_readable_size(size):
+    """
+    Get a fhuman readable string representation for a given file size in bytes (integer)
+    :param size: size (integer)
+    :return: human readable string representation of the file size
+    """
+    for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
+        if abs(size) < 1024.0:
+            return "%3.1f%s" % (size, unit)
+        size /= 1024.0
+
+
 def get_mime_type(path):
     """
     Get mime type of a file
