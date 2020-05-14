@@ -6,7 +6,7 @@ from pathlib import Path
 
 from eatb.storage.checksum import ChecksumFile, ChecksumAlgorithm
 
-def create_package(input_directory, packagename) -> str:
+def create_package(input_directory, packagename, gunzip=False, output_directory=None) -> str:
     """
     Create package
     :param input_directory: Input directory
