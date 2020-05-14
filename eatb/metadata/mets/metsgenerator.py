@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import fnmatch
+import logging
 from mimetypes import MimeTypes
 import os
 from subprocess import Popen, PIPE
@@ -30,6 +31,8 @@ M = objectify.ElementMaker(
 
 folders_with_USE = ['documentation', 'schemas', 'representations', "data"]
 
+logger = logging.getLogger(__name__)
+
 
 def get_folder_with_USE(path):
     try:
@@ -38,8 +41,8 @@ def get_folder_with_USE(path):
             if dir in folders_with_USE:
                 return dir
     except Exception as e:
-        print('Parent directory not used')
-        print(e)
+        logger.debug('Parent directory not used')
+        logger.debug(e)
     return 'other'
 
 
@@ -69,19 +72,19 @@ class MetsGenerator(object):
             # special: invoking bash as login shell here with
             # an unquoted command does not execute /etc/profile
 
-            print('Launching: ' + ' '.join(program))
+            logger.debug('Launching: ' + ' '.join(program))
             process = Popen(program, stdin=stdin, stdout=stdout, stderr=stderr, shell=False)
 
             res_stdout, res_stderr = process.communicate()
             result = process.returncode
-            print('Finished: ' + ' '.join(program))
+            logger.debug('Finished: ' + ' '.join(program))
 
         except Exception as ex:
             res_stderr = ''.join(str(ex.args))
             result = 1
 
         if result != 0:
-            print('Command failed:' + ''.join(res_stderr))
+            logger.debug('Command failed:' + ''.join(res_stderr))
             raise Exception('Command failed:' + ''.join(res_stderr))
 
         return result, res_stdout, res_stderr
@@ -167,7 +170,7 @@ class MetsGenerator(object):
             with open(parentmets, 'w') as output_file:
                 output_file.write(str)
         else:
-            print('Couldn\'t find the parent %ss Mets file.' % packagetype)
+            logger.debug('Couldn\'t find the parent %ss Mets file.' % packagetype)
 
     def addChildRelation(self, identifier):
         parentmets = os.path.join(self.root_path, 'METS.xml')
@@ -199,7 +202,7 @@ class MetsGenerator(object):
             with open(parentmets, 'w') as output_file:
                 output_file.write(str)
         else:
-            print('Couldn\'t find the parent %ss Mets file.' % packagetype)
+            logger.debug('Couldn\'t find the parent %ss Mets file.' % packagetype)
 
     def createMets(self, mets_data, mets_file_path=None):
         self.mets_data = mets_data
@@ -292,7 +295,7 @@ class MetsGenerator(object):
 
         # create structmap for parent/child relation, if applicable
         if parent and parent != '':
-            print('creating link to parent %s' % packagetype)
+            logger.debug('creating link to parent %s' % packagetype)
             mets_structmap_relation = M.structMap({'TYPE': 'logical', 'LABEL': 'parent'})
             root.append(mets_structmap_relation)
             mets_div_rel = M.div({'LABEL': '%s parent identifier' % packagetype, "ID": "ID" + uuid.uuid4().__str__()})
@@ -374,7 +377,7 @@ class MetsGenerator(object):
                                             mets_structmap_metadata_div.append(M.fptr({"FILEID": id}))
                                             physical_div.append(M.fptr({"FILEID": id}))
                                         elif filename:
-                                            print('Unclassified metadata file %s in %s.' % (filename, dir))
+                                            logger.debug('Unclassified metadata file %s in %s.' % (filename, dir))
                         else:
                             # metadata that should be listed in the Mets
                             for dir, subdir, files in os.walk(os.path.join(self.root_path, 'metadata/%s') % dirname):
@@ -407,7 +410,7 @@ class MetsGenerator(object):
                                             mets_structmap_metadata_div.append(M.fptr({"FILEID": id}))
                                             physical_div.append(M.fptr({"FILEID": id}))
                                         elif filename:
-                                            print('Unclassified metadata file %s in %s.' % (filename, dir))
+                                            logger.debug('Unclassified metadata file %s in %s.' % (filename, dir))
                 else:
                     # Any other folder outside of /<root>/metadata
                     for filename in filenames:
@@ -443,9 +446,13 @@ class MetsGenerator(object):
                                 mets_structmap_schema_div.append(M.fptr({'FILEID': id}))
                                 physical_div.append(M.fptr({'FILEID': id}))
                             elif filename:
-                                id = self.addFile(os.path.join(directory, filename), mets_filegroups[folder_with_USE])
-                                mets_structmap_content_div.append(M.fptr({'FILEID': id}))
-                                physical_div.append(M.fptr({'FILEID': id}))
+                                try:
+                                    id = self.addFile(os.path.join(directory, filename),
+                                                      mets_filegroups[folder_with_USE])
+                                    mets_structmap_content_div.append(M.fptr({'FILEID': id}))
+                                    physical_div.append(M.fptr({'FILEID': id}))
+                                except KeyError as error:
+                                    logger.error("Error looking up '%s' element for file '%s'" % (folder_with_USE, filename), error)
 
         str = etree.tostring(root, encoding='UTF-8', pretty_print=True, xml_declaration=True)
 
