@@ -1,9 +1,13 @@
-""" Command line utility for creating E-ARK Submission and Archival IPs. """
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+""" Command line utility for creating E-ARK Submission and Archival IPs. """
 import argparse
 import os
 import uuid
+
+# using absolute imports, therefore adding root to python path
+import sys
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")) # NOQA
 
 from eatb import LOGGER
 from eatb.oais.aip_creation import create_aip
