@@ -4,13 +4,11 @@
 import argparse
 import os
 import uuid
-import logging
 
+from eatb import LOGGER
 from eatb.oais.aip_creation import create_aip
 from eatb.oais.sip_creation import create_sip
 from eatb.oais.oais_package_type import OAISPackageType
-
-LOGGER = logging.getLogger(__name__)
 
 
 def main():

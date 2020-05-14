@@ -3,6 +3,9 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+from logging.config import fileConfig
 
 ROOT = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
-LOGGER = logging.getLogger(__name__)
+
+fileConfig(os.path.join(ROOT, 'logging_config.ini'))
+LOGGER = logging.getLogger()
