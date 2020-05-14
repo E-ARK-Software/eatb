@@ -6,6 +6,7 @@ from pathlib import Path
 
 from lxml import etree
 
+from eatb import ROOT
 from eatb.metadata.mets.metsgenerator import MetsGenerator
 from eatb.metadata.XmlHelper import q
 from eatb.packaging.package_creator import create_package
