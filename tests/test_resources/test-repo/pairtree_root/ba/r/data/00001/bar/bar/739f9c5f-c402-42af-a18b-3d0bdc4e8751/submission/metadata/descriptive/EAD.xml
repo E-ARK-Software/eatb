@@ -68,7 +68,7 @@
               <physdesc>
                 <extent>1 Image file</extent>
               </physdesc>
-              <dao xlink:href="file://../../representations/imgs/data/Letter-Einstein-Maric.png">
+              <dao xlink:href="../../representations/imgs/data/Letter-Einstein-Maric.png">
                 <daodesc>
                   <p>Image of a letter between Einstein and Maric</p>
                 </daodesc>
@@ -95,7 +95,7 @@
                 <extent>1 Image</extent>
               </physdesc>
               <origination>Einstein</origination>
-              <dao xlink:href="file://../../representations/imgs/data/Einstein-Roosevelt-letter.png">
+              <dao xlink:href="../../representations/imgs/data/Einstein-Roosevelt-letter.png">
                 <daodesc>
                   <p>Einstein-Roosevelt letter</p>
                 </daodesc>
@@ -128,7 +128,7 @@
               <unitid countrycode="AT" identifier="A/SCI/1/1/1/2/1/1" type="persistent" label="current">A/SCI/1/1/1/2/1/1</unitid>
               <unittitle>General relativity</unittitle>
               <unitdate normal="1915/1915">1915-1915</unitdate>
-              <dao xlink:href="file://../../representations/docs/data/General relativity.pdf">
+              <dao xlink:href="../../representations/docs/data/General relativity.pdf">
                 <daodesc>
                   <p>General relativity</p>
                 </daodesc>
@@ -140,7 +140,7 @@
               <unitid countrycode="AT" identifier="A/SCI/1/1/1/2/1/2" type="persistent" label="current">A/SCI/1/1/1/2/1/2</unitid>
               <unittitle>Special relativity</unittitle>
               <unitdate normal="1905/1905">1905-1905</unitdate>
-              <dao xlink:href="file://../../representations/docs/data/Special relativity.pdf">
+              <dao xlink:href="../../representations/docs/data/Special relativity.pdf">
                 <daodesc>
                   <p>Special relativity</p>
                 </daodesc>

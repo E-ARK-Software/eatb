@@ -9,7 +9,7 @@
   <object xmlID="ID7e3a0a9b-faf7-4658-abfc-427207f39cba" xsi:type="file">
     <objectIdentifier>
       <objectIdentifierType>filepath</objectIdentifierType>
-      <objectIdentifierValue>file://./data/Special relativity.pdf</objectIdentifierValue>
+      <objectIdentifierValue>./data/Special relativity.pdf</objectIdentifierValue>
     </objectIdentifier>
     <objectCharacteristics>
       <compositionLevel>0</compositionLevel>
@@ -31,7 +31,7 @@
   <object xmlID="IDe0367fd6-7b7c-43eb-8a2d-afafa4056bb0" xsi:type="file">
     <objectIdentifier>
       <objectIdentifierType>filepath</objectIdentifierType>
-      <objectIdentifierValue>file://./data/General relativity.pdf</objectIdentifierValue>
+      <objectIdentifierValue>./data/General relativity.pdf</objectIdentifierValue>
     </objectIdentifier>
     <objectCharacteristics>
       <compositionLevel>0</compositionLevel>

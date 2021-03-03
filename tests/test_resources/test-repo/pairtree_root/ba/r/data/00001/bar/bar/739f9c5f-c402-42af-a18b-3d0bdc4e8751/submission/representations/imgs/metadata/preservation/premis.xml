@@ -9,7 +9,7 @@
   <object xmlID="ID32ab0a35-86ab-4d32-9b0d-667e6133dbbe" xsi:type="file">
     <objectIdentifier>
       <objectIdentifierType>filepath</objectIdentifierType>
-      <objectIdentifierValue>file://./data/Albert_Einstein_and_his_wife_Mileva_Maric.jpg</objectIdentifierValue>
+      <objectIdentifierValue>./data/Albert_Einstein_and_his_wife_Mileva_Maric.jpg</objectIdentifierValue>
     </objectIdentifier>
     <objectCharacteristics>
       <compositionLevel>0</compositionLevel>
@@ -31,7 +31,7 @@
   <object xmlID="IDdd9d7f8f-83d1-434c-8f55-d0222057242e" xsi:type="file">
     <objectIdentifier>
       <objectIdentifierType>filepath</objectIdentifierType>
-      <objectIdentifierValue>file://./data/Letter-Einstein-Maric.png</objectIdentifierValue>
+      <objectIdentifierValue>./data/Letter-Einstein-Maric.png</objectIdentifierValue>
     </objectIdentifier>
     <objectCharacteristics>
       <compositionLevel>0</compositionLevel>
@@ -53,7 +53,7 @@
   <object xmlID="ID2257df76-d1f6-4213-a213-29fec18559b4" xsi:type="file">
     <objectIdentifier>
       <objectIdentifierType>filepath</objectIdentifierType>
-      <objectIdentifierValue>file://./data/Einstein-Roosevelt-letter.png</objectIdentifierValue>
+      <objectIdentifierValue>./data/Einstein-Roosevelt-letter.png</objectIdentifierValue>
     </objectIdentifier>
     <objectCharacteristics>
       <compositionLevel>0</compositionLevel>

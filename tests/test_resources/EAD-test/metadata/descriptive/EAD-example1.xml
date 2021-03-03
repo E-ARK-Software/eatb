@@ -85,10 +85,10 @@
 								<daoset label="Digital Objects" coverage="whole">
 									<dao id="ddf3d161-e48e-4ec4-84df-73606f6c35e1" daotype="borndigital"
 											linktitle="rep1" localtype="fullsize"
-											href="file:../../representations/rep1/data/Example1.docx"/>
+											href="../../representations/rep1/data/Example1.docx"/>
 									<dao id="daf6d161-e48e-4ec4-84df-73606f6c35e1" daotype="derived"
 											linktitle="rep2" localtype="fullsize"
-											href="file:../../representations/rep2/data/Example1.pdf"/>
+											href="../../representations/rep2/data/Example1.pdf"/>
 								</daoset>
 							</did>
 							<!--Related Material-->

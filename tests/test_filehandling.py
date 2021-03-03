@@ -10,7 +10,7 @@ from eatb.utils.fileutils import remove_protocol, strip_prefixes, get_sub_path_f
 class TestPathFunctions(unittest.TestCase):
 
     def test_remove_protocol(self):
-        self.assertEqual('./test', remove_protocol("file://./test"))
+        self.assertEqual('/test', remove_protocol("file:///test"))
 
     def test_strip_prefixes_from_path_singlefile(self):
         full_path = '/to/be/stripped/someotherpart/file.txt'
@@ -39,7 +39,7 @@ class TestPathFunctions(unittest.TestCase):
 
         # root = '/var/data/conduit/work/71ee0837-34f4-4857-9721-07a3eaac0582'
         # containing_file_path = '/var/data/conduit/work/71ee0837-34f4-4857-9721-07a3eaac0582/submission/metadata/descriptive/EAD.xml'
-        relative_path = 'file://../../submission/metadata/descriptive/EAD.xml'
+        relative_path = '../../submission/metadata/descriptive/EAD.xml'
         self.assertEqual("submission/metadata/descriptive/EAD.xml",
                          get_sub_path_from_relative_path(test_ip_root, containing_file_path, relative_path))
 

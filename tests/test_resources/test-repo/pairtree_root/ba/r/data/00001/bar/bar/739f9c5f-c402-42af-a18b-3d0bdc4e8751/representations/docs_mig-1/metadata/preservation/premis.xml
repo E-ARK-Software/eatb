@@ -9,7 +9,7 @@
   <object xmlID="ID6dfb286f-8622-4b8c-95b0-3cd385361d67" xsi:type="file">
     <objectIdentifier>
       <objectIdentifierType>filepath</objectIdentifierType>
-      <objectIdentifierValue>file://./data/Special relativity.pdf</objectIdentifierValue>
+      <objectIdentifierValue>./data/Special relativity.pdf</objectIdentifierValue>
     </objectIdentifier>
     <objectCharacteristics>
       <compositionLevel>0</compositionLevel>
@@ -32,7 +32,7 @@
       <relationshipSubType>has source</relationshipSubType>
       <relatedObjectIdentification>
         <relatedObjectIdentifierType>filepath</relatedObjectIdentifierType>
-        <relatedObjectIdentifierValue>file://./../../submission/representations/docs/data/Special relativity.pdf</relatedObjectIdentifierValue>
+        <relatedObjectIdentifierValue>./../../submission/representations/docs/data/Special relativity.pdf</relatedObjectIdentifierValue>
         <relatedObjectSequence>0</relatedObjectSequence>
       </relatedObjectIdentification>
       <relatedEventIdentification>
@@ -45,7 +45,7 @@
   <object xmlID="ID34cd6549-d55c-49bd-8ee2-21c3435966a4" xsi:type="file">
     <objectIdentifier>
       <objectIdentifierType>filepath</objectIdentifierType>
-      <objectIdentifierValue>file://./data/General relativity.pdf</objectIdentifierValue>
+      <objectIdentifierValue>./data/General relativity.pdf</objectIdentifierValue>
     </objectIdentifier>
     <objectCharacteristics>
       <compositionLevel>0</compositionLevel>
@@ -68,7 +68,7 @@
       <relationshipSubType>has source</relationshipSubType>
       <relatedObjectIdentification>
         <relatedObjectIdentifierType>filepath</relatedObjectIdentifierType>
-        <relatedObjectIdentifierValue>file://./../../submission/representations/docs/data/General relativity.pdf</relatedObjectIdentifierValue>
+        <relatedObjectIdentifierValue>./../../submission/representations/docs/data/General relativity.pdf</relatedObjectIdentifierValue>
         <relatedObjectSequence>0</relatedObjectSequence>
       </relatedObjectIdentification>
       <relatedEventIdentification>
@@ -94,7 +94,7 @@
     </linkingAgentIdentifier>
     <linkingObjectIdentifier>
       <linkingObjectIdentifierType>filepath</linkingObjectIdentifierType>
-      <linkingObjectIdentifierValue>file://./data/Special relativity.pdf</linkingObjectIdentifierValue>
+      <linkingObjectIdentifierValue>./data/Special relativity.pdf</linkingObjectIdentifierValue>
     </linkingObjectIdentifier>
   </event>
   <event>
@@ -113,7 +113,7 @@
     </linkingAgentIdentifier>
     <linkingObjectIdentifier>
       <linkingObjectIdentifierType>filepath</linkingObjectIdentifierType>
-      <linkingObjectIdentifierValue>file://./data/General relativity.pdf</linkingObjectIdentifierValue>
+      <linkingObjectIdentifierValue>./data/General relativity.pdf</linkingObjectIdentifierValue>
     </linkingObjectIdentifier>
   </event>
   <agent>

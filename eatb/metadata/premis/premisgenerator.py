@@ -71,7 +71,7 @@ class PremisGenerator(object):
         '''
 
         hash = self.sha256(abs_path)
-        file_url = "file://./%s" % os.path.relpath(abs_path, self.root_path)
+        file_url = "./%s" % os.path.relpath(abs_path, self.root_path)
         fmt = None
         if fido_enabled:
             fmt = self.fid.identify_file(abs_path)
@@ -180,9 +180,9 @@ class PremisGenerator(object):
                     event_id = 'ID' + uuid.uuid4().__str__()
                     if self.root_path.endswith(element.attrib['targetrep']):
                         source_object_abs = os.path.join(element.attrib['sourcedir'], element.attrib['file'])
-                        source_object_rel = "file://./%s" % os.path.relpath(source_object_abs, self.root_path)
+                        source_object_rel = "./%s" % os.path.relpath(source_object_abs, self.root_path)
                         target_object_abs = os.path.join(element.attrib['targetdir'], element.attrib['output'])
-                        target_object_rel = "file://./%s" % os.path.relpath(target_object_abs, self.root_path)
+                        target_object_rel = "./%s" % os.path.relpath(target_object_abs, self.root_path)
 
                         # add agent to list
                         if element.attrib['agent'] not in software_agents:

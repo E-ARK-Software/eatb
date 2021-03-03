@@ -56,5 +56,5 @@ db.sqlite3
 
 # IDEs
 .idea
-
+tmp
 venv

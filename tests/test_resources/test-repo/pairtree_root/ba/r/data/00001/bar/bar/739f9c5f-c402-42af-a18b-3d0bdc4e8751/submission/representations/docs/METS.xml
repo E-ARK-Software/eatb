@@ -9,16 +9,16 @@
   </metsHdr>
   <amdSec ID="ID7a3c6068-a2ad-463d-a14c-6ba6c2a225f8">
     <digiprovMD ID="ID7f6a1c24-7f19-4fcc-8a26-fd3074d92167">
-      <mdRef MIMETYPE="application/xml" xlink:href="file://./metadata/preservation/premis.xml" LOCTYPE="URL" CREATED="2016-04-11T14:45:50" CHECKSUM="29a3f4eeb5dcbe64e83403327760994333ae44d953656c5f5198c56cf889825f" xlink:type="simple" ID="IDc2683ea2-bce7-4b0b-966b-79cdd47ec9a7" MDTYPE="PREMIS" CHECKSUMTYPE="SHA-256"/>
+      <mdRef MIMETYPE="application/xml" xlink:href="./metadata/preservation/premis.xml" LOCTYPE="URL" CREATED="2016-04-11T14:45:50" CHECKSUM="29a3f4eeb5dcbe64e83403327760994333ae44d953656c5f5198c56cf889825f" xlink:type="simple" ID="IDc2683ea2-bce7-4b0b-966b-79cdd47ec9a7" MDTYPE="PREMIS" CHECKSUMTYPE="SHA-256"/>
     </digiprovMD>
   </amdSec>
   <fileSec>
     <fileGrp USE="general filegroup" ID="IDeb639df7-62a6-4408-9695-dd252e7bdedf">
       <file MIMETYPE="application/pdf" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-03-10T11:25:59" CHECKSUM="fde689a05a523594dd2ce489cb294d577952018f4826ef6cb2daaaab780f304c" ID="ID4f978bf9-834a-4b96-84cb-3628d887f717" SIZE="310930">
-        <FLocat xlink:href="file://./data/Special relativity.pdf" xlink:type="simple" LOCTYPE="URL"/>
+        <FLocat xlink:href="./data/Special relativity.pdf" xlink:type="simple" LOCTYPE="URL"/>
       </file>
       <file MIMETYPE="application/pdf" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-03-10T11:25:55" CHECKSUM="54e02b7576f5354d4eacb611fd19ad2a0c51fe940911bef8d9eed410c04ae606" ID="ID10065c54-40bf-4fc5-983c-b411e87c4276" SIZE="1265351">
-        <FLocat xlink:href="file://./data/General relativity.pdf" xlink:type="simple" LOCTYPE="URL"/>
+        <FLocat xlink:href="./data/General relativity.pdf" xlink:type="simple" LOCTYPE="URL"/>
       </file>
     </fileGrp>
   </fileSec>

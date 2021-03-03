@@ -121,7 +121,7 @@ class SIPGenerator():
     #         for nm in files:
     #             file_name = os.path.join(top,nm)
     #             hash = self.sha256(file_name)
-    #             file_url = "file://./%s" % os.path.relpath(file_name, self.root_path)
+    #             file_url = "./%s" % os.path.relpath(file_name, self.root_path)
     #             fmt = self.fid.identify_file(file_name)#os.path.abspath(remove_protocol(file_url)))
     #             jhove = None
     #             if enable_jhove == True:
@@ -242,7 +242,7 @@ class SIPGenerator():
     #     mets_techmd = M.techMD({"ID":"ID" + uuid.uuid1().__str__()})
     #     mets_amdSec.append(mets_techmd)
     #     #for id in premis_ids:
-    #     #    mets_mdref = M.mdRef({"LOCTYPE":"URL", "MDTYPE":"PREMIS:OBJECT", q(XLINK_NS,"href"):"file://./metadata/preservation/PREMIS.xml#"+id.__str__()})
+    #     #    mets_mdref = M.mdRef({"LOCTYPE":"URL", "MDTYPE":"PREMIS:OBJECT", q(XLINK_NS,"href"):"./metadata/preservation/PREMIS.xml#"+id.__str__()})
     #     #    mets_techmd.append(mets_mdref)
     #
     #     mets_fileSec = M.fileSec()
@@ -276,7 +276,7 @@ class SIPGenerator():
     #     mets_structmap_div.append(mets_structmap_mets_div)
     #
     #     for file in mets_files:
-    #         file_url = "file://./%s" % os.path.relpath(file, self.root_path)
+    #         file_url = "./%s" % os.path.relpath(file, self.root_path)
     #         mptr = M.mptr({"LOCTYPE": "URL", q(XLINK_NS, 'href'): file_url })
     #         mets_structmap_mets_div.append(mptr)
     #
@@ -342,7 +342,7 @@ class SIPGenerator():
     #     root.append(mets_dmd)
     #     # this is how to add descriptive metadata entry
     #     #file_name = "../schemas/ead.xml"
-    #     #file_url = unicode(os.path.join("file://",file_name), "utf-8")
+    #     #file_url = unicode(os.path.join("",file_name), "utf-8")
     #     #checksum = self.sha256(file_name)
     #     #file_size = os.path.getsize(file_name)
     #     #mets_mdref= M.mdRef({"LOCTYPE":"URL", "MDTYPE":"EAD", "MIMETYPE":"text/xml", "CREATED":current_timestamp(), q(XLINK_NS,"type"):"simple", q(XLINK_NS,"href"):file_url, "CHECKSUMTYPE":"SHA-256", "CHECKSUM":file_checksum, "SIZE":file_size})
@@ -354,7 +354,7 @@ class SIPGenerator():
     #     mets_techmd = M.techMD({"ID":"ID" + uuid.uuid4().__str__()})
     #     mets_amdSec.append(mets_techmd)
     #     #for id in premis_ids:
-    #     #    mets_mdref = M.mdRef({"LOCTYPE":"URL", "MDTYPE":"PREMIS:OBJECT", q(XLINK_NS,"href"):"file://./metadata/preservation/PREMIS.xml#"+id.__str__()})
+    #     #    mets_mdref = M.mdRef({"LOCTYPE":"URL", "MDTYPE":"PREMIS:OBJECT", q(XLINK_NS,"href"):"./metadata/preservation/PREMIS.xml#"+id.__str__()})
     #     #    mets_techmd.append(mets_mdref)
     #     #techmd_ids = self.addFiles(os.path.join(self.root_path, 'metadata/preservation'))
     #
@@ -463,7 +463,7 @@ class SIPGenerator():
     #     root.append(mets_dmd)
     #     # this is how to add descriptive metadata entry
     #     #file_name = "../schemas/ead.xml"
-    #     #file_url = unicode(os.path.join("file://",file_name), "utf-8")
+    #     #file_url = unicode(os.path.join(",file_name), "utf-8")
     #     #checksum = self.sha256(file_name)
     #     #file_size = os.path.getsize(file_name)
     #     #mets_mdref= M.mdRef({"LOCTYPE":"URL", "MDTYPE":"EAD", "MIMETYPE":"text/xml", "CREATED":current_timestamp(), q(XLINK_NS,"type"):"simple", q(XLINK_NS,"href"):file_url, "CHECKSUMTYPE":"SHA-256", "CHECKSUM":file_checksum, "SIZE":file_size})
@@ -477,7 +477,7 @@ class SIPGenerator():
     #     #mets_techmd = M.techMD({"ID": "ID" + uuid.uuid4().__str__()})
     #     #mets_amdSec.append(mets_techmd)
     #     #for id in premis_ids:
-    #     #    mets_mdref = M.mdRef({"LOCTYPE":"URL", "MDTYPE":"PREMIS:OBJECT", q(XLINK_NS,"href"):"file://./metadata/preservation/PREMIS.xml#"+id.__str__()})
+    #     #    mets_mdref = M.mdRef({"LOCTYPE":"URL", "MDTYPE":"PREMIS:OBJECT", q(XLINK_NS,"href"):"./metadata/preservation/PREMIS.xml#"+id.__str__()})
     #     #    mets_techmd.append(mets_mdref)
     #
     #     mets_fileSec = M.fileSec()
@@ -544,7 +544,7 @@ class SIPGenerator():
     #                     del filename
     #                 else:
     #                     # TODO: list rep metadata only in the rep Mets?
-    #                     rel_path_file = ('file://.' + directory[workdir_length:] + '/' + filename).decode('utf-8')
+    #                     rel_path_file = ('.' + directory[workdir_length:] + '/' + filename).decode('utf-8')
     #                     if filename.lower() == 'mets.xml':
     #                         # delete the subdirectories list to stop os.walk from traversing further;
     #                         # mets file should be added as <mets:mptr> to <structMap> for corresponding rep

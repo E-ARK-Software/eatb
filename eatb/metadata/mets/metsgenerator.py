@@ -100,7 +100,7 @@ class MetsGenerator(object):
     def addFile(self, file_name, mets_filegroup):
         # reload(sys)
         # sys.setdefaultencoding('utf8')
-        file_url = "file://./%s" % os.path.relpath(file_name, self.root_path)
+        file_url = "./%s" % os.path.relpath(file_name, self.root_path)
         file_mimetype, _ = self.mime.guess_type(file_url)
         file_checksum = get_sha256_hash(file_name)
         file_size = os.path.getsize(file_name)
@@ -126,7 +126,7 @@ class MetsGenerator(object):
 
     def make_mdref(self, path, file, id, mdtype):
         mimetype, _ = self.mime.guess_type(os.path.join(path, file))
-        rel_path = "file://./%s" % os.path.relpath(os.path.join(path, file), self.root_path)
+        rel_path = "./%s" % os.path.relpath(os.path.join(path, file), self.root_path)
         mets_mdref = {"LOCTYPE": "URL",
                       "MIMETYPE": mimetype,
                       "CREATED": current_timestamp(),
@@ -419,7 +419,7 @@ class MetsGenerator(object):
                             del filename
                         else:
                             # TODO: list rep metadata only in the rep Mets?
-                            rel_path_file = "file://./%s" % os.path.relpath(os.path.join(directory, filename), self.root_path)
+                            rel_path_file = "./%s" % os.path.relpath(os.path.join(directory, filename), self.root_path)
                             if filename.lower() == 'mets.xml':
                                 # delete the subdirectories list to stop os.walk from traversing further;
                                 # mets file should be added as <mets:mptr> to <structMap> for corresponding rep

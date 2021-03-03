@@ -39,12 +39,7 @@ class MetsValidation(object):
         @param mets:    Path leading to a Mets file that will be evaluated.
         @return:        Boolean validation result.
         '''
-        if mets.startswith('file://./'):
-            mets = os.path.join(self.rootpath, mets[9:])
-            # change self.rootpath so it fits any relative path found in the current (subsequent) mets
-            self.rootpath = mets.rsplit('/', 1)[0]
-        else:
-            self.rootpath = mets.rsplit('/', 1)[0]
+        self.rootpath = mets.rsplit('/', 1)[0]
 
         try:
             parsed_mets = etree.iterparse(mets, events=('start', 'end'), schema=self.schema_mets)
@@ -83,7 +78,7 @@ class MetsValidation(object):
                                     if sub_child.tag == etree.Comment or sub_child.tag == etree.PI:  # filter out comments (they also count as children)
                                         pass
                                     elif sub_child.attrib['MDTYPE'] == 'PREMIS':
-                                        if sub_child.attrib[q(XLINK_NS, 'href')].startswith('file://./'):
+                                        if sub_child.attrib[q(XLINK_NS, 'href')].startswith('./'):
                                             rel_path = sub_child.attrib[q(XLINK_NS, 'href')]
                                             premis = os.path.join(self.rootpath, rel_path[9:])
                                             try:

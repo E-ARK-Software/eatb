@@ -11,16 +11,16 @@
   <fileSec>
     <fileGrp ID="ID6b5a0e53-b3b6-4409-9034-41a3ec5cb619" USE="general filegroup">
       <file MIMETYPE="application/xml" CHECKSUMTYPE="SHA-256" CREATED="2019-02-25T21:03:16" CHECKSUM="a7de4be13ff09c2b86f97e2db9e6363d400d683f462b5465896b053f9a52d339" USE="Datafile" ID="IDdb2298fd-492a-4a3c-b328-f0bd44ca5da9" SIZE="145482">
-        <FLocat xlink:href="file://./schemas/IP_CS_mets.xsd" LOCTYPE="URL" xlink:type="simple"/>
+        <FLocat xlink:href="./schemas/IP_CS_mets.xsd" LOCTYPE="URL" xlink:type="simple"/>
       </file>
       <file MIMETYPE="application/xml" CHECKSUMTYPE="SHA-256" CREATED="2019-02-25T21:03:15" CHECKSUM="f1f5bb6003165cdd8f6c1fcc32f8fd1f965e1681010f3b9806d9460bcffa8a3c" USE="Datafile" ID="ID070a445e-04ca-4403-89b9-fe99e1a7f0dd" SIZE="3180">
-        <FLocat xlink:href="file://./schemas/xlink.xsd" LOCTYPE="URL" xlink:type="simple"/>
+        <FLocat xlink:href="./schemas/xlink.xsd" LOCTYPE="URL" xlink:type="simple"/>
       </file>
       <file MIMETYPE="text/plain" CHECKSUMTYPE="SHA-256" CREATED="2019-02-25T21:05:56" CHECKSUM="497b22d4e86a3caa9f5baa24435a99ac1154094a0b9302b9bcd9d6544d6efbe9" USE="Datafile" ID="IDd35bd843-68af-4910-abbc-d2b8635aea61" SIZE="14">
-        <FLocat xlink:href="file://./representations/repr1/data/testfile1.txt" LOCTYPE="URL" xlink:type="simple"/>
+        <FLocat xlink:href="./representations/repr1/data/testfile1.txt" LOCTYPE="URL" xlink:type="simple"/>
       </file>
       <file MIMETYPE="text/csv" CHECKSUMTYPE="SHA-256" CREATED="2019-02-25T21:06:03" CHECKSUM="9a2b5ec7b9a8e713188b60597fdc68643495e340ce50ad39ad8748bf2b97aa1a" USE="Datafile" ID="IDecb06d38-6b5c-4705-888a-c9d8918cbb98" SIZE="16">
-        <FLocat xlink:href="file://./representations/repr2/data/testfile2.csv" LOCTYPE="URL" xlink:type="simple"/>
+        <FLocat xlink:href="./representations/repr2/data/testfile2.csv" LOCTYPE="URL" xlink:type="simple"/>
       </file>
     </fileGrp>
   </fileSec>
