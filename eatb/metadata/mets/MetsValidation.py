@@ -80,11 +80,11 @@ class MetsValidation(object):
                                     elif sub_child.attrib['MDTYPE'] == 'PREMIS':
                                         if sub_child.attrib[q(XLINK_NS, 'href')].startswith('./'):
                                             rel_path = sub_child.attrib[q(XLINK_NS, 'href')]
-                                            premis = os.path.join(self.rootpath, rel_path[9:])
+                                            premis = os.path.join(self.rootpath, rel_path[2:])
                                             try:
                                                 parsed_premis = etree.iterparse(premis, events=('start',), schema=self.schema_premis)
                                                 for event, el in parsed_premis:
-                                                    # What to do here?
+                                                    # TODO: Validate against AIP PREMIS Specification
                                                     pass
                                                 print('Successfully validated Premis file: %s' % premis)
 
