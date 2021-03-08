@@ -11,7 +11,7 @@ class ChecksumAlgorithm:
     """
     Checksum algorithm
     """
-    MD5, SHA256, NONE = range(3)
+    MD5, SHA256, SHA512, NONE = range(4)
 
     @staticmethod
     def get(alg):
@@ -24,6 +24,8 @@ class ChecksumAlgorithm:
             return ChecksumAlgorithm.MD5
         if alg.lower() == "sha256" or alg.lower() == "sha-256":
             return ChecksumAlgorithm.SHA256
+        if alg.lower() == "sha256" or alg.lower() == "sha-256":
+            return ChecksumAlgorithm.SHA512
         return ChecksumAlgorithm.NONE
 
     @staticmethod
@@ -32,6 +34,8 @@ class ChecksumAlgorithm:
             return "MD5"
         if alg is ChecksumAlgorithm.SHA256:
             return "SHA256"
+        if alg is ChecksumAlgorithm.SHA256:
+            return "SHA512"
         return "NONE"
 
 
@@ -58,6 +62,8 @@ class ChecksumFile():
         hashval = None
         if checksum_algorithm in [ChecksumAlgorithm.SHA256, 'SHA-256']:
             hashval = hashlib.sha256()
+        if checksum_algorithm in [ChecksumAlgorithm.SHA512, 'SHA-512']:
+            hashval = hashlib.sha512()
         elif checksum_algorithm in [ChecksumAlgorithm.MD5, 'MD5']:
             hashval = hashlib.md5()
 
@@ -88,14 +94,20 @@ class ChecksumValidation():
         return calculated_checksum == checksum_expected
 
 
-def get_sha256_hash(file):
+def get_hash(file, checksum_algorithm):
     """
-    Get SHA256 hash
+    Get MD5/SHA256/SHA512 hash
     :param file: Path to file
-    :return: SHA256 hash
+    :return: MD5/SHA256/SHA512 hash
     """
     blocksize = 65536
-    hashval = hashlib.sha256()
+    hashval = None
+    if checksum_algorithm in [ChecksumAlgorithm.SHA256, 'SHA-256']:
+        hashval = hashlib.sha256()
+    if checksum_algorithm in [ChecksumAlgorithm.SHA512, 'SHA-512']:
+        hashval = hashlib.sha512()
+    elif checksum_algorithm in [ChecksumAlgorithm.MD5, 'MD5']:
+        hashval = hashlib.md5()
     with open(file, 'rb') as file:
         while True:
             buf = file.read(blocksize)
@@ -103,6 +115,53 @@ def get_sha256_hash(file):
                 break
             hashval.update(buf)
     return hashval.hexdigest()
+
+
+def get_hash_values(file):
+    """
+    Get MD5/SHA256/SHA512 hash
+    :param file: Path to file
+    :return: MD5/SHA256/SHA512 hash
+    """
+    blocksize = 65536
+    hashval_sha256 = hashlib.sha256()
+    hashval_md5 = hashlib.md5()
+    hashval_sha512 = hashlib.sha512()
+    with open(file, 'rb') as file:
+        while True:
+            buf = file.read(blocksize)
+            if not buf:
+                break
+            hashval_md5.update(buf)
+            hashval_sha256.update(buf)
+            hashval_sha512.update(buf)
+    return hashval_md5.hexdigest(), hashval_sha256.hexdigest(), hashval_sha512.hexdigest()
+
+def get_md5_hash(file):
+    """
+    Get MD5 hash
+    :param file: Path to file
+    :return: MD5 hash
+    """
+    return get_hash(file, ChecksumAlgorithm.MD5)
+
+
+def get_sha256_hash(file):
+    """
+    Get SHA256 hash
+    :param file: Path to file
+    :return: SHA256 hash
+    """
+    return get_hash(file, ChecksumAlgorithm.SHA256)
+
+
+def get_sha512_hash(file):
+    """
+    Get SHA512 hash
+    :param file: Path to file
+    :return: SHA512 hash
+    """
+    return get_hash(file, ChecksumAlgorithm.SHA512)
 
 
 def checksum(file_path, wd=None, alg=ChecksumAlgorithm.SHA256):
@@ -119,6 +178,14 @@ def checksum(file_path, wd=None, alg=ChecksumAlgorithm.SHA256):
 
 
 def check_transfer(source, target):
+    """
+    Check successful transfer by comparing checksum values and file sizes of source and target
+    :param file_path: file path
+    :param wd: working directory
+    :param alg: algorithm
+    :except Different file sizes or checksum values
+    :return: None
+    """
     source_size = fsize(source)
     target_size = fsize(target)
     if not source_size == target_size:

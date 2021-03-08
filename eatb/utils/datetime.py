@@ -41,6 +41,10 @@ def reformat_date_string(origin_fmt, origin_dts, target_fmt):
     return datetime.strptime(origin_dts, origin_fmt).strftime(target_fmt)
 
 
+def get_date_from_iso_str(origin_fmt, origin_dts):
+    return datetime.strptime(origin_fmt, origin_dts)
+
+
 def get_file_ctime_iso_date_str(file_path, fmt=DT_ISO_FORMAT, wd=None):
     fp = file_path
     path = fp if wd is None else os.path.join(wd, fp)

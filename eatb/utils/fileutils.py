@@ -1,3 +1,4 @@
+import json
 import os
 import re
 from shutil import copytree
@@ -198,6 +199,11 @@ def latest_file_by_suffix(abspath_basename, extension):
         i += 1
 
 
+def read_and_load_json_file(file_path):
+    info_file_content = read_file_content(file_path)
+    return json.loads(info_file_content)
+
+
 def read_file_content(file_path):
     """
     Read content of a file
@@ -205,7 +211,7 @@ def read_file_content(file_path):
     :return: file content
     """
     mime = get_mime_type(file_path)
-    mode = "r" if (mime.startswith("text") or mime.endswith("json") or mime.endswith("xml")) else "rb"
+    mode = "r" if mime and (mime.startswith("text") or mime.endswith("json") or mime.endswith("xml")) else "rb"
     fh = open(file_path, mode)
     file_content = fh.read()
     return file_content
@@ -340,7 +346,7 @@ def path_to_dict(path, strip_path_part=None, use_icons=False):
     if os.path.isdir(path.encode('utf-8')):
         if use_icons:
             d['icon'] = "glyphicon glyphicon-folder-close"
-        d['children'] = [path_to_dict(os.path.join(path, x), strip_path_part) for x in os.listdir(path)]
+        d['children'] = [path_to_dict(os.path.join(path, x), strip_path_part) for x in sorted(os.listdir(path))]
         path_metadata = path if strip_path_part is None else path.replace(strip_path_part, "")
         d['data'] = {"path": path_metadata}
     else:
@@ -412,7 +418,8 @@ def get_directory_json(path, subpath):
     :return: JSON representation of directory
     """
     joined_path = os.path.join(path, subpath)
-    return {"data": path_to_dict(joined_path, strip_path_part=path + '/'), "check_callback": "true"}
+    dir_json = path_to_dict(joined_path, strip_path_part=path + '/')
+    return {"data": dir_json, "check_callback": "true"}
 
 
 def strip_prefixes(path, *prefixes):

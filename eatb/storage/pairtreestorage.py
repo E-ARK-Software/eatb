@@ -74,8 +74,11 @@ class PairtreeStorage():
         target_data_directory = os.path.join(dirpath, "data")
         pathlib.Path(target_data_directory).mkdir(parents=True, exist_ok=True)
         target_data_version_directory = os.path.join(target_data_directory, next_version)
+
+        #target_data_version_asset_directory = os.path.join(target_data_version_directory,
+        #                                                   to_safe_filename(identifier))
         target_data_version_asset_directory = os.path.join(target_data_version_directory,
-                                                           to_safe_filename(identifier))
+                                                           "content")
         os.makedirs(target_data_version_asset_directory, exist_ok=True)
         if copy_dir:
             shutil.copytree(source_directory, target_data_version_asset_directory)
@@ -126,7 +129,7 @@ class PairtreeStorage():
         :return: next formatted version directory name
         """
         if not self.identifier_object_exists(identifier):
-            return VersionDirFormat % 1
+            return VersionDirFormat % 0
         version_num = 1
         while self.identifier_version_object_exists(identifier, version_num):
             version_num += 1
@@ -147,8 +150,8 @@ class PairtreeStorage():
         :return: current version number
         """
         if not self.identifier_object_exists(identifier):
-            return 1
-        version_num = 1
+            return -1
+        version_num = 0
         while self.identifier_version_object_exists(identifier, version_num):
             version_num += 1
         version_num -= 1
