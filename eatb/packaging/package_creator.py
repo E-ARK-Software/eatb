@@ -6,7 +6,8 @@ from pathlib import Path
 
 from eatb.storage.checksum import ChecksumFile, ChecksumAlgorithm
 
-def create_package(input_directory, packagename, gunzip=False, output_directory=None) -> str:
+
+def create_package(input_directory, packagename, gunzip=False, output_directory=None, use_input_dir_as_root=False, exclude=[]) -> str:
     """
     Create package
     :param input_directory: Input directory
@@ -29,13 +30,19 @@ def create_package(input_directory, packagename, gunzip=False, output_directory=
     for subdir, dirs, files in os.walk(input_directory):
 
         for dir in dirs:
-            entry = os.path.join(subdir, dir)
+            entry = os.path.join(os.path.basename(input_directory), subdir, dir)
+            base = os.path.basename(input_directory) if use_input_dir_as_root else ""
             if not os.listdir(entry):
-                tar.add(entry, arcname=os.path.relpath(entry, input_directory))
+                tar.add(entry, arcname=os.path.join(base, os.path.relpath(entry, input_directory)))
 
         for file in files:
-            entry = os.path.join(subdir, file)
-            tar.add(entry, arcname=os.path.relpath(entry, input_directory))
+            entry = os.path.join(os.path.basename(input_directory), subdir, file)
+            base = os.path.basename(input_directory) if use_input_dir_as_root else ""
+
+            def exclude_func(file_name):
+                return os.path.basename(file_name) in exclude
+
+            tar.add(entry, exclude=exclude_func, arcname=os.path.join(base, os.path.relpath(entry, input_directory)))
             if i % 10 == 0:
                 perc = (i * 100) / total
             i += 1

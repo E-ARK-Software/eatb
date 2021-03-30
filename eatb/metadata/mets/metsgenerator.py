@@ -18,11 +18,16 @@ from eatb.settings import application_name, application_version
 METS_NS = 'http://www.loc.gov/METS/'
 METSEXT_NS = 'ExtensionMETS'
 XLINK_NS = "http://www.w3.org/1999/xlink"
-CSIP_NS = "DILCIS"
-METS_NSMAP = {None: METS_NS, "csip": "DILCIS", "xlink": "http://www.w3.org/1999/xlink", "ext": METSEXT_NS,
+CSIP_NS = "https://dilcis.eu/XML/METS/CSIPExtensionMETS"
+METS_NSMAP = {None: METS_NS, "csip": "https://dilcis.eu/XML/METS/CSIPExtensionMETS", "xlink": "http://www.w3.org/1999/xlink", "ext": METSEXT_NS,
               "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
-DELIVERY_METS_NSMAP = {None: METS_NS, "csip": "DILCIS", "xlink": "http://www.w3.org/1999/xlink",
+DELIVERY_METS_NSMAP = {None: METS_NS, "csip": CSIP_NS, "xlink": "http://www.w3.org/1999/xlink",
                        "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
+PROFILE_XML = "http://www.ra.ee/METS/v01/IP.xml"
+
+default_mets_schema_location = 'https://www.loc.gov/standards/mets/version111/mets.xsd'
+default_csip_location = "schemas/DILCISExtensionMETS.xsd"
+default_xlink_schema_location = 'https://www.w3.org/1999/xlink.xsd'
 
 M = objectify.ElementMaker(
     annotate=False,
@@ -218,20 +223,25 @@ class MetsGenerator(object):
         # create Mets root
         METS_ATTRIBUTES = {"OBJID": packageid,
                            "LABEL": "METS file describing the %s matching the OBJID." % packagetype,
-                           "PROFILE": "http://www.ra.ee/METS/v01/IP.xml",
+                           "PROFILE": PROFILE_XML,
                            "TYPE": packagetype}
         root = M.mets(METS_ATTRIBUTES)
 
         if os.path.isfile(os.path.join(schemafolder, 'mets_1_11.xsd')):
             mets_schema_location = os.path.relpath(os.path.join(schemafolder, 'mets_1_11.xsd'), self.root_path)
         else:
-            mets_schema_location = 'empty'
+            mets_schema_location = default_mets_schema_location
         if os.path.isfile(os.path.join(schemafolder, 'xlink.xsd')):
-            xlink_schema_loaction = os.path.relpath(os.path.join(schemafolder, 'xlink.xsd'), self.root_path)
+            xlink_schema_location = os.path.relpath(os.path.join(schemafolder, 'xlink.xsd'), self.root_path)
         else:
-            xlink_schema_loaction = 'empty'
+            xlink_schema_location = default_xlink_schema_location
 
-        root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ %s http://www.w3.org/1999/xlink %s" % (mets_schema_location, xlink_schema_loaction)
+        root.attrib['{%s}schemaLocation' % XSI_NS] = "%s %s " \
+                                                     "%s %s " \
+                                                     "%s %s" % \
+                                                     (METS_NS, mets_schema_location,
+                                                      XLINK_NS, xlink_schema_location,
+                                                      CSIP_NS, default_csip_location)
 
         # create Mets header
         mets_hdr = M.metsHdr({"CREATEDATE": current_timestamp(), "RECORDSTATUS": "NEW", q(CSIP_NS, "OAISPACKAGETYPE"): packagetype})

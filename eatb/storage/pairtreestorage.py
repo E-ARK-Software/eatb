@@ -19,7 +19,7 @@ import os.path
 import tarfile
 from itertools import groupby
 
-VersionDirFormat = '%05d'
+VersionDirFormat = 'v%05d'
 
 
 def get_package_from_storage(storage, task_context_path, package_uuid, package_extension, tl):
@@ -74,15 +74,12 @@ class PairtreeStorage():
         target_data_directory = os.path.join(dirpath, "data")
         pathlib.Path(target_data_directory).mkdir(parents=True, exist_ok=True)
         target_data_version_directory = os.path.join(target_data_directory, next_version)
-
-        #target_data_version_asset_directory = os.path.join(target_data_version_directory,
-        #                                                   to_safe_filename(identifier))
-        target_data_version_asset_directory = os.path.join(target_data_version_directory,
-                                                           "content")
-        os.makedirs(target_data_version_asset_directory, exist_ok=True)
+        bag_name = self.get_bag_name(identifier, next_version, 1)
+        target_data_version_asset_directory = os.path.join(target_data_version_directory, "content", bag_name)
         if copy_dir:
             shutil.copytree(source_directory, target_data_version_asset_directory)
         else:
+            os.makedirs(target_data_version_asset_directory, exist_ok=True)
             archive_file = "%s.tar" % to_safe_filename(identifier)
             src_file_path = os.path.join(source_directory, archive_file)
             target_file_path = os.path.join(target_data_version_asset_directory, archive_file)
@@ -91,6 +88,12 @@ class PairtreeStorage():
             shutil.copy2(src_file_path, target_file_path)
         progress_reporter(100)
         return next_version
+
+    def get_bag_name(self, identifier: str, version: str, bagnr: int):
+        safe_identifier_name = to_safe_filename(identifier)
+        bag_dir_name = "b%05d" % int(bagnr)
+        bag_name = "%s_%s_%s" % (safe_identifier_name, version, bag_dir_name)
+        return bag_name
 
     def identifier_object_exists(self, identifier):
         """
@@ -102,7 +105,7 @@ class PairtreeStorage():
         @return:    True if the object exists, false otherwise
         """
         logger.debug("Looking for object at path: %s/data" % self.repo_storage_client._id_to_dirpath(identifier))
-        return self.repo_storage_client.exists(identifier, "data")
+        return self.repo_storage_client.exists(identifier, os.path.join("data", "v%05d" % 0))
 
     def identifier_version_object_exists(self, identifier, version_num):
         """
@@ -111,7 +114,7 @@ class PairtreeStorage():
         :param version_num: version number
         :return:
         """
-        version = '%05d' % version_num
+        version = 'v%05d' % version_num
         return self.repo_storage_client.exists(identifier, "data/%s" % version)
 
     def _get_version_parts(self, identifier):
@@ -141,7 +144,8 @@ class PairtreeStorage():
         :param identifier: identifier
         :return: current formatted version directory name
         """
-        return VersionDirFormat % self.curr_version_num(identifier)
+        curr_version_num = self.curr_version_num(identifier)
+        return VersionDirFormat % curr_version_num
 
     def curr_version_num(self, identifier):
         """
@@ -172,7 +176,7 @@ class PairtreeStorage():
             version_num = self.curr_version_num(identifier)
         if not self.identifier_version_object_exists(identifier, version_num):
             raise ValueError("Repository object '%s' has no version %d." % (identifier, version_num))
-        version = '%05d' % version_num
+        version = 'v%05d' % version_num
         repo_obj = self.repo_storage_client.get_object(identifier, False)
         repo_obj_path = to_safe_filename(os.path.join(repo_obj.id_to_dirpath(), "data/%s" % version))
         try:

@@ -209,7 +209,7 @@ class DirectoryPairtreeStorage(PairtreeStorage):
         :return: version of the stored object
         """
         if single_package:
-            version = super().store(identifier, working_directory)
+            version = super().store(identifier, working_directory, copy_dir=True)
         else:
             version = self.store_working_directory_as_representation_packages(uuid, identifier, working_directory)
         return version

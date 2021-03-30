@@ -302,6 +302,22 @@ def sub_dirs(directory):
     return sorted([name for name in os.listdir(directory) if os.path.isdir(os.path.join(directory, name))])
 
 
+def delete_from_dir(directory, pattern):
+    """
+    Delete files from a directory
+    :param directory: directory
+    :param pattern: pattern
+    :return:
+    """
+    for f in os.listdir(directory):
+        if re.search(pattern, f):
+            path = os.path.join(directory, f)
+            os.remove(path)
+            if os.path.exists(path):
+                return False
+    return True
+
+
 def purge(directory, pattern):
     """
     Delete all files from a directory
