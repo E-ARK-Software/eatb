@@ -33,6 +33,11 @@ def main():
         LOGGER.error(msg)
         raise FileNotFoundError(msg)
 
+    if not (os.path.isabs(args.directory)):
+        msg = "The directory must be provided as absolute path: %s" % args.directory
+        LOGGER.error(msg)
+        raise ValueError(msg)
+
     if OAISPackageType[args.type] == OAISPackageType.SIP and create_sip(args.directory, args.name, args.identifier):
         LOGGER.info("SIP created successfully")
     elif OAISPackageType[args.type] == OAISPackageType.AIP and create_aip(args.directory, args.name, args.identifier):
