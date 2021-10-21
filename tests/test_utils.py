@@ -10,8 +10,8 @@ from lxml import isoschematron
 from lxml import etree
 
 from eatb import ROOT
-from eatb.utils.fileutils import rec_find_files
-from eatb.utils.randomutils import randomword
+from util.fileutils import rec_find_files
+from util.randomutils import randomword
 
 def get_rule(lines, rule_id):
     rules_ids = [rule_id]

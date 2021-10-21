@@ -5,7 +5,7 @@ import os
 import unittest
 
 from eatb import ROOT
-from eatb.utils.fileutils import remove_protocol, strip_prefixes, get_sub_path_from_relative_path
+from util.fileutils import remove_protocol, strip_prefixes, get_sub_path_from_relative_path
 
 class TestPathFunctions(unittest.TestCase):
 

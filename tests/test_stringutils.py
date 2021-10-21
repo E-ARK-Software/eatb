@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from eatb.utils.stringutils import whitespace_separated_text_to_dict
+from util.stringutils import whitespace_separated_text_to_dict
 
 class TestStringUtils(unittest.TestCase):
 

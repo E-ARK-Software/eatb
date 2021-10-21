@@ -5,7 +5,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from eatb.utils.datetime import get_file_ctime_iso_date_str, current_timestamp, LengthBasedDateFormat, \
+from util.datetime import get_file_ctime_iso_date_str, current_timestamp, LengthBasedDateFormat, \
     DT_ISO_FORMAT, ts_date, date_format, current_date
 
 

@@ -9,7 +9,7 @@ from eatb import ROOT
 from eatb.cli.cli import CliCommand, CliCommands
 from eatb.storage.encryption import gpg_encrypt_file_passphrase
 from eatb.utils import randomutils
-from eatb.utils.fileutils import read_file_content
+from util.fileutils import read_file_content
 
 class EncryptionTest(unittest.TestCase):
 

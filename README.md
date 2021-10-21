@@ -38,6 +38,30 @@ The archiving toolbox allows creating an information package based on files whic
 structure of a CSIP. It will validate the structure and create METS metadata representing the structure of the package
 and PREMIS metadata which allows recording the provenance of it. 
 
+    myip
+    ├── metadata
+    │   └── dc.xml
+    └── representations
+        └── repr1
+            └── data
+                └── test.txt
+
+
+    myip
+    ├── metadata
+    │   ├── dc.xml
+    │   └── preservation
+    │       └── premis.xml
+    ├── METS.xml
+    └── representations
+        └── repr1
+            ├── data
+            │   └── test.txt
+            ├── metadata
+            │   └── preservation
+            │       └── premis.xml
+            └── METS.xml
+
 ## Installation
 
 Install python packages (in virtual environment):

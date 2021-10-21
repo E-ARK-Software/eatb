@@ -6,7 +6,7 @@ import unittest
 import lxml.etree as ET
 
 from eatb import ROOT
-from eatb.utils.fileutils import read_file_content
+from util.fileutils import read_file_content
 from eatb.xml.deliveryvalidation import DeliveryValidation
 from eatb.xml.xmlutils import get_dcat_element_values
 

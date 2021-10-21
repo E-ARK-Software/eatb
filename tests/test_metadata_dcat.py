@@ -4,7 +4,7 @@ import os
 import unittest
 
 from eatb import ROOT
-from eatb.utils.fileutils import read_file_content
+from util.fileutils import read_file_content
 from eatb.metadata.parseddcat import ParsedDcat
 
 
