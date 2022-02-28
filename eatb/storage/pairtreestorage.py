@@ -3,6 +3,7 @@
 import logging
 import os
 import pathlib
+import re
 import sys
 
 from pairtree import PairtreeStorageFactory, ObjectNotFoundException, shutil
@@ -202,10 +203,9 @@ class PairtreeStorage():
         for repofile in files:
             if repofile.endswith(".tar"):
                 f, _ = os.path.split(repofile)
-                if f.startswith("pairtree_root"):
-                    version = f[-5:] if f[-5:] != '' else '00001'
-                    repoitem = (repofile, version)
-                    tuples.append(repoitem)
+                version = re.search(r'v[0-9]{5,5}', f).group(0)
+                repoitem = (repofile, int(re.search(r'\d+', version).group(0)))
+                tuples.append(repoitem)
         tuples.sort(key=sortkeyfn, reverse=True)
         items_grouped_by_version = []
         for key, valuesiter in groupby(tuples, key=sortkeyfn):
@@ -214,7 +214,7 @@ class PairtreeStorage():
         for version_items in items_grouped_by_version:
             for item in version_items['items']:
                 p, f = os.path.split(item)
-                p2 = os.path.join(self.repository_storage_dir, p[:p.find("/data/")])
+                p2 = os.path.join(self.repository_storage_dir, p[:p.find("/data/v")])
                 obj_id = self.repo_storage_client._get_id_from_dirpath(p2)
                 if obj_id not in [x['id'] for x in lastversionfiles]:
                     lastversionfiles.append({"id": obj_id, "version": version_items['version'], "path": item})
