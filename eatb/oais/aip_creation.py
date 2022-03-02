@@ -26,7 +26,7 @@ def create_aip(package_dir, identifier, package_name, identifier_map=None, gener
         # TODO: packageid?
         # parent = task_context.additional_data['parent_id']
         mets_data = {'packageid': repdir,
-                     'type': 'AIP',
+                     'type': "Textual works – Digital",
                      'schemas': schemas,
                      'parent': ''}
         metsgen = MetsGenerator(rep_path)
@@ -40,7 +40,7 @@ def create_aip(package_dir, identifier, package_name, identifier_map=None, gener
     schemas = os.path.join(package_dir, 'schemas')
 
     mets_data = {'packageid': identifier,
-                 'type': 'AIP',
+                 'type': "Textual works – Digital",
                  'schemas': schemas,
                  'parent': None}
 
