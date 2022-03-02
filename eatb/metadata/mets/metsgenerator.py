@@ -18,7 +18,7 @@ from eatb.settings import application_name, application_version
 METS_NS = 'http://www.loc.gov/METS/'
 METSEXT_NS = 'ExtensionMETS'
 XLINK_NS = "http://www.w3.org/1999/xlink"
-CSIP_NS = "https://dilcis.eu/XML/METS/CSIPExtensionMETS"
+CSIP_NS = "https://DILCIS.eu/XML/METS/CSIPExtensionMETS"
 METS_NSMAP = {None: METS_NS, "csip": "https://dilcis.eu/XML/METS/CSIPExtensionMETS", "xlink": "http://www.w3.org/1999/xlink", "ext": METSEXT_NS,
               "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
 DELIVERY_METS_NSMAP = {None: METS_NS, "csip": CSIP_NS, "xlink": "http://www.w3.org/1999/xlink",
@@ -97,7 +97,7 @@ class MetsGenerator(object):
     def createAgent(self,role, type, other_type, name, note, notetype=None):
         if other_type:
 #            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note({q(CSIP_NS, "NOTETYPE"): notetype}, note))
-            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note(note))
+            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note(note), M.note({q(CSIP_NS, "NOTETYPE"): notetype}, "SOFTWARE VERSION"))
         else:
             agent = M.agent({"ROLE": role, "TYPE": type}, M.name(name), M.note(note))
         return agent
@@ -224,7 +224,8 @@ class MetsGenerator(object):
         METS_ATTRIBUTES = {"OBJID": packageid,
                            "LABEL": "METS file describing the %s matching the OBJID." % packagetype,
                            "PROFILE": PROFILE_XML,
-                           "TYPE": packagetype}
+                           "TYPE": packagetype,
+                           q(CSIP_NS, "CONTENTINFORMATIONTYPE"): "ERMS"}
         root = M.mets(METS_ATTRIBUTES)
 
         if os.path.isfile(os.path.join(schemafolder, 'mets_1_11.xsd')):
@@ -364,7 +365,7 @@ class MetsGenerator(object):
                                 for dir, subdir, files in os.walk(os.path.join(self.root_path, 'metadata/%s') % dirname):
                                     for filename in files:
                                         if dir.endswith('descriptive'):
-                                            mets_dmd = M.dmdSec({"ID": "ID" + uuid.uuid4().__str__(), "CREATED": current_timestamp()})
+                                            mets_dmd = M.dmdSec({"ID": "ID" + uuid.uuid4().__str__(), "CREATED": current_timestamp(), "STATUS": "CURRENT"})
                                             root.insert(1, mets_dmd)
                                             id = "ID" + uuid.uuid4().__str__()
                                             ref = self.make_mdref(dir, filename, id, 'OTHER')
