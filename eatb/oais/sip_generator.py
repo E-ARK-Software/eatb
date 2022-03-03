@@ -85,8 +85,9 @@ class SIPGenerator():
     def addFile(self, file_name, mets_filegroup):
         #reload(sys)
         #sys.setdefaultencoding('utf8')
-        file_url = "./%s" % os.path.relpath(file_name, self.root_path)
+        file_url = "%s" % os.path.relpath(file_name, self.root_path)
         file_mimetype,_ = self.mime.guess_type(file_url)
+        file_mimetype = file_mimetype if file_mimetype else "application/octet-stream"
         file_checksum = self.sha256(file_name)
         file_size = os.path.getsize(file_name)
         file_cdate = get_file_ctime_iso_date_str(file_name, DT_ISO_FMT_SEC_PREC)

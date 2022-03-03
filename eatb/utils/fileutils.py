@@ -370,7 +370,9 @@ def path_to_dict(path, strip_path_part=None, use_icons=False):
             d['icon'] = "glyphicon glyphicon-file"
         path_metadata = path if strip_path_part is None else path.replace(strip_path_part, "")
         wd_path, _ = os.path.split(path)
-        d['data'] = {"path": path_metadata, "mimetype": get_mime_type(path),
+        mimetype = get_mime_type(path)
+        mimetype = mimetype if mimetype else "application/octet-stream"
+        d['data'] = {"path": path_metadata, "mimetype": mimetype,
                      "datetime": get_file_ctime_iso_date_str(path, EU_UI_FORMAT, '/var/data/earkweb')}
     return d
 
@@ -423,6 +425,7 @@ def get_mime_type(path):
     :return: mime type (tuple: (type, subtype))
     """
     mime_type, subtype = mimetypes.guess_type(path)
+    mime_type = mime_type if mime_type else "application/octet-stream"
     return mime_type
 
 
