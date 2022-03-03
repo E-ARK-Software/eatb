@@ -132,6 +132,7 @@ class MetsGenerator(object):
     def make_mdref(self, path, file, id, mdtype):
         mimetype, _ = self.mime.guess_type(os.path.join(path, file))
         rel_path = "./%s" % os.path.relpath(os.path.join(path, file), self.root_path)
+        mimetype = mimetype if mimetype else "application/octet-stream"
         mets_mdref = {"LOCTYPE": "URL",
                       "MIMETYPE": mimetype,
                       "CREATED": current_timestamp(),
