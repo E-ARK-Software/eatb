@@ -15,7 +15,7 @@ class TestXml(unittest.TestCase):
     test_dir = "." + '/testresources/'
     delivery_dir = os.path.join(ROOT, 'tests/test_resources/Delivery-test/')
 
-    schema_file = delivery_dir + 'schemas/IP.xsd'
+    schema_file = delivery_dir + 'schemas/mets.xsd'
     package_file = delivery_dir + 'pkg.tar.gz'
     vsip = DeliveryValidation()
 

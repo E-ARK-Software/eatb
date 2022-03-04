@@ -21,7 +21,7 @@ class MetsValidation(object):
     Validation of the Mets file. This includes also the validation of Premis files that are linked in the amdSec!
     '''
 
-    def __init__(self, root, mets_schema_file=os.path.join(ROOT, "eatb/resources/schemas/IP.xsd"),
+    def __init__(self, root, mets_schema_file=os.path.join(ROOT, "eatb/resources/schemas/mets.xsd"),
                  premis_schema_file=os.path.join(ROOT, "eatb/resources/schemas/premis-v2-2.xsd")):
         self.validation_errors = []
         self.total_files = 0

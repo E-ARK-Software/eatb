@@ -220,7 +220,7 @@ class SIPGenerator():
     #     #create METS skeleton
     #     METS_ATTRIBUTES = {"OBJID" : "", "TYPE" : "", "LABEL" : "", "PROFILE" : "http://www.ra.ee/METS/v01/IP.xml", "ID" : "" }
     #     root = M.mets(METS_ATTRIBUTES)
-    #     root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ schemas/IP.xsd ExtensionMETS schemas/ExtensionMETS.xsd http://www.w3.org/1999/xlink schemas/xlink.xsd"
+    #     root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ schemas/mets.xsd ExtensionMETS schemas/ExtensionMETS.xsd http://www.w3.org/1999/xlink schemas/xlink.xsd"
     #
     #     mets_hdr = M.metsHdr({"CREATEDATE": current_timestamp(), q(METSEXT_NS,"OAISSTATUS") :"", "RECORDSTATUS" :""})
     #     root.append(mets_hdr)
@@ -303,7 +303,7 @@ class SIPGenerator():
     #
     #     #my_mets.fileSec.append(M.fileGrp({'USE': 'submission'}))
     #     #my_mets.fileSec(M.fileGrp({'USE': 'submission'}))
-    #     #mets_schema_file = os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127/schemas/IP.xsd")
+    #     #mets_schema_file = os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127/schemas/mets.xsd")
     #     #mets_schema = etree.parse(mets_schema_file)
     #     #mets_xsd = etree.XMLSchema(mets_schema)
     #
@@ -325,7 +325,7 @@ class SIPGenerator():
     #                        "PROFILE": "http://www.ra.ee/METS/v01/IP.xml",
     #                        "TYPE": "SIP"}
     #     root = M.mets(METS_ATTRIBUTES)
-    #     root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ schemas/IP.xsd ExtensionMETS schemas/ExtensionMETS.xsd http://www.w3.org/1999/xlink schemas/xlink.xsd"
+    #     root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ schemas/mets.xsd ExtensionMETS schemas/ExtensionMETS.xsd http://www.w3.org/1999/xlink schemas/xlink.xsd"
     #
     #     # mets_hdr = M.metsHdr({"CREATEDATE": current_timestamp(), q(METSEXT_NS,"OAISSTATUS") :"", "RECORDSTATUS" :""})
     #     mets_hdr = M.metsHdr({"CREATEDATE": current_timestamp(), "RECORDSTATUS" :"NEW"})
@@ -414,7 +414,7 @@ class SIPGenerator():
     #
     #     #my_mets.fileSec.append(M.fileGrp({'USE': 'submission'}))
     #     #my_mets.fileSec(M.fileGrp({'USE': 'submission'}))
-    #     #mets_schema_file = os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127/schemas/IP.xsd")
+    #     #mets_schema_file = os.path.join(root_dir, "sandbox/sipgenerator/resources/ENA_RK_TartuLV_141127/schemas/mets.xsd")
     #     #mets_schema = etree.parse(mets_schema_file)
     #     #mets_xsd = etree.XMLSchema(mets_schema)
     #
@@ -446,7 +446,7 @@ class SIPGenerator():
     #                        "PROFILE": "http://www.ra.ee/METS/v01/IP.xml",
     #                        "TYPE": "AIP"}
     #     root = M.mets(METS_ATTRIBUTES)
-    #     root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ schemas/IP.xsd ExtensionMETS schemas/ExtensionMETS.xsd http://www.w3.org/1999/xlink schemas/xlink.xsd"
+    #     root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ schemas/mets.xsd ExtensionMETS schemas/ExtensionMETS.xsd http://www.w3.org/1999/xlink schemas/xlink.xsd"
     #
     #     # mets_hdr = M.metsHdr({"CREATEDATE": current_timestamp(), q(METSEXT_NS,"OAISSTATUS") :"", "RECORDSTATUS" :"AIP"})
     #     mets_hdr = M.metsHdr({"CREATEDATE": current_timestamp(), "RECORDSTATUS" :"NEW"})
@@ -646,7 +646,7 @@ class SIPGenerator():
         #create delivery METS skeleton
         METS_ATTRIBUTES = {"OBJID" : "UUID:" + uuid.uuid4().__str__(), "TYPE" : "SIP", "LABEL" : "Delivery METS", "PROFILE" : "http://webb.eark/package/METS/IP_CS.xml", "ID" : "ID" + uuid.uuid4().__str__() }
         root = M.mets(METS_ATTRIBUTES)
-        root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ schemas/IP.xsd"
+        root.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/METS/ schemas/mets.xsd"
 
         mets_hdr = M.metsHdr({"CREATEDATE": current_timestamp()})
         root.append(mets_hdr)
