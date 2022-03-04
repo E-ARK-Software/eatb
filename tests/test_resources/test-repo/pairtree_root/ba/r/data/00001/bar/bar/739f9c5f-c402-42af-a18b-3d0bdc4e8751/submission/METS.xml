@@ -33,7 +33,7 @@
         <FLocat xlink:href="./schemas/ead.xsd" xlink:type="simple" LOCTYPE="URL"/>
       </file>
       <file MIMETYPE="application/xml" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-03-10T11:24:21" CHECKSUM="dc8133202b61715fa2e52229bda041aed4e586f4b3b21109a40222391ac614f8" ID="ID5701a415-cd0e-4ab7-b7c0-f08d0dc420ba" SIZE="145430">
-        <FLocat xlink:href="./schemas/IP.xsd" xlink:type="simple" LOCTYPE="URL"/>
+        <FLocat xlink:href="./schemas/mets.xsd" xlink:type="simple" LOCTYPE="URL"/>
       </file>
       <file MIMETYPE="application/xml" USE="Datafile" CHECKSUMTYPE="SHA-256" CREATED="2016-03-10T11:24:21" CHECKSUM="f1f5bb6003165cdd8f6c1fcc32f8fd1f965e1681010f3b9806d9460bcffa8a3c" ID="ID67b17bf5-3b41-42ad-9972-02d7efdc95a2" SIZE="3180">
         <FLocat xlink:href="./schemas/xlink.xsd" xlink:type="simple" LOCTYPE="URL"/>
