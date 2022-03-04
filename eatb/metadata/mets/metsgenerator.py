@@ -19,13 +19,13 @@ METS_NS = 'http://www.loc.gov/METS/'
 METSEXT_NS = 'ExtensionMETS'
 XLINK_NS = "http://www.w3.org/1999/xlink"
 CSIP_NS = "https://DILCIS.eu/XML/METS/CSIPExtensionMETS"
-METS_NSMAP = {None: METS_NS, "csip": "https://dilcis.eu/XML/METS/CSIPExtensionMETS", "xlink": "http://www.w3.org/1999/xlink", "ext": METSEXT_NS,
+METS_NSMAP = {None: METS_NS, "csip": CSIP_NS, "xlink": "http://www.w3.org/1999/xlink", "ext": METSEXT_NS,
               "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
 DELIVERY_METS_NSMAP = {None: METS_NS, "csip": CSIP_NS, "xlink": "http://www.w3.org/1999/xlink",
                        "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
-PROFILE_XML = "http://www.ra.ee/METS/v01/IP.xml"
+PROFILE_XML = "https://earkcsip.dilcis.eu/profile/E-ARK-CSIP.xml"
 
-default_mets_schema_location = 'https://www.loc.gov/standards/mets/version111/mets.xsd'
+default_mets_schema_location = 'schemas/mets.xsd'
 default_csip_location = "schemas/DILCISExtensionMETS.xsd"
 default_xlink_schema_location = 'https://www.w3.org/1999/xlink.xsd'
 
@@ -97,16 +97,17 @@ class MetsGenerator(object):
     def createAgent(self,role, type, other_type, name, note, notetype=None):
         if other_type:
 #            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note({q(CSIP_NS, "NOTETYPE"): notetype}, note))
-            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note(note), M.note({q(CSIP_NS, "NOTETYPE"): notetype}, "SOFTWARE VERSION"))
+            agent = M.agent({"ROLE": role, "TYPE": type, "OTHERTYPE": other_type}, M.name(name), M.note(note, {q(CSIP_NS, "NOTETYPE"): "SOFTWARE VERSION"}))
         else:
-            agent = M.agent({"ROLE": role, "TYPE": type}, M.name(name), M.note(note))
+            agent = M.agent({"ROLE": role, "TYPE": type}, M.name(name), M.note(note), M.note(note, {q(CSIP_NS, "NOTETYPE"): "SOFTWARE VERSION"}))
         return agent
 
     def addFile(self, file_name, mets_filegroup):
         # reload(sys)
         # sys.setdefaultencoding('utf8')
-        file_url = "./%s" % os.path.relpath(file_name, self.root_path)
+        file_url = "%s" % os.path.relpath(file_name, self.root_path)
         file_mimetype, _ = self.mime.guess_type(file_url)
+        file_mimetype = file_mimetype if file_mimetype else "application/octet-stream"
         file_checksum = get_sha256_hash(file_name)
         file_size = os.path.getsize(file_name)
         file_cdate = get_file_ctime_iso_date_str(file_name, DT_ISO_FMT_SEC_PREC)
@@ -131,8 +132,8 @@ class MetsGenerator(object):
 
     def make_mdref(self, path, file, id, mdtype):
         mimetype, _ = self.mime.guess_type(os.path.join(path, file))
-        rel_path = "./%s" % os.path.relpath(os.path.join(path, file), self.root_path)
         mimetype = mimetype if mimetype else "application/octet-stream"
+        rel_path = "%s" % os.path.relpath(os.path.join(path, file), self.root_path)
         mets_mdref = {"LOCTYPE": "URL",
                       "MIMETYPE": mimetype,
                       "CREATED": current_timestamp(),
@@ -225,12 +226,12 @@ class MetsGenerator(object):
         METS_ATTRIBUTES = {"OBJID": packageid,
                            "LABEL": "METS file describing the %s matching the OBJID." % packagetype,
                            "PROFILE": PROFILE_XML,
-                           "TYPE": packagetype,
-                           q(CSIP_NS, "CONTENTINFORMATIONTYPE"): "ERMS"}
+                           "TYPE": "Databases",
+                           q(CSIP_NS, "CONTENTINFORMATIONTYPE"): "SIARD2"}
         root = M.mets(METS_ATTRIBUTES)
 
-        if os.path.isfile(os.path.join(schemafolder, 'mets_1_11.xsd')):
-            mets_schema_location = os.path.relpath(os.path.join(schemafolder, 'mets_1_11.xsd'), self.root_path)
+        if os.path.isfile(os.path.join(schemafolder, 'mets.xsd')):
+            mets_schema_location = os.path.relpath(os.path.join(schemafolder, 'mets.xsd'), self.root_path)
         else:
             mets_schema_location = default_mets_schema_location
         if os.path.isfile(os.path.join(schemafolder, 'xlink.xsd')):
@@ -251,6 +252,9 @@ class MetsGenerator(object):
 
         # add an agent
         mets_hdr.append(self.createAgent("CREATOR", "OTHER", "SOFTWARE", application_name, "VERSION=%s" % application_version, "SOFTWARE VERSION"))
+        mets_hdr.append(M.agent({"ROLE": "ARCHIVIST", "TYPE": "ORGANIZATION"}, M.name("E-ARK")))
+        mets_hdr.append(M.agent({"ROLE": "CREATOR", "TYPE": "ORGANIZATION"}, M.name("E-ARK")))
+        mets_hdr.append(M.agent({"ROLE": "PRESERVATION", "TYPE": "ORGANIZATION"}, M.name("E-ARK")))
 
         # add document ID
         mets_hdr.append(M.metsDocumentID("METS.xml"))
@@ -282,7 +286,7 @@ class MetsGenerator(object):
         mets_earkstructmap.append(package_div)
 
         # structMap and div for the whole package (metadata, schema and /data)
-        mets_structmap = M.structMap({"LABEL": "Simple %s structuring" % packagetype, "TYPE": "logical"})
+        mets_structmap = M.structMap({"LABEL": "Simple %s structuring" % packagetype, "TYPE": "logical", "ID": "ID" + uuid.uuid4().__str__()})
         root.append(mets_structmap)
         mets_structmap_div = M.div({"LABEL": "Package structure", "ID": "ID" + uuid.uuid4().__str__()})
         mets_structmap.append(mets_structmap_div)
@@ -397,7 +401,7 @@ class MetsGenerator(object):
                                     for filename in files:
                                         #if dir.endswith('descriptive'):
                                         if dirname == 'descriptive':
-                                            mets_dmd = M.dmdSec({"ID": "ID" + uuid.uuid4().__str__(), "CREATED": current_timestamp()})
+                                            mets_dmd = M.dmdSec({"ID": "ID" + uuid.uuid4().__str__(), "CREATED": current_timestamp(), "STATUS": "CURRENT"})
                                             root.insert(1, mets_dmd)
                                             id = "ID" + uuid.uuid4().__str__()
                                             # TODO: change MDTYPE
@@ -408,7 +412,7 @@ class MetsGenerator(object):
                                             physical_div.append(M.fptr({"FILEID": id}))
                                         #elif dir.endswith('preservation'):
                                         elif dirname == 'preservation' or dirname == 'conduit':
-                                            mets_digiprovmd = M.digiprovMD({"ID": "ID" + uuid.uuid4().__str__()})
+                                            mets_digiprovmd = M.digiprovMD({"ID": "ID" + uuid.uuid4().__str__(), "STATUS": "CURRENT"})
                                             mets_amdSec.append(mets_digiprovmd)
                                             id = "ID" + uuid.uuid4().__str__()
                                             mdtype = ''
@@ -431,7 +435,7 @@ class MetsGenerator(object):
                             del filename
                         else:
                             # TODO: list rep metadata only in the rep Mets?
-                            rel_path_file = "./%s" % os.path.relpath(os.path.join(directory, filename), self.root_path)
+                            rel_path_file = "%s" % os.path.relpath(os.path.join(directory, filename), self.root_path)
                             if filename.lower() == 'mets.xml':
                                 # delete the subdirectories list to stop os.walk from traversing further;
                                 # mets file should be added as <mets:mptr> to <structMap> for corresponding rep

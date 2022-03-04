@@ -78,7 +78,7 @@ class MetsValidation(object):
                                     if sub_child.tag == etree.Comment or sub_child.tag == etree.PI:  # filter out comments (they also count as children)
                                         pass
                                     elif sub_child.attrib['MDTYPE'] == 'PREMIS':
-                                        if sub_child.attrib[q(XLINK_NS, 'href')].startswith('./'):
+                                        if not sub_child.attrib[q(XLINK_NS, 'href')].startswith('/'):
                                             rel_path = sub_child.attrib[q(XLINK_NS, 'href')]
                                             premis = os.path.join(self.rootpath, rel_path[2:])
                                             try:
@@ -149,7 +149,7 @@ class MetsValidation(object):
             if not int(file_size) == int(attr_size):
                 err.append("Actual file size %s does not equal file size attribute value %s, file: %s" % (file_size, attr_size, file_path))
                 # workaround for conduit.log in AIP metadata/ folder on IP root level
-                if file_path[-22:] == './metadata/conduit.log':
+                if file_path[-20:] == 'metadata/conduit.log':
                     err.pop()
                     log.append('Forced validation result \'True\' for file: %s' % (file_path))
 
@@ -158,7 +158,7 @@ class MetsValidation(object):
             checksum_result = checksum_validation.validate_checksum(file_path, attr_checksum, attr_checksumtype)
 
             # workaround for conduit.log in AIP metadata/ folder on IP root level
-            if file_path[-22:] == './metadata/conduit.log':
+            if file_path[-20:] == 'metadata/conduit.log':
                 checksum_result = True
 
             if not checksum_result == True:

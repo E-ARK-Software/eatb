@@ -42,8 +42,8 @@ def create_sip(package_dir: str, package_name: str, identifier: str, generate_pr
                 premisgen.createPremis()
             # representation METS
             logger.info("Creating representation METS file: %s" % os.path.join(rep_path, "METS.xml"))
-            mets_data = {'packageid': identifier,
-                         'type': "Textual works – Digital",
+            mets_data = {'packageid': package_name,
+                         'type': "SIP",
                          'schemas': os.path.join(package_dir, 'schemas'),
                          'parent': ''}
             metsgen = MetsGenerator(rep_path)
@@ -55,8 +55,8 @@ def create_sip(package_dir: str, package_name: str, identifier: str, generate_pr
         premisgen.createPremis()
 
     # METS
-    mets_data = {'packageid': identifier,
-                 'type': "Textual works – Digital",
+    mets_data = {'packageid': package_name,
+                 'type': "SIP",
                  'schemas': os.path.join(package_dir, 'schemas'),
                  'parent': ''}
     mets_path = os.path.join(package_dir, "METS.xml")
