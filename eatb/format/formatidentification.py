@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json
 
 try:
     from fido.fido import Fido
@@ -8,14 +9,18 @@ except ImportError:
     fido_disabled = True
 
 
-class FormatIdentification():
+class FormatIdentification:
     """
     File Format Identification
     """
 
-    def __init__(self):
+    def __init__(self, format_files=None):
+        fmt_files = format_files
+        if not format_files:
+            from eatb.settings import format_files_cfg
+            fmt_files = format_files_cfg.split(",")
         if not fido_disabled:
-            self.fid = Fido()
+            self.fid = Fido(format_files=fmt_files)
             self.fid.handle_matches = self.print_matches
             self.lastFmt = None
 
