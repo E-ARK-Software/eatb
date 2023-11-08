@@ -6,8 +6,8 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="eatb",
     version="0.1.2",
-    author="Sven Schlarb",
-    author_email="shsdev@posteo.net",
+    author="E-ARK Foundation",
+    author_email="admin@e-ark-foundation.eu",
     license='MIT',
     description="A suite of tools for the creation of information packages for archival purposes.",
     long_description=long_description,
