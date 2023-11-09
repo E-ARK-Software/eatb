@@ -10,7 +10,7 @@ available at https://earkcsip.dilcis.eu).
     | Information package {Persistent Unique Identifier}    |
     |-------------------------------------------------------|
     | - metadata/                                           | <--- Descriptive metadata
-    |     - DC.xml                                          |
+    |     - EAD.xml                                          |
     |-------------------------------------------------------|
     | - representations/                                    | <--- Representations
     |     - text_representation/                            | 
