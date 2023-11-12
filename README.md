@@ -1,4 +1,4 @@
-# eatb - eArchiving Tool Box ![Coverage](https://raw.githubusercontent.com/E-ARK-Software/eatb/master/coverage_badge.svg?sanitize=true) 
+# eatb - eArchiving Tool Box ![Build](https://github.com/E-ARK-Software/eatb/actions/workflows/python-app.yml/badge.svg?sanitize=true) ![Coverage](https://raw.githubusercontent.com/E-ARK-Software/eatb/master/coverage_badge.svg?sanitize=true) 
 
 ## About
 
