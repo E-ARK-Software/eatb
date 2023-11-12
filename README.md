@@ -3,8 +3,74 @@
 ## About
 
 The archiving tool box is a suite of tools for the creation of information packages for archival purposes. The archival
-information package must follow the structure defined by the E-ARK specification for information packages (CSIP 
-available at https://earkcsip.dilcis.eu).
+information package must follow the structure and comply with metadata requirements defined by the E-ARK specification 
+for information packages (CSIP available at https://earkcsip.dilcis.eu).
+
+## Quick Start
+
+### Pre-requisites
+
+Python 3.7+ is required.
+
+### Install latest package version from the Python Package Index (PyPi)
+
+    pip install eatb
+
+### Install from GitHub source code
+
+Clone the project move into the directory:
+
+    git clone https://github.com/E-ARK-Software/eatb.git
+    cd eatb
+
+Set up a local virtual environment:
+
+    virtualenv -p python3 venv
+    source venv/bin/activate
+
+Update pip and install the application:
+
+    pip install -U pip
+    pip install .
+
+### Use
+
+Create information packages:
+
+    python3 eatb/package_creator.py -n <packagename> -d <package_directory> -t SIP
+
+The tool `eatb` allows creating an E-ARK information packages based on files which are organized according to the basic
+file system structure as defined by the CSIP (https://earkcsip.dilcis.eu). 
+
+A minimal example is the following information package data structured according to CSP with one data file `test.txt`
+as representation `repr1` and an `EAD.xml` metadata file.
+
+    myip
+    ├── metadata
+    │   └── EAD.xml
+    └── representations
+        └── repr1
+            └── data
+                └── test.txt
+
+Using the packaging command, the structural and preservation data, `METS.xml` and `premis.xml` is added to the package:
+
+    myip
+    ├── metadata
+    │   ├── dc.xml
+    │   └── preservation
+    │       └── premis.xml
+    ├── METS.xml
+    └── representations
+        └── repr1
+            ├── data
+            │   └── test.txt
+            ├── metadata
+            │   └── preservation
+            │       └── premis.xml
+            └── METS.xml
+
+A more complete example with two representations is shown in the example below.
 
     ,-------------------------------------------------------.
     | Information package {Persistent Unique Identifier}    |
@@ -33,48 +99,22 @@ available at https://earkcsip.dilcis.eu).
     |-------------------------------------------------------|
     | - METS.xml                                            | <--- Root METS file (structural metadata)
     `-------------------------------------------------------'
+ 
+## Set up a development environment for the project
 
-The archiving toolbox allows creating an information package based on files which are organized according to the
-structure of a CSIP. It will validate the structure and create METS metadata representing the structure of the package
-and PREMIS metadata which allows recording the provenance of it. 
+### Get source code and create virtual environment using `pip`
 
-    myip
-    ├── metadata
-    │   └── dc.xml
-    └── representations
-        └── repr1
-            └── data
-                └── test.txt
+Clone the project and move into the directory:
 
+    git clone https://github.com/E-ARK-Software/eatb.git
+    cd eatb
 
-    myip
-    ├── metadata
-    │   ├── dc.xml
-    │   └── preservation
-    │       └── premis.xml
-    ├── METS.xml
-    └── representations
-        └── repr1
-            ├── data
-            │   └── test.txt
-            ├── metadata
-            │   └── preservation
-            │       └── premis.xml
-            └── METS.xml
+Set up a local virtual environment:
 
-## Installation
+    virtualenv -p python3 venv
+    source venv/bin/activate
 
-Install python packages (in virtual environment):
-
-    pip install -r requirements.txt
-
-## Use
-
-Create information packages:
-
-    python3 eatb/package_creator.py -n <packagename> -d <package_directory> -t SIP
-    
-## Unit tests
+### Unit tests
 
 Install py.test
 

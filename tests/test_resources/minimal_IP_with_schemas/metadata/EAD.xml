@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ead xmlns="urn:isbn:1-931666-22-9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <eadheader>
+    <filedesc>
+      <titlestmt>
+        <title>Main Title of the Finding Aid</title>
+      </titlestmt>
+      <publicationstmt>
+        <publisher>Publisher Name</publisher>
+        <date>YYYY-MM-DD</date>
+      </publicationstmt>
+    </filedesc>
+  </eadheader>
+  <archdesc>
+    <did>
+      <unittitle>Collection Title</unittitle>
+      <unitdate>YYYY-YYYY</unitdate>
+      <repository>
+        <corpname>Repository Name</corpname>
+      </repository>
+    </did>
+    <scopecontent>
+      <p>A brief description of the collection goes here.</p>
+    </scopecontent>
+    <controlaccess>
+      <subject>
+        <geogname>Place Name</geogname>
+      </subject>
+      <subject>
+        <persname>Person's Name</persname>
+      </subject>
+    </controlaccess>
+  </archdesc>
+</ead>

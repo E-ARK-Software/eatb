@@ -2,16 +2,19 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+
+from eatb import ROOT
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))  # noqa: E402
 import unittest
 
-from util.datetime import get_file_ctime_iso_date_str, current_timestamp, LengthBasedDateFormat, \
+from eatb.utils.datetime import get_file_ctime_iso_date_str, current_timestamp, LengthBasedDateFormat, \
     DT_ISO_FORMAT, ts_date, date_format, current_date
 
 
 class TestDateTime(unittest.TestCase):
 
-    test_file = 'tests/test_resources/test.txt'
+    test_file = os.path.join(ROOT, 'tests/test_resources/test.txt')
 
     def test_file_ctime_iso_date_str(self):
         """

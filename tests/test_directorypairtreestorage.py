@@ -5,8 +5,9 @@ import tarfile
 import tempfile
 import unittest
 
-from eatb import ROOT
-from eatb.storage.directorypairtreestorage import DirectoryPairtreeStorage
+from eatb import ROOT, VersionDirFormat
+from eatb.directory_pairtree_storage import DirectoryPairtreeStorage
+
 
 class TestDirectoryPairtreeStorage(unittest.TestCase):
 
@@ -36,6 +37,8 @@ class TestDirectoryPairtreeStorage(unittest.TestCase):
     def test_version_exists(self):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
         identifier = "bar"
+        version1_exists = pts.identifier_version_object_exists(identifier, 0)
+        self.assertEqual(version1_exists, True)
         version1_exists = pts.identifier_version_object_exists(identifier, 1)
         self.assertEqual(version1_exists, True)
         version2_exists = pts.identifier_version_object_exists(identifier, 2)
@@ -47,23 +50,23 @@ class TestDirectoryPairtreeStorage(unittest.TestCase):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
         identifier = "bar"
         next_version_dirname = pts._next_version(identifier)
-        self.assertEqual("00003", next_version_dirname)
+        self.assertEqual(VersionDirFormat % 3, next_version_dirname)
 
     def test_curr_version(self):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
         identifier = "bar"
-        self.assertEqual("00002", pts.curr_version(identifier))
+        self.assertEqual(VersionDirFormat % 2, pts.curr_version(identifier))
 
     def test_store(self):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
         pts.store("minimal_IP_with_schemas", TestDirectoryPairtreeStorage.source_dir)
-        self.assertEqual(1, pts.curr_version_num("minimal_IP_with_schemas"))
+        self.assertEqual(0, pts.curr_version_num("minimal_IP_with_schemas"))
         pts.store("minimal_IP_with_schemas", TestDirectoryPairtreeStorage.source_dir)
-        self.assertEqual(2, pts.curr_version_num("minimal_IP_with_schemas"))
+        self.assertEqual(1, pts.curr_version_num("minimal_IP_with_schemas"))
 
     def test_get_object_path(self):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
-        expected = os.path.join(TestDirectoryPairtreeStorage.tmp_test_repo, "pairtree_root/ba/r/data/00002/bar")
+        expected = os.path.join(TestDirectoryPairtreeStorage.tmp_test_repo, "pairtree_root/ba/r/data/v00002/content/bar_v00002_b00001")
         actual = pts.get_object_path("bar")
         self.assertEqual(expected, actual)
 
@@ -82,45 +85,13 @@ class TestDirectoryPairtreeStorage(unittest.TestCase):
         pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
         source_dir_opq = os.path.join(ROOT, 'tests/test_resources/storage-test-opq/./')
         version = pts.store("opq", source_dir_opq)
-        self.assertEqual("00001", version)
+        self.assertEqual(VersionDirFormat % 0, version)
         tar_file_path = pts.get_tar_file_path("opq")
         self.assertTrue(os.path.exists(tar_file_path))
         version = pts.store("opq", source_dir_opq)
-        self.assertEqual("00002", version)
+        self.assertEqual(VersionDirFormat % 1, version)
         tar_file_path = pts.get_tar_file_path("opq")
         self.assertTrue(os.path.exists(tar_file_path))
-
-    def test_store_versions_packaged_distributions(self):
-        pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo)
-        version = pts.store("xyz", TestDirectoryPairtreeStorage.source_dir, single_package=False)
-        self.assertEqual("00001", version)
-        tar_file_path = pts.get_tar_file_path("xyz")
-        self.assertTrue(os.path.exists(tar_file_path))
-
-    def test_store_versions_packaged_distribution_versions(self):
-        pts = DirectoryPairtreeStorage(TestDirectoryPairtreeStorage.tmp_test_repo,
-                                       representations_directory="distributions")
-        # store first version
-        abc1_src_dir = os.path.join(ROOT, 'tests/test_resources/distributionpackages/abc1')
-        version = pts.store("abc", abc1_src_dir, single_package=False)
-        self.assertEqual("00001", version)
-        distr_tar_file_path = pts.get_tar_file_path("abc", "default")
-        self.assertTrue(os.path.exists(distr_tar_file_path))
-        tar_file = tarfile.open(distr_tar_file_path, 'r')
-        content = pts.get_object_item_stream(identifier="bar",
-                                             entry="default/data/example.txt", representation_label="default",
-                                             tar_file=tar_file)
-
-        # read text file contained in the distribution
-        content_chunk = next(content)
-        content_chunk_text = content_chunk.decode('utf-8')
-        self.assertTrue(content_chunk_text.startswith("text file content"))
-        tar_file.close()
-
-        # store second version (packaged distribution differs from first one)
-        abc2_src_dir = os.path.join(ROOT, 'tests/test_resources/distributionpackages/abc2')
-        version = pts.store("abc", abc2_src_dir, single_package=False)
-        self.assertEqual("00002", version)
 
 
 if __name__ == '__main__':

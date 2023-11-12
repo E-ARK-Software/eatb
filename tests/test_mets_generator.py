@@ -5,9 +5,10 @@ import shutil
 import unittest
 
 from eatb import ROOT
-from eatb.metadata.mets.ParsedMets import ParsedMets
+from eatb.metadata.parsed_mets import ParsedMets
 from eatb.utils import randomutils
-from eatb.metadata.mets.metsgenerator import MetsGenerator
+from eatb.metadata.mets_generator import MetsGenerator
+
 
 class TestMetsCreation(unittest.TestCase):
 
@@ -30,7 +31,7 @@ class TestMetsCreation(unittest.TestCase):
         pass
 
     @unittest.skip("Currently throws a KeyError:'data' error @{}". \
-        format("eatb/metadata/mets/metsgenerator.py:446"))
+        format("eatb/metadata/mets/mets.py:446"))
     def testCreateMets(self):
         metsgen = MetsGenerator(TestMetsCreation.test_ip_dir)
         mets_data = {'packageid': '996ed635-3e13-4ee5-8e5b-e9661e1d9a93',

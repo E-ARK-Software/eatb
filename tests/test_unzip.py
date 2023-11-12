@@ -5,8 +5,9 @@ import shutil
 import unittest
 
 from eatb import ROOT
-from util.randomutils import randomword
-from eatb.packaging.packaged_container import ZipContainer
+from eatb.packaging import ZipContainer
+from eatb.utils.randomutils import randomword
+
 
 class TestExtraction(unittest.TestCase):
 

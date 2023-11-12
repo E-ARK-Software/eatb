@@ -5,7 +5,8 @@ import os
 import unittest
 
 from eatb import ROOT
-from util.fileutils import remove_protocol, strip_prefixes, get_sub_path_from_relative_path
+from eatb.utils.fileutils import remove_protocol, strip_prefixes, get_sub_path_from_relative_path
+
 
 class TestPathFunctions(unittest.TestCase):
 
@@ -35,10 +36,8 @@ class TestPathFunctions(unittest.TestCase):
 
         test_ip_root = os.path.join(test_source_directory, test_ip)
 
-        containing_file_path = os.path.join(test_ip_root, 'descriptive/EAD.xml')
+        containing_file_path = os.path.join(test_ip_root, 'metadata/descriptive/EAD.xml')
 
-        # root = '/var/data/conduit/work/71ee0837-34f4-4857-9721-07a3eaac0582'
-        # containing_file_path = '/var/data/conduit/work/71ee0837-34f4-4857-9721-07a3eaac0582/submission/metadata/descriptive/EAD.xml'
         relative_path = '../../submission/metadata/descriptive/EAD.xml'
         self.assertEqual("submission/metadata/descriptive/EAD.xml",
                          get_sub_path_from_relative_path(test_ip_root, containing_file_path, relative_path))

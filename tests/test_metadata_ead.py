@@ -4,7 +4,8 @@ import os
 import unittest
 
 from eatb import ROOT
-from eatb.metadata.parsedead import ParsedEad
+from eatb.metadata.parsed_ead import ParsedEad
+
 
 class TestParsedEad(unittest.TestCase):
     test_dir = os.path.join(ROOT, 'tests/test_resources/EAD-test/')
@@ -108,8 +109,8 @@ class TestParsedEad(unittest.TestCase):
         pead = ParsedEad(parsed_ead, ead_file_path)
         md_tag = "unittitle"
         res = pead.dao_path_mdval_tuples(md_tag)
-        self.assertEqual("metadata/descriptive/representations/rep1/data/Example1.docx", res[0]['path'])
-        self.assertEqual("metadata/descriptive/representations/rep2/data/Example1.pdf", res[1]['path'])
+        self.assertEqual("representations/rep1/data/Example1.docx", res[0]['path'])
+        self.assertEqual("representations/rep2/data/Example1.pdf", res[1]['path'])
         self.assertEqual("Record - Adams-Ayers", res[0]['mdvalue'])
         self.assertEqual("Record - Adams-Ayers", res[1]['mdvalue'])
 

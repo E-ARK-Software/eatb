@@ -4,13 +4,13 @@ import os
 import unittest
 
 from eatb import ROOT
-from eatb.validation.csip_validation import CSIPValidation
+from eatb.csip_validation import CSIPValidation
 
 class TestCSIPValidation(unittest.TestCase):
 
     def test_csip_validation(self):
         ip_path = os.path.join(ROOT, 'tests/test_resources/metadata/mets/')
-        rules_path = os.path.join(ROOT, "tests/rules.xml")
+        rules_path = os.path.join(ROOT, "tests/test_resources/rules.xml")
         csip_validation = CSIPValidation(rules_path)
         validation_report = csip_validation.validate(ip_path)
         self.assertTrue(len(validation_report) > 0, str(len(validation_report)))

@@ -4,7 +4,7 @@ import os
 import unittest
 
 from eatb import ROOT
-from eatb.metadata.premis.dippremis import DIPPremis
+from eatb.metadata.dip_parsed_premis import DIPPremis
 
 
 class DIPPremisTest(unittest.TestCase):

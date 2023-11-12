@@ -4,7 +4,8 @@ import os
 import unittest
 
 from eatb import ROOT
-from eatb.metadata.mets.metsutil import get_package_mets_files_from_basedir, get_mets_obj_id
+from eatb.metadata.mets import get_package_mets_files_from_basedir, get_mets_obj_id
+
 
 class METSUtilTest(unittest.TestCase):
 

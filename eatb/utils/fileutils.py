@@ -107,7 +107,7 @@ def secure_force_copy_file(source_file, target_file):
     """
     if os.path.isfile(source_file):
         shutil.copy2(source_file, target_file)
-        from eatb.storage.checksum import get_sha256_hash
+        from eatb.checksum import get_sha256_hash
         if not os.path.exists(target_file) or not get_sha256_hash(source_file) == get_sha256_hash(target_file):
             raise IOError("File copy operation failed  (checksums not equal: %s vs. %s)." % (source_file, target_file))
         return os.path.exists(target_file)

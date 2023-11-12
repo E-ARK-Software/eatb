@@ -4,12 +4,14 @@ import os
 import unittest
 
 from eatb import ROOT
-from eatb.metadata.mets.MetsValidation import MetsValidation
+from eatb.csip_validation import CSIPValidation
+from eatb.metadata.mets_validation import MetsValidation
 
 from tests.base import Base
 from tests.test_utils import validate
 
-class TestMetsRootElement(Base):
+
+class TestMetsValidation(Base):
 
     def test_csip1(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=1)
@@ -23,8 +25,6 @@ class TestMetsRootElement(Base):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=6)
         self.assertTrue(validation_result)
 
-
-class TestMetsHeaderElement(Base):
 
     def test_csip117(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=117)
@@ -65,9 +65,6 @@ class TestMetsHeaderElement(Base):
     def test_csip16(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=16)
         self.assertTrue(validation_result)
-
-
-class TestMetsDescriptiveMetadata(Base):
 
     def test_csip18(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=18)
@@ -112,9 +109,6 @@ class TestMetsDescriptiveMetadata(Base):
     def test_csip30(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=30)
         self.assertTrue(validation_result)
-
-
-class TestMetsAdministrativeMetadata(Base):
 
     def test_csip33(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=33)
@@ -196,9 +190,6 @@ class TestMetsAdministrativeMetadata(Base):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=57)
         self.assertTrue(validation_result)
 
-
-class TestMetsFileSection(Base):
-
     def test_csip59(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=59)
         self.assertTrue(validation_result)
@@ -262,9 +253,6 @@ class TestMetsFileSection(Base):
     def test_csip79(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=79)
         self.assertTrue(validation_result)
-
-
-class TestMetsStructuralMap(Base):
 
     def test_csip80(self):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=80)
@@ -366,16 +354,12 @@ class TestMetsStructuralMap(Base):
         validation_result, _ = validate(self.rules_lines, self.IP_path + '/METS.xml', rule_id=112)
         self.assertTrue(validation_result)
 
-
-class TestMetsValidation(Base):
-
     def test_IP_mets(self):
         mets_file = 'METS.xml'
         mets_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/mets_1_11.xsd')
         premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v2-2.xsd')
         mets_validator = MetsValidation(self.IP_path, mets_schema_file, premis_schema_file)
         mets_validator.validate_mets(os.path.join(self.IP_path, mets_file))
-
 
 
 if __name__ == '__main__':

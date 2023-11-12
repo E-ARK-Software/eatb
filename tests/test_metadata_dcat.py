@@ -4,8 +4,8 @@ import os
 import unittest
 
 from eatb import ROOT
-from util.fileutils import read_file_content
-from eatb.metadata.parseddcat import ParsedDcat
+from eatb.metadata.parsed_dcat import ParsedDcat
+from eatb.utils.fileutils import read_file_content
 
 
 class TestParsedDcat(unittest.TestCase):

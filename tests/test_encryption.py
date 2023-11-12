@@ -6,10 +6,11 @@ import subprocess
 import unittest
 
 from eatb import ROOT
-from eatb.cli.cli import CliCommand, CliCommands
-from eatb.storage.encryption import gpg_encrypt_file_passphrase
+from eatb.cli import CliCommand, CliCommands
 from eatb.utils import randomutils
-from util.fileutils import read_file_content
+from eatb.utils.encrypt import gpg_encrypt_file_passphrase
+from eatb.utils.fileutils import read_file_content
+
 
 class EncryptionTest(unittest.TestCase):
 

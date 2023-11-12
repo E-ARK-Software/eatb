@@ -1,10 +1,24 @@
 import unittest
 
-from eatb.cli.cli import CliCommand
+from eatb.cli import CliCommand, CliCommands
+
+
+def gpg_encrypt_file_passphrase2(file, passphrase):
+    return CliCommand.get_command("gpg_passphrase_encrypt_file", {'file': file, 'passphrase': passphrase})
 
 
 def gpg_encrypt_file_passphrase(file, passphrase):
-    return CliCommand.get_command("gpg_passphrase_encrypt_file", {'file': file, 'passphrase': passphrase})
+    """
+    Encrypt file using passphrase
+    :param file: file
+    :param passphrase: passphrase
+    :return: CLI command string
+    """
+    cli_commands = CliCommands()
+    cli_command = CliCommand("gpg_passphrase_encrypt_file", cli_commands.get_command_template("gpg_passphrase_encrypt_file"))
+    command = cli_command.get_command({'file': file, 'passphrase': passphrase})
+    return command
+
 
 
 
@@ -24,8 +38,6 @@ class CliCommandTest(unittest.TestCase):
         # self.assertEqual("test", read_file_content(os.path.join(root_dir,"testresources/test_decrypted.txt")))
         # os.remove(os.path.join(root_dir,"testresources/test.txt.gpg"))
         # os.remove(os.path.join(root_dir,"testresources/test_decrypted.txt"))
-
-
 
 
 if __name__ == '__main__':

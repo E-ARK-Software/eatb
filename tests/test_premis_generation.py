@@ -7,8 +7,9 @@ import unittest
 from lxml import etree
 
 from eatb import ROOT
-from eatb.metadata.premis.premisgenerator import PremisGenerator
+from eatb.metadata.premis_generator import PremisGenerator
 from eatb.utils import randomutils
+
 
 class TestPremisCreation(unittest.TestCase):
     test_ip = "eark-ip"

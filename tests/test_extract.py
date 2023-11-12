@@ -7,7 +7,7 @@ import unittest
 
 from eatb import ROOT
 from eatb.utils import randomutils
-from eatb.packaging.packaged_container import PackagedContainer
+from eatb.packaging import PackagedContainer
 
 
 class TestExtract(unittest.TestCase):

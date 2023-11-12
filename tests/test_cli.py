@@ -3,8 +3,8 @@
 import string
 import unittest
 
-from eatb.cli.cli import CliCommand, CliCommands
-from eatb.cli.cli import CliExecution
+from eatb.cli import CliCommand, CliCommands
+from eatb.cli import CliExecution
 
 
 class CliCommandTest(unittest.TestCase):

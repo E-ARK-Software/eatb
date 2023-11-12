@@ -10,9 +10,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")) # NOQA
 
 from eatb import LOGGER
-from eatb.oais.aip_creation import create_aip
-from eatb.oais.sip_creation import create_sip
-from eatb.oais.oais_package_type import OAISPackageType
+from eatb.oais_ip import create_sip, OAISPackageType, create_aip
 
 
 def main():

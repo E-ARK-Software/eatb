@@ -9,7 +9,7 @@ config = configparser.ConfigParser()
 config['DEFAULT'] = {}
 config.sections()
 
-config.read(os.path.join(ROOT, 'settings/settings.cfg'))
+config.read(os.path.join(ROOT, 'eatb/settings.cfg'))
 
 application_name = config.get('global', 'application_name')
 application_version = config.get('global', 'application_version')

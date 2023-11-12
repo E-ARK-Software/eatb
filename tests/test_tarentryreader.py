@@ -5,7 +5,7 @@ import tarfile
 import unittest
 
 from eatb import ROOT
-from eatb.packaging.tar_entry_reader import ChunkedTarEntryReader
+from eatb.packaging import ChunkedTarEntryReader
 
 
 class ChunkedTarEntryReaderTest(unittest.TestCase):

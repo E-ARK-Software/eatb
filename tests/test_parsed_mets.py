@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 import unittest
 
-from eatb.metadata.mets.ParsedMets import ParsedMets
+from eatb import ROOT
+from eatb.metadata.parsed_mets import ParsedMets
+
+test_dir = os.path.join(ROOT, 'tests/test_resources/metadata/mets/')
+test_file = test_dir + 'METS_filesec.xml'
 
 
 class TestParsedMets(unittest.TestCase):
-
-    test_dir = 'tests/test_resources/metadata/mets/'
-    test_file = test_dir + 'METS_filesec.xml'
     pmets = ParsedMets(test_dir)
     pmets.load_mets(test_file)
-
     def test_validate_files_size(self):
         """
         Must not validate if the files listed in the METS file does not match the actual file size

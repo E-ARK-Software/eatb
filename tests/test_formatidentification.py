@@ -10,7 +10,8 @@ except ImportError:
     fido_disabled = True
 
 from eatb import ROOT
-from eatb.format.formatidentification import FormatIdentification
+from eatb.file_format import FormatIdentification
+
 
 class TestFormatIdentification(unittest.TestCase):
 
