@@ -170,8 +170,8 @@ class PairtreeStorage:
         target_data_directory = os.path.join(dirpath, "data")
         target_data_version_directory = os.path.join(target_data_directory, curr_version)
         bag_name = self.get_bag_name(identifier, curr_version, 1)
-        target_data_version_asset_directory = os.path.join(target_data_version_directory, "content", bag_name)
-        path_to_object = os.path.join(target_data_version_asset_directory)
+        target_data_version_asset_directory = os.path.join(target_data_version_directory, "content")
+        path_to_object = os.path.join(target_data_version_asset_directory, "%s.tar" % bag_name)
         if os.path.exists(path_to_object):
             logger.debug("Package file found at: %s" % path_to_object)
             return path_to_object
