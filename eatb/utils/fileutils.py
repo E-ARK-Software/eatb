@@ -505,7 +505,7 @@ def to_safe_filename(uri):
     :param uri: URI
     :return: safe file name
     """
-    return uri.replace(":", "+")
+    return uri.replace(" ", "").replace(":", "+")
 
 
 class FileBinaryDataChunks(object):

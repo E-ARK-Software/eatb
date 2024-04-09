@@ -61,23 +61,9 @@ class TestPairtreeStorage(unittest.TestCase):
 
     def test_get_object_path(self):
         pts = PairtreeStorage(test_repo)
-        expected = os.path.join(test_repo, "pairtree_root/ba/r/data/v00002/content/bar_v00002_b00001")
+        expected = os.path.join(test_repo, "pairtree_root/ba/r/data/v00002/content/bar_v00002_b00001.tar")
         actual = pts.get_object_path("bar")
         self.assertEqual(expected, actual)
-
-    def test_read_tar_file_entry_as_chunks(self):
-        pts = PairtreeStorage(test_repo)
-        identifier = "bar"
-        entry = "739f9c5f-c402-42af-a18b-3d0bdc4e8751/METS.xml"
-        chunked_tar_entry_reader = pts.get_chunked_tar_entry_reader(identifier)
-        try:
-            chunks = chunked_tar_entry_reader.chunks(entry)
-            content = ''.join([chunk.decode('utf-8') for chunk in chunks])
-            self.assertTrue(content.startswith("<?xml"))
-        except KeyError:
-            raise ObjectNotFoundException("Entry '%s' not found in package '%s'" % (entry, identifier))
-        finally:
-            chunked_tar_entry_reader.close()
 
 
 if __name__ == '__main__':

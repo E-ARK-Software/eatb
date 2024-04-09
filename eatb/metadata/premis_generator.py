@@ -260,9 +260,9 @@ class PremisGenerator(object):
             return
 
     def createPremis(self, path_premis=None):
-        PREMIS_ATTRIBUTES = {"version" : "2.0"}
+        PREMIS_ATTRIBUTES = {"version" : "3.0"}
         premis = P.premis(PREMIS_ATTRIBUTES)
-        premis.attrib['{%s}schemaLocation' % XSI_NS] = "info:lc/xmlns/premis-v2 ../../schemas/premis-v2-2.xsd"
+        premis.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/premis/v3 https://www.loc.gov/standards/premis/v3/premis-v3-0.xsd"
 
         # if there are no /data files, this will ensure that there is at least one object (the IP itself)
         premis_id = 'ID' + uuid.uuid4().__str__()
