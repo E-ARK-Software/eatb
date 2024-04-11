@@ -94,7 +94,7 @@ A more complete example with two representations is shown in the example below.
     |-------------------------------------------------------|
     | - schemas/                                            | <--- Schema files for validation
     |     - IP_CS_mets.xsd                                  |
-    |     - premis-v2-2.xsd                                 |
+    |     - premis-v3-0.xsd                                 |
     |     - xlink.xsd                                       |
     |-------------------------------------------------------|
     | - METS.xml                                            | <--- Root METS file (structural metadata)

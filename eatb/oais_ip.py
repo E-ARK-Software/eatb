@@ -297,7 +297,7 @@ class DeliveryValidation(object):
 
 METS_NS = 'http://www.loc.gov/METS/'
 METSEXT_NS = 'ExtensionMETS'
-PREMIS_NS = 'info:lc/xmlns/premis-v2'
+PREMIS_NS = 'http://www.loc.gov/premis/v3'
 PREMIS_NSMAP = {None: PREMIS_NS}
 XLINK_NS = "http://www.w3.org/1999/xlink"
 METS_NSMAP = {None: METS_NS, "xlink": "http://www.w3.org/1999/xlink", "ext": METSEXT_NS,
@@ -397,7 +397,7 @@ class SIPGenerator():
     #
     #     PREMIS_ATTRIBUTES = {"version" : "2.0"}
     #     premis = P.premis(PREMIS_ATTRIBUTES)
-    #     premis.attrib['{%s}schemaLocation' % XSI_NS] = "info:lc/xmlns/premis-v2 ../../schemas/premis-v2-2.xsd"
+    #     premis.attrib['{%s}schemaLocation' % XSI_NS] = "http://www.loc.gov/premis/v3 ../../schemas/premis-v3-0.xsd"
     #
     #     premis_ids = []
     #     for top, dirs, files in os.walk(os.path.join(self.root_path, 'data')):

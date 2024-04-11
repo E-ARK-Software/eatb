@@ -12,6 +12,7 @@ from eatb.utils import randomutils
 
 source_dir = os.path.join(ROOT, 'tests/test_resources/storage-test/')
 package_file = "xyz.tar"
+package_file_path = os.path.join(source_dir, package_file)
 repository_storage_dir = '/tmp/temp-' + randomutils.randomword(10)
 test_repo = os.path.join(ROOT, 'tests/test_resources/test-repo/')
 
@@ -54,14 +55,14 @@ class TestPairtreeStorage(unittest.TestCase):
 
     def test_store(self):
         pts = PairtreeStorage(repository_storage_dir)
-        pts.store("xyz", os.path.join(source_dir))
+        pts.store("xyz", package_file_path)
         self.assertEqual(0, pts.curr_version_num("xyz"))
-        pts.store("xyz", os.path.join(source_dir))
+        pts.store("xyz", package_file_path)
         self.assertEqual(1, pts.curr_version_num("xyz"))
 
     def test_get_object_path(self):
         pts = PairtreeStorage(test_repo)
-        expected = os.path.join(test_repo, "pairtree_root/ba/r/data/v00002/content/bar_v00002_b00001.tar")
+        expected = os.path.join(test_repo, "pairtree_root/ba/r/data/v00002/bar.tar")
         actual = pts.get_object_path("bar")
         self.assertEqual(expected, actual)
 

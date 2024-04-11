@@ -70,6 +70,32 @@ class PremisCreator:
             self.premis_successor_sections
         )
 
+    def add_relationship(self, identifier_value, outcome, linking_agent, linking_object=None):
+        sequence_insert(
+            self.root, P.event(
+                P.eventIdentifier(
+                    P.eventIdentifierType('URN'),
+                    P.eventIdentifierValue(identifier_value.format(ts_date(fmt=DT_ISO_FORMAT_FILENAME)))
+                ),
+                P.eventType,
+                P.eventDateTime(datetime.utcnow().isoformat()),
+                P.eventOutcomeInformation(
+                    P.eventOutcome(outcome)
+                ),
+                P.linkingAgentIdentifier(
+                    P.linkingAgentIdentifierType('URN'),
+                    P.linkingAgentIdentifierValue(linking_agent)
+                ),
+
+                P.linkingAgentIdentifier(
+                    P.linkingObjectIdentifierType('URN'),
+                    P.linkingObjectIdentifierValue(linking_object)
+                )
+                if linking_object is not None else None
+            ),
+            self.premis_successor_sections
+        )
+
     def add_agent(self, identifier_value, agent_name, agent_type):
         sequence_insert(
             self.root, P.agent(

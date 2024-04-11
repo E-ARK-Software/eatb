@@ -18,7 +18,7 @@ class MetsValidation(object):
     '''
 
     def __init__(self, root, mets_schema_file=os.path.join(ROOT, "eatb/resources/schemas/mets.xsd"),
-                 premis_schema_file=os.path.join(ROOT, "eatb/resources/schemas/premis-v2-2.xsd")):
+                 premis_schema_file=os.path.join(ROOT, "eatb/resources/schemas/premis-v3-0.xsd")):
         self.validation_errors = []
         self.total_files = 0
         self.schema_mets = etree.XMLSchema(file=mets_schema_file)

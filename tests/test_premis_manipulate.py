@@ -12,7 +12,7 @@ from eatb.utils.xmlutils import pretty_xml_string
 from eatb.csip_validation import XmlValidation
 
 premis_skeleton = os.path.join(ROOT, 'tests/test_resources/metadata/premis/PREMIS_skeleton.xml')
-premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v2-2.xsd')
+premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v3-0.xsd')
 
 
 class TestPremisManipulate(unittest.TestCase):

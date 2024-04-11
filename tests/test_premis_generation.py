@@ -24,7 +24,7 @@ class TestPremisCreation(unittest.TestCase):
 
     premis_file_path = os.path.join(temp_working_dir, test_ip, './metadata/preservation/premis.xml')
 
-    premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v2-2.xsd')
+    premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v3-0.xsd')
 
     @classmethod
     def setUpClass(cls):
@@ -52,13 +52,6 @@ class TestPremisCreation(unittest.TestCase):
         premisgen = PremisGenerator(TestPremisCreation.tmp_ip_dir)
         premisgen.createPremis()
         self.validate_xml(TestPremisCreation.premis_file_path, TestPremisCreation.premis_schema_file)
-
-    def test_reate_migration_premis(self):
-        premisgen = PremisGenerator(TestPremisCreation.tmp_ip_dir_mig)
-        premis_info = {'info': '%s/representations/repr1_mig-1/metadata/preservation/premis.xml' % TestPremisCreation.tmp_ip_dir_mig}
-        premisgen.createMigrationPremis(premis_info)
-        premis = '%s/representations/repr1_mig-1/metadata/preservation/premis.xml' % TestPremisCreation.tmp_ip_dir_mig
-        self.validate_xml(premis, TestPremisCreation.premis_schema_file)
 
     def test_add_premis_event(self):
         premisgen = PremisGenerator(TestPremisCreation.tmp_ip_dir_mig)

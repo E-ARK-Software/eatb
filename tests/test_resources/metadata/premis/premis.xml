@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<premis xmlns="info:lc/xmlns/premis-v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
-        xsi:schemaLocation="info:lc/xmlns/premis-v2 ../../schemas/premis-v2-2.xsd">
+<premis xmlns="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0"
+        xsi:schemaLocation="http://www.loc.gov/premis/v3 ../../schemas/premis-v3-0.xsd">
     <object xmlID="IDe0ae1a10-9749-42cc-9d18-7e73ee360021" xsi:type="representation">
         <objectIdentifier>
             <objectIdentifierType>repository</objectIdentifierType>

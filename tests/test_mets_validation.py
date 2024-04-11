@@ -357,7 +357,7 @@ class TestMetsValidation(Base):
     def test_IP_mets(self):
         mets_file = 'METS.xml'
         mets_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/mets_1_11.xsd')
-        premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v2-2.xsd')
+        premis_schema_file = os.path.join(ROOT, 'tests/test_resources/schemas/premis-v3-0.xsd')
         mets_validator = MetsValidation(self.IP_path, mets_schema_file, premis_schema_file)
         mets_validator.validate_mets(os.path.join(self.IP_path, mets_file))
 
