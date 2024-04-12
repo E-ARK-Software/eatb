@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="eatb",
-    version="0.2.0",
+    version="0.2.1",
     author="E-ARK Foundation",
     author_email="admin@e-ark-foundation.eu",
     license='MIT',
@@ -14,7 +14,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://www.e-ark-foundation.eu/e-ark-software-eatb",
     packages=setuptools.find_packages(),
-    package_data={'eatb': ["*.ini", "*.cfg", "**/**/*.xsd", "**/*.xml"]},
+    package_data={'eatb': ["*.ini", "**/*.cfg", "**/**/*.xsd", "**/*.xml"]},
     zip_safe=False,
     classifiers=[
           'Intended Audience :: Developers',
