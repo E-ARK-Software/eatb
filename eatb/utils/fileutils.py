@@ -496,7 +496,7 @@ def from_safe_filename(uri):
     :param uri: URI
     :return: safe file name
     """
-    return uri.replace("+", ":")
+    return uri.replace("+", ":").replace("=", "/").replace(",", ".")
 
 
 def to_safe_filename(uri):
@@ -505,7 +505,9 @@ def to_safe_filename(uri):
     :param uri: URI
     :return: safe file name
     """
-    return uri.replace(" ", "").replace(":", "+")
+    # https://www.ietf.org/archive/id/draft-kunze-pairtree-01.txt
+    # 3.  Identifier string cleaning
+    return uri.replace(" ", "").replace(":", "+").replace("/", "=").replace(".", ",")
 
 
 class FileBinaryDataChunks(object):
