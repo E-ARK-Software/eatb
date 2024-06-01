@@ -489,26 +489,53 @@ def get_sub_path_from_relative_path(root, containing_file_path, relative_path):
     containing_path, _ = os.path.split(containing_file_path)
     return strip_prefixes(os.path.abspath(os.path.join(containing_path, relative_path)), root)
 
-
-def from_safe_filename(uri):
+def from_safe_filename(cleaned_identifier):
     """
-    Convert URI to safe filename
-    :param uri: URI
-    :return: safe file name
+    Get original identifier from safe filename identifier string, see
+    https://www.ietf.org/archive/id/draft-kunze-pairtree-01.txt
+    :param cleaned_identifier: file name identifier string (https=+doi,org=10,5281=zenodo,4514864)
+    :return: original identifier (https://doi.org/10.5281/zenodo.4514864)
     """
-    return uri.replace("+", ":").replace("=", "/").replace(",", ".")
+    # Reverse second step: single-character to single-character conversions
+    translation_table = str.maketrans("=+,", "/:.")
+    intermediate_identifier = cleaned_identifier.translate(translation_table)
+    # Reverse first step: hexadecimal decoding
+    def hex_decode(match):
+        hex_value = match.group(1)
+        return chr(int(hex_value, 16))
+    # Replace hexadecimal encoded characters with their original characters
+    original_identifier = re.sub(r'\^([0-9a-fA-F]{2})', hex_decode, intermediate_identifier)
+    return original_identifier
 
-
-def to_safe_filename(uri):
+def to_safe_filename(identifier):
     """
-    Convert URI to safe filename
-    :param uri: URI
-    :return: safe file name
+    Get safe filename identifier string from original identifier, see
+    https://www.ietf.org/archive/id/draft-kunze-pairtree-01.txt
+    :param identifier: identifier (https://doi.org/10.5281/zenodo.4514864
+    :return: file name identifier string (https=+doi,org=10,5281=zenodo,4514864)
     """
-    # https://www.ietf.org/archive/id/draft-kunze-pairtree-01.txt
-    # 3.  Identifier string cleaning
-    return uri.replace(" ", "").replace(":", "+").replace("/", "=").replace(".", ",")
-
+    # First step: Hexadecimal encoding for special characters
+    special_chars = {
+        '"': '^22', '*': '^2a', '+': '^2b', ',': '^2c',
+        '<': '^3c', '=': '^3d', '>': '^3e', '?': '^3f',
+        '\\': '^5c', '^': '^5e', '|': '^7c', ' ': '^20'
+    }
+    
+    def hex_encode(char):
+        if char in special_chars:
+            return special_chars[char]
+        elif ord(char) < 0x21 or ord(char) > 0x7e:
+            return f'^{ord(char):02x}'
+        else:
+            return char
+            
+    # apply conversion
+    safe_identifier = ''.join(hex_encode(c) for c in identifier)
+    
+    # Second step: Single-character to single-character conversions
+    translation_table = str.maketrans("/:.", "=+,")
+    mapped_identifier = safe_identifier.translate(translation_table)
+    return mapped_identifier
 
 class FileBinaryDataChunks(object):
     """
