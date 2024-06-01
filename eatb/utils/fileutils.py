@@ -6,6 +6,7 @@ from shutil import rmtree
 import fnmatch
 import shutil
 import mimetypes
+from urllib.parse import quote, unquote
 
 from eatb.utils.datetime import get_file_ctime_iso_date_str, EU_UI_FORMAT, get_local_datetime_now
 from eatb.utils.reporters import default_reporter
@@ -536,6 +537,25 @@ def to_safe_filename(identifier):
     translation_table = str.maketrans("/:.", "=+,")
     mapped_identifier = safe_identifier.translate(translation_table)
     return mapped_identifier
+
+def encode_identifier(identifier: str) -> str:
+    """
+    Encode an identifier string for safe inclusion in a URL.
+
+    :param identifier: The identifier string to be encoded.
+    :return: The encoded identifier string.
+    """
+    return quote(to_safe_filename(identifier))
+
+
+def decode_identifier(encoded_identifier: str) -> str:
+    """
+    Decode an identifier string for safe inclusion in a URL.
+
+    :param encoded_identifier: The encoded identifier string to be decoded.
+    :return: The decoded identifier string.
+    """
+    return from_safe_filename(unquote(encoded_identifier))
 
 class FileBinaryDataChunks(object):
     """
