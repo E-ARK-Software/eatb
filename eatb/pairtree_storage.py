@@ -3,15 +3,12 @@ import pathlib
 import re
 import shutil
 from itertools import groupby
-from itertools import groupby
-from eatb import VersionDirFormat
-from eatb.checksum import check_transfer
-from eatb.ipstate import IpState
-from eatb.utils.fileutils import rec_find_files, fsize, FileBinaryDataChunks
-from eatb.utils.fileutils import to_safe_filename, list_files_in_dir, copy_file_with_base_directory
 from pairtree import PairtreeStorageFactory, ObjectNotFoundException
+from eatb import VersionDirFormat
+from eatb.ipstate import IpState
+from eatb.utils.fileutils import rec_find_files
+from eatb.utils.fileutils import to_safe_filename
 from eatb import logger
-from eatb.packaging import ChunkedTarEntryReader
 from eatb.utils.reporters import default_reporter
 
 
@@ -166,7 +163,7 @@ class PairtreeStorage:
         :return: list of latest version directories
         """
         # Find all directories recursively in the repository storage
-        directories = rec_find_directories(self.repository_storage_dir)
+        directories = rec_find_files(self.repository_storage_dir)
         sortkeyfn = lambda s: s[1]  # Sort by version number
         tuples = []
 
