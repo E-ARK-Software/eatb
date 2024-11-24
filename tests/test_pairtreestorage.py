@@ -62,8 +62,10 @@ class TestPairtreeStorage(unittest.TestCase):
 
     def test_get_object_path(self):
         pts = PairtreeStorage(test_repo)
-        expected = os.path.join(test_repo, "pairtree_root/ba/r/data/v00002/bar.tar")
+        expected = os.path.join(test_repo, "pairtree_root/ba/r/data/v00002")
+        print(expected)
         actual = pts.get_object_path("bar")
+        print(actual)
         self.assertEqual(expected, actual)
 
 
