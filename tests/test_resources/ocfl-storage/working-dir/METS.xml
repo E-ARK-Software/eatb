@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mets xmlns="http://www.loc.gov/METS/" xmlns:csip="https://DILCIS.eu/XML/METS/CSIPExtensionMETS" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ext="ExtensionMETS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OBJID="urn:uuid:d695500b-0209-4c06-bea6-8fdd52c6db22" LABEL="METS file describing the AIP matching the OBJID." PROFILE="https://earkcsip.dilcis.eu/profile/E-ARK-CSIP.xml" TYPE="Databases" csip:CONTENTINFORMATIONTYPE="SIARD2" xsi:schemaLocation="http://www.loc.gov/METS/ schemas/mets.xsd http://www.w3.org/1999/xlink schemas/xlink.xsd https://DILCIS.eu/XML/METS/CSIPExtensionMETS schemas/DILCISExtensionMETS.xsd">
+  <metsHdr CREATEDATE="2024-11-25T09:32:05" RECORDSTATUS="NEW" csip:OAISPACKAGETYPE="AIP">
+    <agent ROLE="CREATOR" TYPE="OTHER" OTHERTYPE="SOFTWARE">
+      <name>eatb</name>
+      <note csip:NOTETYPE="SOFTWARE VERSION">VERSION=1.2</note>
+    </agent>
+    <agent ROLE="ARCHIVIST" TYPE="ORGANIZATION">
+      <name>E-ARK</name>
+    </agent>
+    <agent ROLE="CREATOR" TYPE="ORGANIZATION">
+      <name>E-ARK</name>
+    </agent>
+    <agent ROLE="PRESERVATION" TYPE="ORGANIZATION">
+      <name>E-ARK</name>
+    </agent>
+    <metsDocumentID>METS.xml</metsDocumentID>
+  </metsHdr>
+  <dmdSec ID="ID6a0f3247-67e3-45c9-88c6-272840f8ffc2" CREATED="2024-11-25T09:32:05" STATUS="CURRENT">
+    <mdRef LOCTYPE="URL" MIMETYPE="text/xml" CREATED="2024-11-25T09:32:05" xlink:type="simple" xlink:href="metadata/descriptive/ead.xml" CHECKSUMTYPE="SHA-256" CHECKSUM="14fc1ee4546e28c2c1dc7756a7dfe114a37d50ca87bc2d9ccec94ef339515e6d" ID="ID2c2a7929-6d44-4331-97e7-5a2b78c91ae1" SIZE="5083" MDTYPE="OTHER"/>
+  </dmdSec>
+  <amdSec ID="IDab2690d5-8939-48ca-9a80-b914b944c1ac">
+    <digiprovMD ID="ID694a1fff-46e9-46e3-90c2-6e13af646194" STATUS="CURRENT">
+      <mdRef LOCTYPE="URL" MIMETYPE="text/xml" CREATED="2024-11-25T09:32:05" xlink:type="simple" xlink:href="metadata/preservation/premis_earkweb_20241125-093205Z_event_ingest.xml" CHECKSUMTYPE="SHA-256" CHECKSUM="3a94b9a55f0a4663ba05211d71d35dcd57b518d6cb3460a45e7af5ad21fb1972" ID="ID7b19abb1-7ebc-4262-a1e0-52e5e66731fa" SIZE="1396" MDTYPE="PREMIS"/>
+    </digiprovMD>
+    <digiprovMD ID="IDf0fbc07d-a0fb-4cf5-b924-171773f6b7b3" STATUS="CURRENT">
+      <mdRef LOCTYPE="URL" MIMETYPE="text/xml" CREATED="2024-11-25T09:32:05" xlink:type="simple" xlink:href="metadata/preservation/premis.xml" CHECKSUMTYPE="SHA-256" CHECKSUM="06ab4320cdc22e25ec2918662c5bb564ac150093c2b45370797b3975ddb7622c" ID="ID16dc734d-7113-4f51-af00-637bb1dde5af" SIZE="835" MDTYPE="PREMIS"/>
+    </digiprovMD>
+  </amdSec>
+  <fileSec ID="IDc28029ba-7026-4cba-bf37-427bf086cb48">
+    <fileGrp ID="ID7d2ee296-d48a-4b73-8683-0b5bd4ee75e8" USE="schemas">
+      <file MIMETYPE="application/octet-stream" CHECKSUMTYPE="SHA-256" CREATED="2024-11-25T09:32:05" CHECKSUM="03b8a77a20b32b882ad799e12262671d07ad18210c60233f4e613a1289491cba" USE="Datafile" ID="ID0cd8f80d-62d5-416f-bf22-1844321030a5" SIZE="52845">
+        <FLocat xlink:href="schemas/premis-v3-0.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="application/octet-stream" CHECKSUMTYPE="SHA-256" CREATED="2024-11-25T09:32:05" CHECKSUM="4f812e4533e91077e646d601dba4c10cf1bc8e13d33a55337aa84f2670707745" USE="Datafile" ID="ID77406267-f8ea-4587-8325-edc333a5f92b" SIZE="99085">
+        <FLocat xlink:href="schemas/ead3.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="application/octet-stream" CHECKSUMTYPE="SHA-256" CREATED="2024-11-25T09:32:05" CHECKSUM="bbe2230c734cbaa225531bab2cd3eefd2c143b66260a2366708e1615bd64dcf3" USE="Datafile" ID="IDdbecc479-41fa-43c0-b104-295391266e23" SIZE="1557">
+        <FLocat xlink:href="schemas/csip.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="application/octet-stream" CHECKSUMTYPE="SHA-256" CREATED="2024-11-25T09:32:05" CHECKSUM="0d47e53f21e2e44f48794287afae759bace86a0622a1dfb1fa44a1a982abddd7" USE="Datafile" ID="ID8b3e1c65-144d-46b4-83fc-2b46bd062e51" SIZE="65126">
+        <FLocat xlink:href="schemas/premis-v2-2.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="application/octet-stream" CHECKSUMTYPE="SHA-256" CREATED="2024-11-25T09:32:05" CHECKSUM="f11b91959b0ad6ccb778e0d4aa35b53386c18ad5cb916d7f1fad3174dcd34d4b" USE="Datafile" ID="ID176bfeec-4f3a-4a8d-b7ec-22aa113405a6" SIZE="145565">
+        <FLocat xlink:href="schemas/IP.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="application/octet-stream" CHECKSUMTYPE="SHA-256" CREATED="2024-11-25T09:32:05" CHECKSUM="a20b879caff4e304ee8900aa9652a8a532c54c450e89381ba034d1f7cf1ab1c9" USE="Datafile" ID="ID9af04b1e-5f25-40ea-aa7b-ad8340c78dfa" SIZE="133018">
+        <FLocat xlink:href="schemas/mets_1_11.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+      <file MIMETYPE="application/octet-stream" CHECKSUMTYPE="SHA-256" CREATED="2024-11-25T09:32:05" CHECKSUM="f1f5bb6003165cdd8f6c1fcc32f8fd1f965e1681010f3b9806d9460bcffa8a3c" USE="Datafile" ID="IDd3f0036f-6054-4b12-9f5b-0c9f373b45f9" SIZE="3180">
+        <FLocat xlink:href="schemas/xlink.xsd" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+    </fileGrp>
+    <fileGrp ID="ID8536867c-c6f2-45d8-85db-87c1940cc10d" USE="documentation"/>
+    <fileGrp ID="ID73b24512-5edf-40e3-ac54-7a672d7f4ffd" USE="representations">
+      <file MIMETYPE="text/xml" CHECKSUMTYPE="SHA-256" CREATED="2024-11-25T09:31:48" CHECKSUM="a681a37f6d4ca8bd08e51b336fff9dca2cf7b67d0467e7f553824882ad7ff1a6" USE="Datafile" ID="ID6c76523b-cf22-4ba7-b4cb-532ff11f2ee6" SIZE="3291">
+        <FLocat xlink:href="representations/a87c22b3-af5a-4c3c-8463-4d6eab95439c/METS.xml" LOCTYPE="URL" xlink:type="simple"/>
+      </file>
+    </fileGrp>
+  </fileSec>
+  <structMap LABEL="CSIP" TYPE="PHYSICAL" ID="ID96402e7b-12db-45c8-b170-ca1a43bd717c">
+    <div LABEL="urn:uuid:d695500b-0209-4c06-bea6-8fdd52c6db22" ID="IDf68d864b-fcff-4502-9074-3f0880eb5d30">
+      <div LABEL="schemas" ID="IDafea4264-374e-4222-ae2e-9069d2b369ec">
+        <fptr FILEID="ID0cd8f80d-62d5-416f-bf22-1844321030a5"/>
+        <fptr FILEID="ID77406267-f8ea-4587-8325-edc333a5f92b"/>
+        <fptr FILEID="IDdbecc479-41fa-43c0-b104-295391266e23"/>
+        <fptr FILEID="ID8b3e1c65-144d-46b4-83fc-2b46bd062e51"/>
+        <fptr FILEID="ID176bfeec-4f3a-4a8d-b7ec-22aa113405a6"/>
+        <fptr FILEID="ID9af04b1e-5f25-40ea-aa7b-ad8340c78dfa"/>
+        <fptr FILEID="IDd3f0036f-6054-4b12-9f5b-0c9f373b45f9"/>
+      </div>
+      <div LABEL="documentation" ID="ID7e5c6837-f698-4cb6-8caa-a209cf5c780e"/>
+      <div LABEL="metadata" ID="ID67599705-9438-4f66-b985-3217ef5269ad">
+        <fptr FILEID="ID2c2a7929-6d44-4331-97e7-5a2b78c91ae1"/>
+        <fptr FILEID="ID7b19abb1-7ebc-4262-a1e0-52e5e66731fa"/>
+        <fptr FILEID="ID16dc734d-7113-4f51-af00-637bb1dde5af"/>
+      </div>
+      <div LABEL="representations/a87c22b3-af5a-4c3c-8463-4d6eab95439c" ID="IDcbff5740-f204-4c3a-8492-d2f9172fc1be">
+        <mptr LOCTYPE="URL" xlink:title="Mets file describing representation: a87c22b3-af5a-4c3c-8463-4d6eab95439c of AIP: urn:uuid:urn:uuid:d695500b-0209-4c06-bea6-8fdd52c6db22." xlink:href="representations/a87c22b3-af5a-4c3c-8463-4d6eab95439c/METS.xml" xlink:type="simple" ID="ID9cd21f39-afb9-4d14-9d31-3b3c5918bc9d"/>
+        <fptr FILEID="ID6c76523b-cf22-4ba7-b4cb-532ff11f2ee6"/>
+      </div>
+    </div>
+  </structMap>
+  <structMap LABEL="Simple AIP structuring" TYPE="logical" ID="ID180f5b2a-6f32-4d86-92cf-20bcfb1a627e">
+    <div LABEL="Package structure" ID="ID74a211bb-919c-4fb6-a657-999ada886f48">
+      <div LABEL="metadata files" ID="ID1efc3da8-dd12-4293-8c69-3b7da78f1592">
+        <fptr FILEID="ID2c2a7929-6d44-4331-97e7-5a2b78c91ae1"/>
+        <fptr FILEID="ID7b19abb1-7ebc-4262-a1e0-52e5e66731fa"/>
+        <fptr FILEID="ID16dc734d-7113-4f51-af00-637bb1dde5af"/>
+      </div>
+      <div LABEL="schema files" ID="ID0a50a1e9-f820-4934-aadd-797a507a958d">
+        <fptr FILEID="ID0cd8f80d-62d5-416f-bf22-1844321030a5"/>
+        <fptr FILEID="ID77406267-f8ea-4587-8325-edc333a5f92b"/>
+        <fptr FILEID="IDdbecc479-41fa-43c0-b104-295391266e23"/>
+        <fptr FILEID="ID8b3e1c65-144d-46b4-83fc-2b46bd062e51"/>
+        <fptr FILEID="ID176bfeec-4f3a-4a8d-b7ec-22aa113405a6"/>
+        <fptr FILEID="ID9af04b1e-5f25-40ea-aa7b-ad8340c78dfa"/>
+        <fptr FILEID="IDd3f0036f-6054-4b12-9f5b-0c9f373b45f9"/>
+      </div>
+      <div LABEL="content files" ID="IDdf073374-04d7-46ad-b4af-afae6af46406"/>
+    </div>
+  </structMap>
+</mets>

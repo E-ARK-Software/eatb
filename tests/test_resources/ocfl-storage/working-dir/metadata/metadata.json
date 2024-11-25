@@ -1,0 +1,50 @@
+{
+    "packageName": "example.aip",
+    "externalId": "",
+    "title": "Demonstration",
+    "description": "Demonstration",
+    "originalCreationDate": "25.11.2024",
+    "tags": [],
+    "locations": [
+        {
+            "identifier": "urn:eark:location:0499727c-062a-44f6-9ebc-e9249a685f2d",
+            "label": "Vienna",
+            "coordinates": {
+                "lat": 48.2134104896096,
+                "lng": 16.369628906250004
+            },
+            "zoomLevel": 11,
+            "locationUncertainty": 32,
+            "locationUncertaintyRadius": 3125
+        }
+    ],
+    "contactPoint": "E-ARK Foundation",
+    "contactEmail": "support@e-ark-foundation.eu",
+    "publisher": "E-ARK Foundation",
+    "publisherEmail": "support@e-ark-foundation.eu",
+    "language": "English",
+    "packagename": "example.aip",
+    "uid": "1f8668f1-24f0-4588-ae19-45c9714b64d0",
+    "date": "25.11.2024",
+    "lastChange": "2024-11-25T08:31:47Z",
+    "created": "2024-11-25T08:31:47Z",
+    "representations": {
+        "a87c22b3-af5a-4c3c-8463-4d6eab95439c": {
+            "distribution_label": "",
+            "distribution_description": "PDF",
+            "access_rights": "CC BY-NC-SA",
+            "file_metadata": {
+                "eark-csip.pdf": "E-ARK CSIP v2.2.0"
+            },
+            "file_items": [
+                "representations/a87c22b3-af5a-4c3c-8463-4d6eab95439c/data/eark-csip.pdf"
+            ]
+        }
+    },
+    "nodeNamespaceId": "eark",
+    "repoId": "eArchiving",
+    "repoTitle": "earkweb",
+    "repoDescription": "eArchiving Repository",
+    "repoCatalogueIssued": "2020-01-01T12:00:00Z",
+    "repoCatalogueModified": "2020-02-01T12:00:00Z"
+}

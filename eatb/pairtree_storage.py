@@ -106,11 +106,19 @@ class PairtreeStorage:
         :return: next formatted version directory name
         """
         if not self.identifier_object_exists(identifier):
-            return VersionDirFormat % 0
-        version_num = 1
+            return VersionDirFormat % 1
+        version_num = 2
         while self.identifier_version_object_exists(identifier, version_num):
             version_num += 1
         return VersionDirFormat % version_num
+    
+    def next_version(self, identifier):
+        """
+        Get next formatted version directory name
+        :param identifier: identifier
+        :return: next formatted version directory name
+        """
+        return self._next_version(identifier)
 
     def curr_version(self, identifier):
         """

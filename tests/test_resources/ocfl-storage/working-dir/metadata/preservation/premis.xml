@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<premis xmlns="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.loc.gov/premis/v3 https://www.loc.gov/standards/premis/v3/premis-v3-0.xsd">
+  <object xsi:type="representation" xmlID="ID6ef8cedc-3246-4bb3-8569-18fd7e8986fa">
+    <objectIdentifier>
+      <objectIdentifierType>repository</objectIdentifierType>
+      <objectIdentifierValue>ID6ef8cedc-3246-4bb3-8569-18fd7e8986fa</objectIdentifierValue>
+    </objectIdentifier>
+  </object>
+  <agent>
+    <agentIdentifier>
+      <agentIdentifierType>LOCAL</agentIdentifierType>
+      <agentIdentifierValue>Premis Generator</agentIdentifierValue>
+    </agentIdentifier>
+    <agentName>Premis Generator</agentName>
+    <agentType>Software</agentType>
+  </agent>
+</premis>

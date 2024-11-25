@@ -1,0 +1,20 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://e-ark-foundation.eu/resource/1f8668f1-24f0-4588-ae19-45c9714b64d0/Demonstration> dc:creator "E-ARK Foundation" ;
+    dc:date "2024-11-25T08:31:47Z" ;
+    dc:description "Demonstration" ;
+    dc:title "Demonstration" ;
+    dcterms:contributor "E-ARK Foundation" ;
+    dcterms:hasPart <http://e-ark-foundation.eu/resource/1f8668f1-24f0-4588-ae19-45c9714b64d0/a87c22b3-af5a-4c3c-8463-4d6eab95439c> ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:publisher "E-ARK Foundation" ;
+    dcterms:spatial "Vienna, 48.2134104896096, 16.369628906250004 (11, 32, 3125)" ;
+    dcterms:temporal "2024-11-25T08:31:47Z" .
+
+<http://e-ark-foundation.eu/resource/1f8668f1-24f0-4588-ae19-45c9714b64d0/a87c22b3-af5a-4c3c-8463-4d6eab95439c> dcterms:description "PDF" ;
+    dcterms:hasPart <http://e-ark-foundation.eu/resource/1f8668f1-24f0-4588-ae19-45c9714b64d0/representations/a87c22b3-af5a-4c3c-8463-4d6eab95439c/data/eark-csip.pdf> ;
+    dcterms:isPartOf <http://e-ark-foundation.eu/resource/1f8668f1-24f0-4588-ae19-45c9714b64d0/Demonstration> ;
+    dcterms:rights "CC BY-NC-SA" ;
+    dcterms:title "" .
+

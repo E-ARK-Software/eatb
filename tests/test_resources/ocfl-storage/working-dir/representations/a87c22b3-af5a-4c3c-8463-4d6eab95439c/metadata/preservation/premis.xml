@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<premis xmlns="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.loc.gov/premis/v3 https://www.loc.gov/standards/premis/v3/premis-v3-0.xsd">
+  <object xsi:type="representation" xmlID="IDca4d84f2-4e02-4d62-ab99-113afb114bf1">
+    <objectIdentifier>
+      <objectIdentifierType>repository</objectIdentifierType>
+      <objectIdentifierValue>IDca4d84f2-4e02-4d62-ab99-113afb114bf1</objectIdentifierValue>
+    </objectIdentifier>
+  </object>
+  <object xsi:type="file" xmlID="ID79072f3a-29bb-488a-a23d-b5a1472e4eba">
+    <objectIdentifier>
+      <objectIdentifierType>filepath</objectIdentifierType>
+      <objectIdentifierValue>data/eark-csip.pdf</objectIdentifierValue>
+    </objectIdentifier>
+    <objectCharacteristics>
+      <compositionLevel>0</compositionLevel>
+      <fixity>
+        <messageDigestAlgorithm>SHA-256</messageDigestAlgorithm>
+        <messageDigest>edf6e6c1839cbad7061cafaab5382005c613072f1193f9effe8eb0208a21f4df</messageDigest>
+        <messageDigestOriginator>hashlib</messageDigestOriginator>
+      </fixity>
+      <size>1032568</size>
+      <format>
+        <formatRegistry>
+          <formatRegistryName>PRONOM</formatRegistryName>
+          <formatRegistryKey>fmt/19</formatRegistryKey>
+          <formatRegistryRole>identification</formatRegistryRole>
+        </formatRegistry>
+      </format>
+    </objectCharacteristics>
+  </object>
+  <agent>
+    <agentIdentifier>
+      <agentIdentifierType>LOCAL</agentIdentifierType>
+      <agentIdentifierValue>Premis Generator</agentIdentifierValue>
+    </agentIdentifier>
+    <agentName>Premis Generator</agentName>
+    <agentType>Software</agentType>
+  </agent>
+</premis>
