@@ -56,9 +56,9 @@ class TestPairtreeStorage(unittest.TestCase):
     def test_store(self):
         pts = PairtreeStorage(repository_storage_dir)
         pts.store("xyz", package_file_path)
-        self.assertEqual(0, pts.curr_version_num("xyz"))
-        pts.store("xyz", package_file_path)
         self.assertEqual(1, pts.curr_version_num("xyz"))
+        pts.store("xyz", package_file_path)
+        self.assertEqual(2, pts.curr_version_num("xyz"))
 
     def test_get_object_path(self):
         pts = PairtreeStorage(test_repo)
