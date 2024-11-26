@@ -12,8 +12,7 @@ from eatb.storage import write_inventory_from_directory
 
 OCFL_TEST_RESOURCES = os.path.join(ROOT, 'tests/test_resources/ocfl-storage/')
 EXAMPLE_WORKING_DIR = os.path.join(OCFL_TEST_RESOURCES, 'working-dir')
-# TMP_DIRECTORY = '/tmp/temp-' + randomutils.randomword(10) + "/"
-TMP_DIRECTORY = '/home/shs/earkweb/tmp' + randomutils.randomword(10) + "/"
+TMP_DIRECTORY = '/tmp/temp-' + randomutils.randomword(10) + "/"
 TMP_WORKING_DIRECTORY = TMP_DIRECTORY + 'workingdir'
 TMP_AIP_DIRECTORY = TMP_DIRECTORY + 'aipdir'
 AIP_DATA_DIR = os.path.join(TMP_AIP_DIRECTORY, "data")
@@ -55,8 +54,7 @@ class TestOcflStorage(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        pass
-        #shutil.rmtree(TMP_DIRECTORY)
+        shutil.rmtree(TMP_DIRECTORY)
 
     def test_1_tmp_working_dir_file_access(self):
         """Test file access in temporary package"""

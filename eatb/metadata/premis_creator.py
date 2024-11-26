@@ -116,9 +116,9 @@ class PremisCreator:
         return etree.tostring(self.root, encoding='UTF-8', pretty_print=True, xml_declaration=True)
 
     def create(self, path, type, subtype):
-        premis_file_name = "premis_earkweb_%s_%s_%s.xml" % (ts_date(fmt=DT_ISO_FORMAT_FILENAME), type, subtype)
+        premis_file_name = f"premis_{type}_{subtype}_{ts_date(fmt=DT_ISO_FORMAT_FILENAME)}.xml"
         path_premis = os.path.join(self.working_dir, path, premis_file_name)
-        with open(path_premis, 'w') as output_file:
+        with open(path_premis, 'w', encoding="utf-8") as output_file:
             output_file.write(self.to_string().decode('UTF-8'))
 
 
