@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="eatb",
-    version="0.2.6",
+    version="0.2.7",
     author="E-ARK Foundation",
     author_email="admin@e-ark-foundation.eu",
     license='MIT',

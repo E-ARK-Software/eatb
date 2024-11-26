@@ -10,13 +10,17 @@ from eatb.utils import randomutils
 from eatb.storage import update_storage_with_differences
 from eatb.storage import write_inventory_from_directory
 
-OCFL_STORAGE_DIR = os.path.join(ROOT, 'tests/test_resources/ocfl-storage/')
-EXAMPLE_WORKING_DIR = os.path.join(OCFL_STORAGE_DIR, 'working-dir')
-TMP_DIRECTORY = '/tmp/temp-' + randomutils.randomword(10)
+OCFL_TEST_RESOURCES = os.path.join(ROOT, 'tests/test_resources/ocfl-storage/')
+EXAMPLE_WORKING_DIR = os.path.join(OCFL_TEST_RESOURCES, 'working-dir')
+# TMP_DIRECTORY = '/tmp/temp-' + randomutils.randomword(10) + "/"
+TMP_DIRECTORY = '/home/shs/earkweb/tmp' + randomutils.randomword(10) + "/"
 TMP_WORKING_DIRECTORY = TMP_DIRECTORY + 'workingdir'
 TMP_AIP_DIRECTORY = TMP_DIRECTORY + 'aipdir'
+AIP_DATA_DIR = os.path.join(TMP_AIP_DIRECTORY, "data")
+FIRST_FILE = 'firstfile.txt'
+FIRST_FILE_PATH = os.path.join(OCFL_TEST_RESOURCES, 'workingdir', FIRST_FILE)
 ADDITIONAL_FILE = 'additionalfile.txt'
-ADDITIONAL_FILE_PATH = os.path.join(OCFL_STORAGE_DIR, ADDITIONAL_FILE)
+ADDITIONAL_FILE_PATH = os.path.join(OCFL_TEST_RESOURCES, ADDITIONAL_FILE)
 
 class TestOcflStorage(unittest.TestCase):
     """Test storage functions"""
@@ -51,11 +55,12 @@ class TestOcflStorage(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        shutil.rmtree(TMP_DIRECTORY)
+        pass
+        #shutil.rmtree(TMP_DIRECTORY)
 
     def test_1_tmp_working_dir_file_access(self):
         """Test file access in temporary package"""
-        self.assertTrue(os.path.exists(os.path.join(TMP_WORKING_DIRECTORY, "METS.xml")))
+        self.assertTrue(os.path.exists(os.path.join(TMP_WORKING_DIRECTORY, "firstfile.txt")))
 
     def test_2_store_first_version(self):
         """Test write storage"""
@@ -69,8 +74,9 @@ class TestOcflStorage(unittest.TestCase):
         os.makedirs(new_version_target_dir, exist_ok=True)
         inventory_path = os.path.join(data_dir, "inventory.json")
         excludes = [f"{package_name}.tar", f"{package_name}.xml"]
+        previous_versions = [previous_version]
         changed_files, deleted_files = update_storage_with_differences(
-            working_dir, new_version_target_dir, previous_version, inventory_path, exclude_files=excludes
+            working_dir, new_version_target_dir, previous_versions, inventory_path, exclude_files=excludes
         )
         # Update inventory
         print(f"Updating OCFL inventory for version {new_version}")
@@ -81,39 +87,49 @@ class TestOcflStorage(unittest.TestCase):
             action="ingest",
             metadata={"added": changed_files, "removed": deleted_files},
         )
+        self.assertFalse(os.path.exists(os.path.join(TMP_WORKING_DIRECTORY, ADDITIONAL_FILE)))
     
     def test_3_additional_file_to_working_dir(self):
         """Test adding additional file to temporary working dir"""
         # make sure the additional file exists
         self.assertTrue(os.path.exists(ADDITIONAL_FILE_PATH))
-        additional_file_target_dir = os.path.join(TMP_WORKING_DIRECTORY, "representations/a87c22b3-af5a-4c3c-8463-4d6eab95439c/data/")
-        shutil.copy2(ADDITIONAL_FILE_PATH, additional_file_target_dir)  
+        shutil.copy2(ADDITIONAL_FILE_PATH, TMP_WORKING_DIRECTORY)  
         # make sure the additional file was added to the working directory
-        self.assertTrue(os.path.exists(os.path.join(additional_file_target_dir, ADDITIONAL_FILE)))
-
+        self.assertTrue(os.path.exists(os.path.join(TMP_WORKING_DIRECTORY, ADDITIONAL_FILE)))
     
     def test_4_additional_file_to_working_dir(self):
         """Test write new version storage"""
         # Define version and storage directories
         package_name = "example.aip"
         working_dir = TMP_WORKING_DIRECTORY
-        data_dir = os.path.join(TMP_AIP_DIRECTORY, "data")
+        
         previous_version = "v00001"
         new_version = "v00002"
-        new_version_target_dir = os.path.join(data_dir, new_version)
+        new_version_target_dir = os.path.join(AIP_DATA_DIR, new_version)
         os.makedirs(new_version_target_dir, exist_ok=True)
-        inventory_path = os.path.join(data_dir, "inventory.json")
+        inventory_path = os.path.join(AIP_DATA_DIR, "inventory.json")
         excludes = [f"{package_name}.tar", f"{package_name}.xml"]
+        previous_versions = [previous_version]
         changed_files, deleted_files = update_storage_with_differences(
-            working_dir, new_version_target_dir, previous_version, inventory_path, exclude_files=excludes
+            working_dir, new_version_target_dir, previous_versions, inventory_path, exclude_files=excludes
         )
+
+        self.assertTrue(os.path.exists(os.path.join(AIP_DATA_DIR, previous_version, FIRST_FILE)))
+        self.assertFalse(os.path.exists(os.path.join(AIP_DATA_DIR, previous_version, ADDITIONAL_FILE)))
+
+        self.assertFalse(
+            expr=os.path.exists(os.path.join(AIP_DATA_DIR, new_version, FIRST_FILE)), 
+            msg=f"First file may not be in version {new_version}"
+        )
+        self.assertTrue(os.path.exists(os.path.join(AIP_DATA_DIR, new_version, ADDITIONAL_FILE)))
+
         # Update inventory
         print(f"Updating OCFL inventory for version {new_version}")
         write_inventory_from_directory(
             identifier="urn:uuid:d695500b-0209-4c06-bea6-8fdd52c6db22",
             version=new_version,
-            data_dir=data_dir,
-            action="ingest",
+            data_dir=AIP_DATA_DIR,
+            action="update 1",
             metadata={"added": changed_files, "removed": deleted_files},
         )
         """Test if the specified file is present under 'versions/v00002/added'"""
@@ -123,7 +139,7 @@ class TestOcflStorage(unittest.TestCase):
 
         # Check if the specific entry is in the 'added' list under 'v00002'
         added_files = inventory.get("versions", {}).get("v00002", {}).get("added", [])
-        self.assertIn("representations/a87c22b3-af5a-4c3c-8463-4d6eab95439c/data/additionalfile.txt", added_files)
+        self.assertIn("additionalfile.txt", added_files)
 
 
 
