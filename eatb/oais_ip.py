@@ -38,7 +38,7 @@ class OAISPackageType(Enum):
 
 
 def create_sip(package_dir: str, package_name: str, identifier: str, generate_premis: bool=True,
-               generate_package: bool=True, custom_logger=None) -> bool:
+               generate_package: bool=True, additional_metadata={}, custom_logger=None) -> bool:
 
     logger = custom_logger if custom_logger else LOGGER
 
@@ -75,7 +75,7 @@ def create_sip(package_dir: str, package_name: str, identifier: str, generate_pr
                          'parent': ''}
             metsgen = MetsGenerator(rep_path)
 
-            metsgen.createMets(mets_data)
+            metsgen.createMets(mets_data=mets_data, mets_file_path=None, additional_metadata=additional_metadata)
     if generate_premis:
         # PREMIS
         premisgen = PremisGenerator(package_dir)

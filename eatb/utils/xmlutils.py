@@ -2,7 +2,7 @@ import os
 from xml.dom import minidom
 from xml.dom.minidom import parseString
 from xml.etree import ElementTree
-
+from lxml import etree
 import lxml.etree as ET
 
 from eatb.utils.fileutils import read_file_content
@@ -208,3 +208,51 @@ def MetaIdentification(unknown_xml):
         return tag[1]
     if len(tag) == 1:
         return tag[0]
+
+
+def parse_csip_vocabulary(file_path:str, terms_only:bool=False): 
+    """Parse parse_csip_vocabulary vocabulary"""
+    try:
+        # Parse the XML file
+        tree = etree.parse(file_path)
+        root = tree.getroot()
+        
+        # Define the namespace (based on your XML file)
+        ns = {"ns": "https://DILCIS.eu/XML/Vocabularies/IP"}
+        
+        # Extract vocabulary name
+        vocab_name = root.find("ns:Vocabulary", ns).get("Name")
+        
+        # Prepare the result dictionary
+        result = {"VocabularyName": vocab_name, "Entries": []}
+        
+        # Iterate over entries
+        entries = root.findall(".//ns:Entry", ns)
+        for entry in entries:
+            term = entry.find("ns:Term", ns)
+            definition = entry.find("ns:Definition", ns)
+            revision_info = entry.find("ns:RevisionInformation", ns)
+            source = entry.find("ns:Source", ns)
+
+            # Create an entry dictionary
+            entry_dict = {
+                "Term": str(term.text).replace("\u2013", "-") if term is not None else None,
+                "Definition": definition.text if definition is not None else None,
+                "RevisionInformation": {
+                    "RevisionDate": revision_info.get("RevisionDate") if revision_info is not None else None,
+                    "Text": revision_info.text if revision_info is not None else None,
+                },
+                "Source": source.text if source is not None else None,
+            }
+            
+            # Add the entry to the result
+            result["Entries"].append(entry_dict)
+        if terms_only:
+            entries = result.get("Entries", [])
+            return [entry.get("Term") for entry in entries if "Term" in entry]
+        else:
+            return result
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return {"error": str(e)}

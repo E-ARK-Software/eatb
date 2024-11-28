@@ -177,7 +177,7 @@ class MetsGenerator(object):
         else:
             logger.debug('Couldn\'t find the parent %ss Mets file.' % packagetype)
 
-    def createMets(self, mets_data, mets_file_path=None):
+    def createMets(self, mets_data, mets_file_path=None, additional_metadata={}):
         self.mets_data = mets_data
         packageid = mets_data['packageid']
         packagetype = mets_data['type']
@@ -192,8 +192,8 @@ class MetsGenerator(object):
         METS_ATTRIBUTES = {"OBJID": packageid,
                            "LABEL": "METS file describing the %s matching the OBJID." % packagetype,
                            "PROFILE": PROFILE_XML,
-                           "TYPE": "Databases",
-                           q(CSIP_NS, "CONTENTINFORMATIONTYPE"): "SIARD2"}
+                           "TYPE": additional_metadata["content_category"] if "content_category" in additional_metadata else "Mixed",
+                           q(CSIP_NS, "CONTENTINFORMATIONTYPE"): additional_metadata["content_information_type"] if "content_information_type" in additional_metadata else "MIXED"}
         root = M.mets(METS_ATTRIBUTES)
 
         if os.path.isfile(os.path.join(schemafolder, 'mets.xsd')):
