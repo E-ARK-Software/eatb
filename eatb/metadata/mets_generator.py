@@ -192,8 +192,8 @@ class MetsGenerator(object):
         METS_ATTRIBUTES = {"OBJID": packageid,
                            "LABEL": "METS file describing the %s matching the OBJID." % packagetype,
                            "PROFILE": PROFILE_XML,
-                           "TYPE": additional_metadata["content_category"] if "content_category" in additional_metadata else "Mixed",
-                           q(CSIP_NS, "CONTENTINFORMATIONTYPE"): additional_metadata["content_information_type"] if "content_information_type" in additional_metadata else "MIXED"}
+                           "TYPE": additional_metadata["contentCategory"] if "contentCategory" in additional_metadata else "Mixed",
+                           q(CSIP_NS, "CONTENTINFORMATIONTYPE"): additional_metadata["contentInformationType"] if "contentInformationType" in additional_metadata else "MIXED"}
         root = M.mets(METS_ATTRIBUTES)
 
         if os.path.isfile(os.path.join(schemafolder, 'mets.xsd')):

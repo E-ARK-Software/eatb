@@ -89,7 +89,7 @@ def create_sip(package_dir: str, package_name: str, identifier: str, generate_pr
     mets_path = os.path.join(package_dir, "METS.xml")
     logger.info("Creating METS file %s" % mets_path)
     metsgen = MetsGenerator(package_dir)
-    metsgen.createMets(mets_data)
+    metsgen.createMets(mets_data=mets_data, mets_file_path=None, additional_metadata=additional_metadata)
 
     # packaging
     input_path = Path(package_dir)
