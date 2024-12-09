@@ -3,3 +3,4 @@ include eatb/resources/*.xml
 include eatb/resources/*.cfg
 include eatb/resources/schemas/*.xsd
 include eatb/settings.cfg
+include requirements.txt
