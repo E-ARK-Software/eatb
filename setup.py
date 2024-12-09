@@ -1,7 +1,12 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+# Read README.md
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
+
+# Read dependencies from requirements.txt
+with open("requirements.txt", "r", encoding="utf-8") as fh:
+    requirements = fh.read().splitlines()
 
 setuptools.setup(
     name="eatb",
@@ -16,6 +21,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     package_data={'eatb': ["*.ini", "**/*.cfg", "**/**/*.xsd", "**/*.xml"]},
     zip_safe=False,
+    install_requires=requirements, 
     classifiers=[
           'Intended Audience :: Developers',
           'License :: OSI Approved :: MIT License',
