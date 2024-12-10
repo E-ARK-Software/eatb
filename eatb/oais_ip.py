@@ -120,8 +120,8 @@ def create_sip(package_dir: str, package_name: str, identifier: str, generate_pr
 logger = logging.getLogger(__name__)
 
 
-def create_aip(package_dir, identifier, package_name, identifier_map=None, generate_premis=True,
-               generate_package=True) -> bool:
+def create_aip(package_dir: str, identifier: str, package_name: str, identifier_map=None, generate_premis: bool=True,
+               generate_package=True, additional_metadata={}) -> bool:
 
     # schema file location for Mets generation
     schemas = os.path.join(ROOT, 'resources/schemas')
@@ -136,7 +136,7 @@ def create_aip(package_dir, identifier, package_name, identifier_map=None, gener
                      'schemas': schemas,
                      'parent': ''}
         metsgen = MetsGenerator(rep_path)
-        metsgen.createMets(mets_data)
+        metsgen.createMets(mets_data, additional_metadata=additional_metadata)
 
         logger.info('Generated a Mets file for representation %s.' % repdir)
 
@@ -151,7 +151,7 @@ def create_aip(package_dir, identifier, package_name, identifier_map=None, gener
                  'parent': None}
 
     metsgen = MetsGenerator(package_dir)
-    metsgen.createMets(mets_data)
+    metsgen.createMets(mets_data, additional_metadata=additional_metadata)
 
     # TODO: get structMap from submission root METS, translate SIP packagename to
     # AIP UUID and add it to the AIP root METS
